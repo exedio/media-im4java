@@ -126,6 +126,10 @@
 			<class location="${basedir}/build/classes/src" />
 			<class location="${basedir}/build/classes/testsrc" />
 			<auxclasspath>
+				<pathelement location="${basedir}/lib/exedio-cope.jar" />
+				<pathelement location="${basedir}/lib/exedio-cope-instrument-annotations.jar" />
+				<pathelement location="${basedir}/lib/servlet-api.jar" />
+				<pathelement location="${basedir}/lib/exedio-cope-junit.jar" />
 				<pathelement location="${basedir}/lib/junit.jar" />
 			</auxclasspath>
 		</findbugs>
