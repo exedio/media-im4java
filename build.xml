@@ -47,10 +47,14 @@
 			<classpath>
 				<pathelement location="build/classes/src" />
 				<pathelement location="build/classes/testsrc" />
+				<pathelement location="lib/exedio-cope.jar" />
+				<pathelement location="lib/servlet-api.jar" />
+				<pathelement location="lib/slf4j-api.jar" />
+				<pathelement location="lib/exedio-cope-junit.jar" />
 				<pathelement location="lib/junit.jar" />
 			</classpath>
 			<sysproperty key="java.io.tmpdir" value="${basedir}/build/testtmpdir" />
-			<test name="com.exedio.cope.util.PackageTest" todir="build/testresults" outfile="cope-util" />
+			<test name="com.exedio.cope.pattern.PackageUtilTest" todir="build/testresults" outfile="cope-util" />
 			<assertions><enable/></assertions>
 		</junit>
 	</target>
