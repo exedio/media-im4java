@@ -1,0 +1,6 @@
+
+TODO for cope util
+
+- implement Serializable
+	* CharSet/CharacterSet
+	* PoolCounter
