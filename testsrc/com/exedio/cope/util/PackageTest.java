@@ -33,9 +33,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(EmptyJobContextTest.class);
 		suite.addTestSuite(ProxyJobContextTest.class);
 		suite.addTestSuite(JobContextsEmptyTest.class);
-		suite.addTestSuite(JobContextsIteratorTest.class);
 		suite.addTestSuite(InterruptersVainTest.class);
-		suite.addTestSuite(InterruptersIteratorTest.class);
 		suite.addTestSuite(InterrupterJobContextAdapterTest.class);
 		suite.addTestSuite(CastTest.class);
 		suite.addTestSuite(CharSetTest.class);
