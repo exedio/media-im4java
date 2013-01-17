@@ -23,6 +23,7 @@
 		<dependency org="com.exedio" name="cope" rev="7449">
 			<conf name="runtime" mapped="runtime" />
 			<conf name="build" mapped="hsqldb" />
+			<conf name="build" mapped="junit" />
 			<conf name="build" mapped="sources" />
 		</dependency>
 		<dependency org="junit" name="junit" rev="4.4" conf="build->default,sources" />
