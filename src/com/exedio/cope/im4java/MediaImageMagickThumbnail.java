@@ -22,10 +22,13 @@ import org.im4java.core.IMOps;
 
 import com.exedio.cope.pattern.Media;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class MediaImageMagickThumbnail extends MediaImageMagickFilter
 {
 	private static final long serialVersionUID = 1l;
 
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final IMOps operation;
 
 	public MediaImageMagickThumbnail(final Media source, final IMOps operation)
