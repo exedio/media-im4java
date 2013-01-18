@@ -18,14 +18,14 @@
 
 package com.exedio.cope.im4java;
 
-import static com.exedio.cope.pattern.MediaType.GIF;
-import static com.exedio.cope.pattern.MediaType.JPEG;
-import static com.exedio.cope.pattern.MediaType.PNG;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.TYPE;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.file;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumb;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbFull;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbSame;
+import static com.exedio.cope.pattern.MediaType.GIF;
+import static com.exedio.cope.pattern.MediaType.JPEG;
+import static com.exedio.cope.pattern.MediaType.PNG;
 
 import java.io.IOException;
 import java.io.Serializable;
