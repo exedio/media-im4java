@@ -99,9 +99,9 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 
 	private static IMOperation copyOperation(final IMOps operation)
 	{
-		final IMOperation aOperation = new IMOperation();
-		aOperation.addOperation(operation);
-		return aOperation;
+		final IMOperation result = new IMOperation();
+		result.addOperation(operation);
+		return result;
 	}
 
 	public MediaImageMagickFilter outputContentType(final String contentType)
@@ -343,9 +343,9 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 
 	private IMOperation makeOperation()
 	{
-		final IMOperation aOperation = new IMOperation();
-		aOperation.addOperation(operation);
-		aOperation.addImage(2);
-		return aOperation;
+		final IMOperation result = new IMOperation();
+		result.addOperation(operation);
+		result.addImage(2);
+		return result;
 	}
 }
