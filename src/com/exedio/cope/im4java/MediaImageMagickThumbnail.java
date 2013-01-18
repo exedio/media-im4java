@@ -21,7 +21,6 @@ package com.exedio.cope.im4java;
 import java.util.ArrayList;
 
 import com.exedio.cope.pattern.Media;
-import com.exedio.cope.pattern.MediaThumbnail;
 
 public final class MediaImageMagickThumbnail extends MediaImageMagickFilter
 {
@@ -72,7 +71,6 @@ public final class MediaImageMagickThumbnail extends MediaImageMagickFilter
 	{
 		super(
 				source,
-				new MediaThumbnail(source, boundX, boundY),
 				outputContentType,
 				options(boundX, boundY, density, flattenColor));
 		this.boundX = boundX;

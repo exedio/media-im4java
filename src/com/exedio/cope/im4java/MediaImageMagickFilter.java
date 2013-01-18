@@ -39,7 +39,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaFilter;
-import com.exedio.cope.pattern.MediaImageioFilter;
 import com.exedio.cope.pattern.MediaTestable;
 import com.exedio.cope.pattern.MediaType;
 
@@ -49,19 +48,12 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 {
 	private static final long serialVersionUID = 1l;
 
-	public static final String ENABLE_PROPERTY = "com.exedio.cope.media.imagemagick";
 	public static final String CONVERT_COMMAND_PROPERTY = "com.exedio.cope.media.convertcommand";
 
 	private static final String DEFAULT_COMMAND_BINARY = "convert";
 
-	private static final boolean enabled = Boolean.valueOf(System.getProperty(ENABLE_PROPERTY));
 	private static final String convertCommand = System.getProperty(CONVERT_COMMAND_PROPERTY);
 	private static final boolean osIsWindows = System.getProperty("os.name").startsWith("Windows");
-
-	public static boolean isEnabled()
-	{
-		return true;
-	}
 
 	private static String getConvertBinary()
 	{
@@ -91,29 +83,24 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 			));
 
 	private final Media source;
-	private final MediaImageioFilter fallback;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final MediaType constantOutputContentType;
 	private final String[] options;
 
-	public MediaImageMagickFilter(final Media source, final MediaImageioFilter fallback, final String[] options)
+	public MediaImageMagickFilter(final Media source, final String[] options)
 	{
-		this(source, fallback, "image/jpeg", options);
+		this(source, "image/jpeg", options);
 	}
 
 	public MediaImageMagickFilter(
 			final Media source,
-			final MediaImageioFilter fallback,
 			final String outputContentType,
 			final String[] options)
 	{
 		super(source);
 		this.source = source;
-		this.fallback = fallback;
 		this.options = com.exedio.cope.misc.Arrays.copyOf(options);
 
-		if(fallback==null)
-			throw new RuntimeException(); // TODO test
 		if(outputContentType!=null)
 		{
 			this.constantOutputContentType = supported(MediaType.forName(outputContentType));
@@ -185,9 +172,6 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 			final Item item)
 	throws IOException
 	{
-		if(!isEnabled())
-			return fallback.doGetIfModified(request, response, item);
-
 		final String contentType = source.getContentType(item);
 		if(contentType==null)
 			return isNull;
@@ -235,9 +219,6 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 	@Wrap(order=10, doc="Returns the body of {0}.", thrown=@Wrap.Thrown(IOException.class))
 	public final byte[] get(final Item item) throws IOException
 	{
-		if(!isEnabled())
-			return fallback.get(item);
-
 		final String contentType = source.getContentType(item);
 		if(contentType==null)
 			return null;
@@ -274,9 +255,6 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 	@Override
 	public void test() throws IOException
 	{
-		if(!isEnabled())
-			return;
-
 		final File  inFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".in."  + getID(), ".data");
 		final File outFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".out." + getID(), outputContentType(MediaType.forName(MediaType.JPEG)).getExtension());
 
@@ -403,25 +381,5 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		process.getErrorStream ().close();
 
 		return exitValue;
-	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #isEnabled()} instead
-	 */
-	@Deprecated
-	public static boolean isAvailable()
-	{
-		return isEnabled();
-	}
-
-	/**
-	 * @deprecated Is no longer supported and returns an empty string.
-	 */
-	@Deprecated
-	public static String getAvailabilityMessage()
-	{
-		return "";
 	}
 }
