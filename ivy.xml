@@ -20,7 +20,7 @@
 		<artifact name="exedio-cope-util" type="log" ext="txt" />
 	</publications>
 	<dependencies>
-		<dependency org="com.exedio" name="cope" rev="7449">
+		<dependency org="com.exedio" name="cope" rev="7450">
 			<conf name="runtime" mapped="runtime" />
 			<conf name="build" mapped="hsqldb" />
 			<conf name="build" mapped="junit" />
