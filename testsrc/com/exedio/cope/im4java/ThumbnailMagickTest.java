@@ -238,7 +238,7 @@ public final class ThumbnailMagickTest extends CopeTest
 
 	private static final void assertDoGet(
 			final String expectedContentType,
-			final MediaImageMagickThumbnail feature,
+			final MediaImageMagickFilter feature,
 			final ThumbnailMagickItem item) throws IOException
 	{
 		assertNotNull(expectedContentType);
@@ -309,7 +309,7 @@ public final class ThumbnailMagickTest extends CopeTest
 
 	private static final void assertDoGet404(
 			final String expectedResult,
-			final MediaImageMagickThumbnail feature,
+			final MediaImageMagickFilter feature,
 			final ThumbnailMagickItem item)
 		throws IOException
 	{

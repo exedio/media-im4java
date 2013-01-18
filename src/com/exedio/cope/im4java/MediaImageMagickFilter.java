@@ -97,6 +97,13 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		}
 	}
 
+	public MediaImageMagickFilter outputContentType(final String contentType)
+	{
+		if(contentType==null)
+			throw new NullPointerException("outputContentType");
+		return new MediaImageMagickFilter(getSource(), contentType, operation);
+	}
+
 	private static MediaType supported(final MediaType type)
 	{
 		if(type==null)

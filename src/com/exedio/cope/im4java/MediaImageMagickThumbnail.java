@@ -28,9 +28,6 @@ public final class MediaImageMagickThumbnail extends MediaImageMagickFilter
 {
 	private static final long serialVersionUID = 1l;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final IMOps operation;
-
 	public MediaImageMagickThumbnail(final Media source, final IMOps operation)
 	{
 		this(source, operation, null);
@@ -45,13 +42,5 @@ public final class MediaImageMagickThumbnail extends MediaImageMagickFilter
 				source,
 				outputContentType,
 				operation);
-		this.operation = operation;
-	}
-
-	public MediaImageMagickThumbnail outputContentType(final String contentType)
-	{
-		if(contentType==null)
-			throw new NullPointerException("outputContentType");
-		return new MediaImageMagickThumbnail(getSource(), operation, contentType);
 	}
 }
