@@ -28,17 +28,6 @@ public final class MediaImageMagickThumbnail extends MediaImageMagickFilter
 
 	public MediaImageMagickThumbnail(final Media source, final IMOps operation)
 	{
-		this(source, operation, null);
-	}
-
-	private MediaImageMagickThumbnail(
-			final Media source,
-			final IMOps operation,
-			final String outputContentType)
-	{
-		super(
-				source,
-				outputContentType,
-				operation);
+		super(source, operation);
 	}
 }
