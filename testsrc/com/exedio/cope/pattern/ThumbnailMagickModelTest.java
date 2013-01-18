@@ -48,7 +48,6 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 	}
 
 	@SuppressWarnings("static-method")
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	public void testThumbs() throws IOException
 	{
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
@@ -83,7 +82,12 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 		thumb.test();
 		thumbFull.test();
 		thumbSame.test();
+	}
 
+	@SuppressWarnings({"static-method", "unused"})
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
+	public void testCreate()
+	{
 		try
 		{
 			new MediaImageMagickThumbnail(null, 80, 80);
