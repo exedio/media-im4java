@@ -79,6 +79,7 @@ public final class ThumbnailMagickTest extends CopeTest
 	}
 
 	@Override
+	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
 	public ConnectProperties getConnectProperties()
 	{
 		return new ConnectProperties(new Properties.Source()
@@ -291,6 +292,7 @@ public final class ThumbnailMagickTest extends CopeTest
 		}
 
 		@Override
+		@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
 		public ServletOutputStream getOutputStream()
 		{
 			assertNull(body);
