@@ -28,18 +28,21 @@ public final class ThumbnailMagickItem extends Item
 {
 	static final Media file = new Media().optional().lengthMax(10000);
 
+	@SuppressWarnings("boxing")
 	static final MediaImageMagickFilter thumb =
 			new MediaImageMagickFilter(
 				file,
 				new IMOperation().resize(20, 30, '>')).
 				outputContentType(MediaType.JPEG);
 
+	@SuppressWarnings("boxing")
 	static final MediaImageMagickFilter thumbFull =
 			new MediaImageMagickFilter(
 				file,
 				new IMOperation().resize(20, 30, '>').density(300).units("PixelsPerInch").flatten().background("white")).
 				outputContentType(MediaType.PNG);
 
+	@SuppressWarnings("boxing")
 	static final MediaImageMagickFilter thumbSame =
 			new MediaImageMagickFilter(
 				file,
