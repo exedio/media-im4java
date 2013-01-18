@@ -68,6 +68,8 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 	private final MediaType constantOutputContentType;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final IMOperation operation;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final IMOperation operationWithImage;
 
 	public MediaImageMagickFilter(final Media source, final IMOps operation)
 	{
@@ -84,6 +86,9 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 		if(operation==null)
 			throw new NullPointerException("operation");
 		this.operation = copyOperation(operation);
+		this.operationWithImage = new IMOperation();
+		operationWithImage.addOperation(operation);
+		operationWithImage.addImage(2);
 
 		if(outputContentType!=null)
 		{
@@ -317,7 +322,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 		//System.out.println("------script-----" + getScript());
 		try
 		{
-			cmd.run(makeOperation(), inFile.getAbsolutePath(), outFile.getAbsolutePath());
+			cmd.run(operationWithImage, inFile.getAbsolutePath(), outFile.getAbsolutePath());
 		}
 		catch(final InterruptedException e)
 		{
@@ -334,16 +339,8 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 		final ConvertCmd cmd = new ConvertCmd();
 		final StringWriter string = new StringWriter();
 		final PrintWriter pw = new PrintWriter(string);
-		cmd.createScript(pw, makeOperation(), new Properties());
+		cmd.createScript(pw, operationWithImage, new Properties());
 		pw.flush();
 		return string.toString();
-	}
-
-	private IMOperation makeOperation()
-	{
-		final IMOperation result = new IMOperation();
-		result.addOperation(operation);
-		result.addImage(2);
-		return result;
 	}
 }
