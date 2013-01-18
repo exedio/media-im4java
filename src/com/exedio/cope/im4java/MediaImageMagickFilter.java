@@ -59,6 +59,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 
 	private final Media source;
 
+	@SuppressFBWarnings(" SE_BAD_FIELD")
 	private final Action action;
 
 	public MediaImageMagickFilter(final Media source, final IMOps operation)
