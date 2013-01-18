@@ -95,7 +95,7 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 	{
 		try
 		{
-			new MediaImageMagickThumbnail(null, new IMOperation());
+			new MediaImageMagickFilter(null, new IMOperation());
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -104,14 +104,14 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 		}
 		try
 		{
-			new MediaImageMagickThumbnail(file, null);
+			new MediaImageMagickFilter(file, null);
 			fail();
 		}
 		catch(final NullPointerException e)
 		{
 			assertEquals("operation", e.getMessage());
 		}
-		final MediaImageMagickThumbnail template = new MediaImageMagickThumbnail(file, new IMOperation());
+		final MediaImageMagickFilter template = new MediaImageMagickFilter(file, new IMOperation());
 		try
 		{
 			template.outputContentType(null);

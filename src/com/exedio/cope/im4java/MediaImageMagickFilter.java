@@ -52,7 +52,7 @@ import com.exedio.cope.pattern.MediaType;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
+public final class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 {
 	private static final long serialVersionUID = 1l;
 
@@ -113,7 +113,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 	}
 
 	@Override
-	public final Set<String> getSupportedSourceContentTypes()
+	public Set<String> getSupportedSourceContentTypes()
 	{
 		final HashSet<String> result = new HashSet<String>();
 		for(final MediaType type : supportedContentTypes)
@@ -130,13 +130,13 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 	 * iff {@link #getContentType(Item)} return the same values for all items not return null.
 	 * Otherwise returns null.
 	 */
-	public final String getOutputContentType()
+	public String getOutputContentType()
 	{
 		return constantOutputContentType!=null ? constantOutputContentType.getName() : null;
 	}
 
 	@Override
-	public final String getContentType(final Item item)
+	public String getContentType(final Item item)
 	{
 		final String contentType = source.getContentType(item);
 
@@ -151,13 +151,13 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 	}
 
 	@Override
-	public final boolean isContentTypeWrapped()
+	public boolean isContentTypeWrapped()
 	{
 		return constantOutputContentType==null;
 	}
 
 	@Override
-	public final Media.Log doGetIfModified(
+	public Media.Log doGetIfModified(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Item item)
@@ -208,7 +208,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 
 	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	@Wrap(order=10, doc="Returns the body of {0}.", thrown=@Wrap.Thrown(IOException.class))
-	public final byte[] get(final Item item) throws IOException
+	public byte[] get(final Item item) throws IOException
 	{
 		final String contentType = source.getContentType(item);
 		if(contentType==null)
@@ -246,8 +246,8 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 	@Override
 	public void test() throws IOException
 	{
-		final File  inFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".in."  + getID(), ".data");
-		final File outFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".out." + getID(), outputContentType(MediaType.forName(MediaType.JPEG)).getExtension());
+		final File  inFile = File.createTempFile(MediaImageMagickFilter.class.getName() + ".in."  + getID(), ".data");
+		final File outFile = File.createTempFile(MediaImageMagickFilter.class.getName() + ".out." + getID(), outputContentType(MediaType.forName(MediaType.JPEG)).getExtension());
 
 
 		final byte[] b = new byte[1580]; // size of the file plus 2 to detect larger file
@@ -292,8 +292,8 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 
 	private final File execute(final Item item, final MediaType contentType) throws IOException
 	{
-		final File  inFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".in."  + getID(), ".data");
-		final File outFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".out." + getID(), outputContentType(contentType).getExtension());
+		final File  inFile = File.createTempFile(MediaImageMagickFilter.class.getName() + ".in."  + getID(), ".data");
+		final File outFile = File.createTempFile(MediaImageMagickFilter.class.getName() + ".out." + getID(), outputContentType(contentType).getExtension());
 
 		source.getBody(item, inFile);
 

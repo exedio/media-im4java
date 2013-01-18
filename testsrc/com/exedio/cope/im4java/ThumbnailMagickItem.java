@@ -29,19 +29,19 @@ public final class ThumbnailMagickItem extends Item
 	static final Media file = new Media().optional().lengthMax(10000);
 
 	static final MediaImageMagickFilter thumb =
-			new MediaImageMagickThumbnail(
+			new MediaImageMagickFilter(
 				file,
 				new IMOperation().resize(20, 30, '>')).
 				outputContentType(MediaType.JPEG);
 
 	static final MediaImageMagickFilter thumbFull =
-			new MediaImageMagickThumbnail(
+			new MediaImageMagickFilter(
 				file,
 				new IMOperation().resize(20, 30, '>').density(300).units("PixelsPerInch").flatten().background("white")).
 				outputContentType(MediaType.PNG);
 
-	static final MediaImageMagickThumbnail thumbSame =
-			new MediaImageMagickThumbnail(
+	static final MediaImageMagickFilter thumbSame =
+			new MediaImageMagickFilter(
 				file,
 				new IMOperation().resize(20, 30, '>'));
 
