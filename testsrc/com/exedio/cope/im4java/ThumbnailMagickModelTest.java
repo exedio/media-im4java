@@ -65,8 +65,6 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 		assertEquals(TYPE, thumb.getType());
 		assertEquals("thumb", thumb.getName());
 		assertSame(file, thumb.getSource());
-		assertEquals(20, thumb.getBoundX());
-		assertEquals(30, thumb.getBoundY());
 		assertEquals(
 				new HashSet<String>(Arrays.asList(JPEG, "image/pjpeg", PNG, "image/x-png", GIF)),
 				thumb.getSupportedSourceContentTypes());

@@ -102,14 +102,4 @@ public final class MediaImageMagickThumbnail extends MediaImageMagickFilter
 	{
 		return new MediaImageMagickThumbnail(getSource(), this.boundX, this.boundY, this.density, color, this.getOutputContentType());
 	}
-
-	public int getBoundX()
-	{
-		return boundX;
-	}
-
-	public int getBoundY()
-	{
-		return boundY;
-	}
 }
