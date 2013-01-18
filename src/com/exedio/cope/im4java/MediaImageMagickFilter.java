@@ -26,6 +26,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -302,7 +303,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		aOperation.addOperation(operation);
 		aOperation.addImage(2);
 		final ConvertCmd cmd = new ConvertCmd();
-		//log(aOperation);
+		//System.out.println("-----------" + log(aOperation));
 		try
 		{
 			cmd.run(aOperation, inFile.getAbsolutePath(), outFile.getAbsolutePath());
@@ -317,11 +318,13 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		}
 	}
 
-	private static void log(final IMOperation aOperation)
+	private static String log(final IMOperation aOperation)
 	{
 		final ConvertCmd cmd = new ConvertCmd();
-		final PrintWriter pw = new PrintWriter(System.out);
+		final StringWriter string = new StringWriter();
+		final PrintWriter pw = new PrintWriter(string);
 		cmd.createScript(pw, aOperation, new Properties());
 		pw.flush();
+		return string.toString();
 	}
 }
