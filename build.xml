@@ -12,6 +12,7 @@
 		<compile srcdir="src">
 			<classpath>
 				<pathelement location="lib/exedio-cope.jar" />
+				<pathelement location="lib/im4java.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				
 				<pathelement location="lib/exedio-cope-instrument-annotations.jar" />
@@ -24,6 +25,7 @@
 		<taskdef resource="com/exedio/cope/instrument/ant.properties">
 			<classpath>
 				<pathelement location="build/classes/src" />
+				<pathelement location="lib/im4java.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/slf4j-log4j12.jar" />
 				<pathelement location="lib/log4j-bundle.jar" />
@@ -49,6 +51,7 @@
 			<classpath>
 				<pathelement location="build/classes/src" />
 				<pathelement location="lib/exedio-cope.jar" />
+				<pathelement location="lib/im4java.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				
 				<pathelement location="lib/exedio-cope-instrument-annotations.jar" />
@@ -72,6 +75,7 @@
 				<pathelement location="build/classes/src" />
 				<pathelement location="build/classes/testsrc" />
 				<pathelement location="lib/exedio-cope.jar" />
+				<pathelement location="lib/im4java.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/hsqldb.jar" />
@@ -135,6 +139,7 @@
 			<package name="com.*" />
 			<classpath>
 				<pathelement location="lib/exedio-cope.jar" />
+				<pathelement location="lib/im4java.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/exedio-cope-instrument-annotations.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
@@ -157,6 +162,7 @@
 			<auxclasspath>
 				<pathelement location="${basedir}/lib/exedio-cope.jar" />
 				<pathelement location="${basedir}/lib/exedio-cope-instrument-annotations.jar" />
+				<pathelement location="${basedir}/lib/im4java.jar" />
 				<pathelement location="${basedir}/lib/servlet-api.jar" />
 				<pathelement location="${basedir}/lib/exedio-cope-junit.jar" />
 				<pathelement location="${basedir}/lib/junit.jar" />

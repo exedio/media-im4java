@@ -18,7 +18,7 @@
 
 package com.exedio.cope.im4java;
 
-import java.util.ArrayList;
+import org.im4java.core.IMOps;
 
 import com.exedio.cope.pattern.Media;
 
@@ -26,80 +26,29 @@ public final class MediaImageMagickThumbnail extends MediaImageMagickFilter
 {
 	private static final long serialVersionUID = 1l;
 
-	private final int boundX;
-	private final int boundY;
-	private final int density;
-	private final String flattenColor;
+	private final IMOps operation;
 
-	private static final int MIN_BOUND = 5;
-
-	public MediaImageMagickThumbnail(final Media source, final int boundX, final int boundY)
+	public MediaImageMagickThumbnail(final Media source, final IMOps operation)
 	{
-		this(source, boundX, boundY, 0, null, null);
-	}
-
-	private static String[] options(
-			final int boundX, final int boundY,
-			final int density,
-			final String flattenColor)
-	{
-		final ArrayList<String> result = new ArrayList<String>(5);
-		result.add("-resize");
-		result.add(String.valueOf(boundX) + 'x' + String.valueOf(boundY) + '>');
-		if(density>0)
-		{
-			result.add("-density");
-			result.add(String.valueOf(density));
-			result.add("-units");
-			result.add("PixelsPerInch");
-		}
-		if(flattenColor!=null)
-		{
-			result.add("-flatten");
-			result.add("-background");
-			result.add(flattenColor);
-		}
-		return result.toArray(new String[result.size()]);
+		this(source, operation, null);
 	}
 
 	private MediaImageMagickThumbnail(
 			final Media source,
-			final int boundX, final int boundY,
-			final int density,
-			final String flattenColor,
+			final IMOps operation,
 			final String outputContentType)
 	{
 		super(
 				source,
 				outputContentType,
-				options(boundX, boundY, density, flattenColor));
-		this.boundX = boundX;
-		this.boundY = boundY;
-		this.density = density;
-		this.flattenColor = flattenColor;
-
-		if(boundX<MIN_BOUND)
-			throw new IllegalArgumentException("boundX must be " + MIN_BOUND + " or greater, but was " + boundX);
-		if(boundY<MIN_BOUND)
-			throw new IllegalArgumentException("boundY must be " + MIN_BOUND + " or greater, but was " + boundY);
-		if(density<0)
-			throw new IllegalArgumentException("density must be 0 or greater, but was " + density);
+				operation);
+		this.operation = operation;
 	}
 
 	public MediaImageMagickThumbnail outputContentType(final String contentType)
 	{
 		if(contentType==null)
 			throw new NullPointerException("outputContentType");
-		return new MediaImageMagickThumbnail(getSource(), this.boundX, this.boundY, this.density, this.flattenColor, contentType);
-	}
-
-	public MediaImageMagickThumbnail density(final int density)
-	{
-		return new MediaImageMagickThumbnail(getSource(), this.boundX, this.boundY, density, this.flattenColor, this.getOutputContentType());
-	}
-
-	public MediaImageMagickThumbnail flatten(final String color)
-	{
-		return new MediaImageMagickThumbnail(getSource(), this.boundX, this.boundY, this.density, color, this.getOutputContentType());
+		return new MediaImageMagickThumbnail(getSource(), operation, contentType);
 	}
 }

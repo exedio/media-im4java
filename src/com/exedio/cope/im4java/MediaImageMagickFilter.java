@@ -25,14 +25,21 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Properties;
 import java.util.Set;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.im4java.core.ConvertCmd;
+import org.im4java.core.IM4JavaException;
+import org.im4java.core.IMOperation;
+import org.im4java.core.IMOps;
 
 import com.exedio.cope.DataField;
 import com.exedio.cope.Item;
@@ -48,33 +55,6 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 {
 	private static final long serialVersionUID = 1l;
 
-	private static final String CONVERT_COMMAND_PROPERTY = "com.exedio.cope.media.convertcommand";
-
-	private static final String DEFAULT_COMMAND_BINARY = "convert";
-
-	private static final String convertCommand = System.getProperty(CONVERT_COMMAND_PROPERTY);
-	private static final boolean osIsWindows = System.getProperty("os.name").startsWith("Windows");
-
-	private static String getConvertBinary()
-	{
-		if ( convertCommand==null||convertCommand.equals("") )
-		{
-			if ( osIsWindows )
-			{
-				throw new RuntimeException(
-					"on windows systems, the property \""+CONVERT_COMMAND_PROPERTY+"\" has to be set "+
-					"when enabling imagemagick"
-				);
-			}
-			return DEFAULT_COMMAND_BINARY;
-		}
-		else
-		{
-			return convertCommand;
-		}
-	}
-
-
 	private static final HashSet<MediaType> supportedContentTypes =
 			new HashSet<MediaType>(Arrays.asList(
 					MediaType.forName(MediaType.JPEG),
@@ -85,21 +65,23 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 	private final Media source;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final MediaType constantOutputContentType;
-	private final String[] options;
+	private final IMOps operation;
 
-	public MediaImageMagickFilter(final Media source, final String[] options)
+	public MediaImageMagickFilter(final Media source, final IMOps operation)
 	{
-		this(source, null, options);
+		this(source, null, operation);
 	}
 
 	public MediaImageMagickFilter(
 			final Media source,
 			final String outputContentType,
-			final String[] options)
+			final IMOps operation)
 	{
 		super(source);
 		this.source = source;
-		this.options = com.exedio.cope.misc.Arrays.copyOf(options);
+		this.operation = operation;
+		if(operation==null)
+			throw new NullPointerException("operation");
 
 		if(outputContentType!=null)
 		{
@@ -258,14 +240,6 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		final File  inFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".in."  + getID(), ".data");
 		final File outFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".out." + getID(), outputContentType(MediaType.forName(MediaType.JPEG)).getExtension());
 
-		final String[] command = new String[options.length+4];
-		command[0] = getConvertBinary();
-		command[1] = "-quiet";
-		for(int i = 0; i<options.length; i++)
-			command[i+2] = options[i];
-		command[command.length-2] = inFile.getAbsolutePath();
-		command[command.length-1] = outFile.getAbsolutePath();
-		//System.out.println("-----------------"+Arrays.toString(command));
 
 		final byte[] b = new byte[1580]; // size of the file plus 2 to detect larger file
 		{
@@ -293,19 +267,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 			}
 		}
 
-		final int exitValue = execute(command);
-		if(exitValue!=0)
-			throw new RuntimeException(
-					"command " + Arrays.asList(command) +
-					" exited with " + exitValue +
-					" for feature " + getID() +
-					", left " + inFile.getAbsolutePath() +
-					" and " + outFile.getAbsolutePath() +
-					( exitValue==4 ?
-						" (if running on Windows, make sure ImageMagick convert.exe and " +
-							"not \\Windows\\system32\\convert.exe is called)"
-						: ""
-					) );
+		execute(inFile, outFile);
 
 		delete(inFile);
 		delete(outFile);
@@ -324,62 +286,41 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		final File  inFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".in."  + getID(), ".data");
 		final File outFile = File.createTempFile(MediaImageMagickThumbnail.class.getName() + ".out." + getID(), outputContentType(contentType).getExtension());
 
-		final String[] command = new String[options.length+4];
-		command[0] = getConvertBinary();
-		command[1] = "-quiet";
-		for(int i = 0; i<options.length; i++)
-			command[i+2] = options[i];
-		command[command.length-2] = inFile.getAbsolutePath();
-		command[command.length-1] = outFile.getAbsolutePath();
-		//System.out.println("-----------------"+Arrays.toString(command));
-
 		source.getBody(item, inFile);
 
-		final int exitValue = execute(command);
-		if(exitValue!=0)
-			throw new RuntimeException(
-					"command " + Arrays.asList(command) +
-					" exited with " + exitValue +
-					" for feature " + getID() +
-					" and item " + item.getCopeID() +
-					", left " + inFile.getAbsolutePath() +
-					" and " + outFile.getAbsolutePath() +
-					( exitValue==4 ?
-						" (if running on Windows, make sure ImageMagick convert.exe and " +
-							"not \\Windows\\system32\\convert.exe is called)"
-						: ""
-					) );
+		execute(inFile, outFile);
 
 		delete(inFile);
 
 		return outFile;
 	}
 
-	private int execute(final String[] command) throws IOException
+	private void execute(final File inFile, final File outFile) throws IOException
 	{
-		final ProcessBuilder processBuilder = new ProcessBuilder(command);
-		final int exitValue;
-		final Process process = processBuilder.start();
+		final IMOperation aOperation = new IMOperation();
+		aOperation.addOperation(operation);
+		aOperation.addImage(2);
+		final ConvertCmd cmd = new ConvertCmd();
+		//log(aOperation);
 		try
 		{
-			exitValue = process.waitFor();
+			cmd.run(aOperation, inFile.getAbsolutePath(), outFile.getAbsolutePath());
 		}
 		catch(final InterruptedException e)
 		{
-			throw new RuntimeException(toString(), e);
+			throw new RuntimeException(e);
 		}
+		catch(final IM4JavaException e)
+		{
+			throw new RuntimeException(e);
+		}
+	}
 
-		// IMPLEMENTATION NOTE
-		// Without the following three lines each run of this code will leave
-		// three open file descriptors in the system. Using utility "lsof"
-		// you will see the following:
-		//    java <pid> <user> 52w FIFO 0,8 0t0 141903 pipe
-		//    java <pid> <user> 53r FIFO 0,8 0t0 141904 pipe
-		//    java <pid> <user> 54w FIFO 0,8 0t0 142576 pipe
-		process.getInputStream ().close();
-		process.getOutputStream().close();
-		process.getErrorStream ().close();
-
-		return exitValue;
+	private static void log(final IMOperation aOperation)
+	{
+		final ConvertCmd cmd = new ConvertCmd();
+		final PrintWriter pw = new PrintWriter(System.out);
+		cmd.createScript(pw, aOperation, new Properties());
+		pw.flush();
 	}
 }

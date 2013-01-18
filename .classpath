@@ -11,5 +11,6 @@
 	<classpathentry kind="lib" path="lib/exedio-cope-instrument-annotations.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-api.jar"/>
 	<classpathentry kind="lib" path="lib/hsqldb.jar"/>
+	<classpathentry kind="lib" path="lib/im4java.jar" sourcepath="lib/im4java-src.zip"/>
 	<classpathentry kind="output" path=".eclipse-output"/>
 </classpath>

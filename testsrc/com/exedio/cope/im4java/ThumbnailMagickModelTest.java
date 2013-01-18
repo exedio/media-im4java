@@ -32,6 +32,8 @@ import java.io.Serializable;
 import java.util.Arrays;
 import java.util.HashSet;
 
+import org.im4java.core.IMOperation;
+
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
@@ -89,7 +91,7 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 	{
 		try
 		{
-			new MediaImageMagickThumbnail(null, 80, 80);
+			new MediaImageMagickThumbnail(null, new IMOperation());
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -98,23 +100,14 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 		}
 		try
 		{
-			new MediaImageMagickThumbnail(file, 4, 80);
+			new MediaImageMagickThumbnail(file, null);
 			fail();
 		}
-		catch(final IllegalArgumentException e)
+		catch(final NullPointerException e)
 		{
-			assertEquals("boundX must be 5 or greater, but was 4", e.getMessage());
+			assertEquals("operation", e.getMessage());
 		}
-		try
-		{
-			new MediaImageMagickThumbnail(file, 80, 4);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("boundY must be 5 or greater, but was 4", e.getMessage());
-		}
-		final MediaImageMagickThumbnail template = new MediaImageMagickThumbnail(file, 80, 80);
+		final MediaImageMagickThumbnail template = new MediaImageMagickThumbnail(file, new IMOperation());
 		try
 		{
 			template.outputContentType(null);
@@ -141,15 +134,6 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("unsupported outputContentType >non/sense<", e.getMessage());
-		}
-		try
-		{
-			template.density(-1);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("density must be 0 or greater, but was -1", e.getMessage());
 		}
 	}
 

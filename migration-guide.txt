@@ -4,3 +4,32 @@
 	- if it has no outputContentType -> add a outputContentType(MediaType.JPEG)
 	- if it has a outputContentTypeSame -> remove that outputContentTypeSame (does not exist anymore)
 	if it has multiple outputContentType and/or outputContentTypeSame, the last one did have effect anyway.
+
+* Resize
+	The expression
+	
+		new MediaImageMagickThumbnail(20, 30)
+	
+	is replaced by
+	
+		new MediaImageMagickThumbnail(new IMOperation().resize(20, 30, '>'))
+
+* Density
+	The expression
+	
+		new MediaImageMagickThumbnail(20, 30).density(300)
+	
+	is replaced by
+	
+		new MediaImageMagickThumbnail(new IMOperation().resize(20, 30, '>').density(300).units("PixelsPerInch"))
+
+* Flattening
+	The expression
+	
+		new MediaImageMagickThumbnail(20, 30).flatten("white")
+	
+	is replaced by
+	
+		new MediaImageMagickThumbnail(new IMOperation().resize(20, 30, '>').flatten().background("white"))
+
+
