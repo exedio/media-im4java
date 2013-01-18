@@ -18,13 +18,6 @@
 			uri="antlib:org.apache.ivy.ant" />
 		<ivy:settings file="artifacts/ivysettings.xml" />
 		<fetch conf="runtime" />
-		<fetch conf="mysql" />
-		<fetch conf="hsqldb" />
-		<fetch conf="oracle" />
-		<fetch conf="postgresql" />
-		<fetch conf="junit" />
-		<fetch conf="test" />
-		<fetch conf="sources" />
 	</target>
 		
 	<macrodef name="fetch">
