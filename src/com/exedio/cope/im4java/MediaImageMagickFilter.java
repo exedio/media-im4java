@@ -165,7 +165,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 	@Override
 	public boolean isContentTypeWrapped()
 	{
-		return constantOutputContentType==null;
+		return constantOutputContentType==null && source.isContentTypeWrapped();
 	}
 
 	@Override
