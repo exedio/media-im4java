@@ -48,7 +48,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 {
 	private static final long serialVersionUID = 1l;
 
-	public static final String CONVERT_COMMAND_PROPERTY = "com.exedio.cope.media.convertcommand";
+	private static final String CONVERT_COMMAND_PROPERTY = "com.exedio.cope.media.convertcommand";
 
 	private static final String DEFAULT_COMMAND_BINARY = "convert";
 
