@@ -259,7 +259,7 @@ public abstract class CopeAssert extends TestCase
 			oos.writeObject(value);
 			oos.close();
 
-			assertTrue(String.valueOf(bos.size()), bos.size()<maxSize);
+			assertTrue(String.valueOf(bos.size()), bos.size()<=maxSize);
 
 			final ObjectInputStream ois = new ObjectInputStream(new ByteArrayInputStream(bos.toByteArray()));
 			final Object result = ois.readObject();
