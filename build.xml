@@ -39,7 +39,7 @@
 		-->
 		<instrument verify="${instrument.verify}" verbose="false" finalArgs="true">
 			<fileset dir="${basedir}/testsrc/com/exedio/cope/pattern">
-				<include name="ThumbnailMagickItem.java" />
+				<include name="*Item.java" />
 			</fileset>
 		</instrument>
 	</target>
