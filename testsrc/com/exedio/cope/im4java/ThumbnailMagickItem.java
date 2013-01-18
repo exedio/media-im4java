@@ -32,8 +32,8 @@ public final class ThumbnailMagickItem extends Item
 	static final MediaImageMagickFilter thumb =
 			new MediaImageMagickFilter(
 				file,
-				new IMOperation().resize(20, 30, '>')).
-				outputContentType(MediaType.JPEG);
+				new IMOperation().resize(20, 30, '>'),
+				MediaType.JPEG);
 
 	@SuppressWarnings("boxing")
 	static final MediaImageMagickFilter thumbFull =
@@ -42,9 +42,8 @@ public final class ThumbnailMagickItem extends Item
 				new IMOperation().
 					resize(20, 30, '>').
 					density(300).units("PixelsPerInch").
-					flatten().background("white")
-				).
-				outputContentType(MediaType.PNG);
+					flatten().background("white"),
+				MediaType.PNG);
 
 	@SuppressWarnings("boxing")
 	static final MediaImageMagickFilter thumbSame =

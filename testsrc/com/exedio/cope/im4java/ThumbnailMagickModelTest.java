@@ -111,19 +111,9 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 		{
 			assertEquals("operation", e.getMessage());
 		}
-		final MediaImageMagickFilter template = new MediaImageMagickFilter(file, new IMOperation());
 		try
 		{
-			template.outputContentType(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("outputContentType", e.getMessage());
-		}
-		try
-		{
-			template.outputContentType(MediaType.ZIP);
+			new MediaImageMagickFilter(file, new IMOperation(), MediaType.ZIP);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -132,7 +122,7 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 		}
 		try
 		{
-			template.outputContentType("non/sense");
+			new MediaImageMagickFilter(file, new IMOperation(), "non/sense");
 			fail();
 		}
 		catch(final IllegalArgumentException e)

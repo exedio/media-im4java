@@ -67,8 +67,6 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final MediaType constantOutputContentType;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final IMOperation operation;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final IMOperation operationWithImage;
 
 	public MediaImageMagickFilter(final Media source, final IMOps operation)
@@ -86,7 +84,6 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 
 		if(operation==null)
 			throw new NullPointerException("operation");
-		this.operation = copyOperation(operation);
 		this.operationWithImage = new IMOperation();
 		this.operationWithImage.addOperation(operation);
 		this.operationWithImage.addImage(2);
@@ -101,20 +98,6 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 		{
 			this.constantOutputContentType = null;
 		}
-	}
-
-	private static IMOperation copyOperation(final IMOps operation)
-	{
-		final IMOperation result = new IMOperation();
-		result.addOperation(operation);
-		return result;
-	}
-
-	public MediaImageMagickFilter outputContentType(final String contentType)
-	{
-		if(contentType==null)
-			throw new NullPointerException("outputContentType");
-		return new MediaImageMagickFilter(getSource(), operation, contentType);
 	}
 
 	private static MediaType supported(final MediaType type)
