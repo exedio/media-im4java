@@ -1,6 +1,9 @@
 bsh-core.jar
 bsh-src.jar
 cojen-jar.jar
+exedio-cope-im4java-jar.jar
+exedio-cope-im4java-log.txt
+exedio-cope-im4java-src.zip
 exedio-cope-instrument-annotations-jar.jar
 exedio-cope-instrument-jar.jar
 exedio-cope-jar.jar
@@ -11,6 +14,8 @@ exedio-cope-servletutil-src.zip
 exedio-cope-util-jar.jar
 exedio-cope-util-log.txt
 exedio-cope-util-src.zip
+im4java-jar.jar
+im4java-src.zip
 servlet-api-jar.jar
 servlet-api-source.jar
 slf4j-api-jar.jar
