@@ -55,7 +55,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 
 	public static boolean isEnabled()
 	{
-		return enabled;
+		return true;
 	}
 
 	private static String getConvertBinary()
