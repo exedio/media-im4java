@@ -25,21 +25,15 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.PrintWriter;
-import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Properties;
 import java.util.Set;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.im4java.core.ConvertCmd;
-import org.im4java.core.IM4JavaException;
-import org.im4java.core.IMOperation;
 import org.im4java.core.IMOps;
 
 import com.exedio.cope.DataField;
@@ -64,10 +58,8 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 			));
 
 	private final Media source;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final IMOperation operationWithImage;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final MediaType constantOutputContentType;
+
+	private final Action action;
 
 	public MediaImageMagickFilter(final Media source, final IMOps operation)
 	{
@@ -81,26 +73,10 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 	{
 		super(source);
 		this.source = source;
-
-		if(operation==null)
-			throw new NullPointerException("operation");
-		this.operationWithImage = new IMOperation();
-		this.operationWithImage.addOperation(operation);
-		this.operationWithImage.addImage(2);
-
-		if(outputContentType!=null)
-		{
-			this.constantOutputContentType = supported(MediaType.forName(outputContentType));
-			if(constantOutputContentType==null)
-				throw new IllegalArgumentException("unsupported outputContentType >" + outputContentType + '<');
-		}
-		else
-		{
-			this.constantOutputContentType = null;
-		}
+		this.action = new Action(operation, outputContentType);
 	}
 
-	private static MediaType supported(final MediaType type)
+	static MediaType supported(final MediaType type)
 	{
 		if(type==null)
 			return null;
@@ -128,7 +104,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 	 */
 	public String getOutputContentType()
 	{
-		return constantOutputContentType!=null ? constantOutputContentType.getName() : null;
+		return action.getOutputContentType();
 	}
 
 	@Override
@@ -143,13 +119,13 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 		if(type==null)
 			return null;
 
-		return (constantOutputContentType!=null?constantOutputContentType:type).getName();
+		return action.getContentType(type);
 	}
 
 	@Override
 	public boolean isContentTypeWrapped()
 	{
-		return constantOutputContentType==null && source.isContentTypeWrapped();
+		return getOutputContentType()==null && source.isContentTypeWrapped();
 	}
 
 	@Override
@@ -272,7 +248,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 			}
 		}
 
-		execute(inFile, outFile);
+		action.execute(inFile, outFile);
 
 		delete(inFile);
 		delete(outFile);
@@ -280,10 +256,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 
 	private MediaType outputContentType(final MediaType inputContentType)
 	{
-		return
-				this.constantOutputContentType!=null
-				? this.constantOutputContentType
-				: inputContentType;
+		return action.outputContentType(inputContentType);
 	}
 
 	private final File execute(final Item item, final MediaType contentType) throws IOException
@@ -293,38 +266,15 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 
 		source.getBody(item, inFile);
 
-		execute(inFile, outFile);
+		action.execute(inFile, outFile);
 
 		delete(inFile);
 
 		return outFile;
 	}
 
-	private void execute(final File inFile, final File outFile) throws IOException
-	{
-		final ConvertCmd cmd = new ConvertCmd();
-		//System.out.println("------script-----" + getScript());
-		try
-		{
-			cmd.run(operationWithImage, inFile.getAbsolutePath(), outFile.getAbsolutePath());
-		}
-		catch(final InterruptedException e)
-		{
-			throw new RuntimeException(e);
-		}
-		catch(final IM4JavaException e)
-		{
-			throw new RuntimeException(e);
-		}
-	}
-
 	public String getScript()
 	{
-		final ConvertCmd cmd = new ConvertCmd();
-		final StringWriter string = new StringWriter();
-		final PrintWriter pw = new PrintWriter(string);
-		cmd.createScript(pw, operationWithImage, new Properties());
-		pw.flush();
-		return string.toString();
+		return action.getScript();
 	}
 }
