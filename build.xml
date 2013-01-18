@@ -50,6 +50,7 @@
 				<pathelement location="lib/exedio-cope.jar" />
 				<pathelement location="lib/servlet-api.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
+				<pathelement location="lib/hsqldb.jar" />
 				<pathelement location="lib/exedio-cope-junit.jar" />
 				<pathelement location="lib/junit.jar" />
 			</classpath>
