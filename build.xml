@@ -79,7 +79,7 @@
 				<pathelement location="lib/junit.jar" />
 			</classpath>
 			<sysproperty key="java.io.tmpdir" value="${basedir}/build/testtmpdir" />
-			<test name="com.exedio.cope.im4java.PackageUtilTest" todir="build/testresults" outfile="cope-util" />
+			<test name="com.exedio.cope.im4java.PackageTest" todir="build/testresults" outfile="cope-util" />
 			<assertions><enable/></assertions>
 		</junit>
 	</target>
