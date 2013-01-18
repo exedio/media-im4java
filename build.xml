@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="cope util" default="build" basedir=".">
+<project name="cope im4java" default="build" basedir=".">
 
 	<property file="local.properties" />
 	<property file="project.properties" />
@@ -83,7 +83,7 @@
 				<pathelement location="lib/junit.jar" />
 			</classpath>
 			<sysproperty key="java.io.tmpdir" value="${basedir}/build/testtmpdir" />
-			<test name="com.exedio.cope.im4java.PackageTest" todir="build/testresults" outfile="cope-util" />
+			<test name="com.exedio.cope.im4java.PackageTest" todir="build/testresults" outfile="cope-im4java" />
 			<assertions><enable/></assertions>
 		</junit>
 	</target>
@@ -91,12 +91,12 @@
 	<target name="test" depends="test.run" />
 	
 	<target name="jar" depends="compile">
-		<jar jarfile="build/exedio-cope-util.jar" basedir="build/classes/src" filesonly="true" duplicate="fail" strict="fail" level="9">
+		<jar jarfile="build/exedio-cope-im4java.jar" basedir="build/classes/src" filesonly="true" duplicate="fail" strict="fail" level="9">
 			<manifest>
-				<attribute name="Specification-Title" value="exedio cope util"/>
+				<attribute name="Specification-Title" value="exedio cope im4java"/>
 				<attribute name="Specification-Version" value="${build.tag}"/>
 				<attribute name="Specification-Vendor" value="exedio GmbH"/>
-				<attribute name="Implementation-Title" value="exedio cope util"/>
+				<attribute name="Implementation-Title" value="exedio cope im4java"/>
 				<attribute name="Implementation-Version" value="${build.tag}"/>
 				<attribute name="Implementation-Vendor" value="exedio GmbH"/>
 			</manifest>
@@ -105,7 +105,7 @@
 	
 	<target name="jar.src">
 		<mkdir dir="build" />
-		<zip destfile="build/exedio-cope-util-src.zip" filesonly="true" whenempty="fail" duplicate="fail" level="9">
+		<zip destfile="build/exedio-cope-im4java-src.zip" filesonly="true" whenempty="fail" duplicate="fail" level="9">
 			<zipfileset dir="${basedir}/src">
 				<include name="**/*.java" />
 			</zipfileset>
@@ -128,13 +128,13 @@
 				author="on"
 				use="on"
 				version="on"
-				windowtitle="exedio cope util"
+				windowtitle="exedio cope im4java"
 				splitindex="on"
 				failonerror="true"
 			>
 			<doctitle><![CDATA[COPE Utilities<br>API Specification]]></doctitle>
-			<header>exedio cope util</header>
-			<footer>exedio cope util</footer>
+			<header>exedio cope im4java</header>
+			<footer>exedio cope im4java</footer>
 			<bottom><![CDATA[<small>Copyright &copy; 2004-2008 <a href="http://www.exedio.com/" target="_top">exedio</a> Gesellschaft f&uuml;r Softwareentwicklung mbH. All rights reserved.</small><br><font size="-3">${build.tag}</font>]]></bottom>
 			<package name="com.*" />
 			<classpath>
@@ -176,9 +176,11 @@
 
 	<target name="jenkins" depends="all">
 		<copy todir="${basedir}/build/success">
-			<fileset file="${basedir}/build/exedio-cope-util.jar" />
-			<fileset file="${basedir}/build/exedio-cope-util-src.zip" />
-			<fileset file="${basedir}/exedio-cope-util-log.txt" />
+			<fileset file="${basedir}/build/exedio-cope-im4java.jar" />
+			<fileset file="${basedir}/build/exedio-cope-im4java-src.zip" />
+			<fileset file="${basedir}/exedio-cope-im4java-log.txt" />
+			<fileset file="${basedir}/lib/im4java.jar" />
+			<fileset file="${basedir}/lib/im4java-src.zip" />
 		</copy>
 		<copy file="ivy.xml" tofile="build/success/ivy.xml" overwrite="true">
 			<filterset>
