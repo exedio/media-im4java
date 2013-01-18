@@ -313,12 +313,11 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 
 	private void execute(final File inFile, final File outFile) throws IOException
 	{
-		final IMOperation aOperation = makeOperation();
 		final ConvertCmd cmd = new ConvertCmd();
 		//System.out.println("------script-----" + getScript());
 		try
 		{
-			cmd.run(aOperation, inFile.getAbsolutePath(), outFile.getAbsolutePath());
+			cmd.run(makeOperation(), inFile.getAbsolutePath(), outFile.getAbsolutePath());
 		}
 		catch(final InterruptedException e)
 		{
@@ -332,11 +331,10 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 
 	public String getScript()
 	{
-		final IMOperation aOperation = makeOperation();
 		final ConvertCmd cmd = new ConvertCmd();
 		final StringWriter string = new StringWriter();
 		final PrintWriter pw = new PrintWriter(string);
-		cmd.createScript(pw, aOperation, new Properties());
+		cmd.createScript(pw, makeOperation(), new Properties());
 		pw.flush();
 		return string.toString();
 	}
