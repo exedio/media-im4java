@@ -16,16 +16,16 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.pattern;
+package com.exedio.cope.im4java;
 
 import static com.exedio.cope.pattern.MediaType.GIF;
 import static com.exedio.cope.pattern.MediaType.JPEG;
 import static com.exedio.cope.pattern.MediaType.PNG;
-import static com.exedio.cope.pattern.ThumbnailMagickItem.TYPE;
-import static com.exedio.cope.pattern.ThumbnailMagickItem.file;
-import static com.exedio.cope.pattern.ThumbnailMagickItem.thumb;
-import static com.exedio.cope.pattern.ThumbnailMagickItem.thumbFull;
-import static com.exedio.cope.pattern.ThumbnailMagickItem.thumbSame;
+import static com.exedio.cope.im4java.ThumbnailMagickItem.TYPE;
+import static com.exedio.cope.im4java.ThumbnailMagickItem.file;
+import static com.exedio.cope.im4java.ThumbnailMagickItem.thumb;
+import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbFull;
+import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbSame;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -38,6 +38,7 @@ import javax.servlet.ServletOutputStream;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeTest;
+import com.exedio.cope.pattern.MediaType;
 import com.exedio.cope.util.Properties;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -248,7 +249,7 @@ public final class ThumbnailMagickTest extends CopeTest
 		assertNotNull(item);
 
 		final Response response = new Response();
-		assertEquals("delivered", feature.doGetIfModified(null, response, item).name);
+		assertEquals("delivered", feature.doGetIfModified(null, response, item).toString());
 		response.assertIt(expectedContentType);
 	}
 
@@ -319,6 +320,6 @@ public final class ThumbnailMagickTest extends CopeTest
 		assertNotNull(item);
 
 		final DummyResponse response = new DummyResponse();
-		assertEquals(expectedResult, feature.doGetIfModified(null, response, item).name);
+		assertEquals(expectedResult, feature.doGetIfModified(null, response, item).toString());
 	}
 }

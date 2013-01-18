@@ -16,9 +16,12 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.pattern;
+package com.exedio.cope.im4java;
 
 import java.util.ArrayList;
+
+import com.exedio.cope.pattern.Media;
+import com.exedio.cope.pattern.MediaThumbnail;
 
 public final class MediaImageMagickThumbnail extends MediaImageMagickFilter
 {

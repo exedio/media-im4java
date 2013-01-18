@@ -16,9 +16,11 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.pattern;
+package com.exedio.cope.im4java;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.pattern.Media;
+import com.exedio.cope.pattern.MediaType;
 
 public final class ThumbnailMagickItem extends Item
 {

@@ -38,7 +38,7 @@
 			if you know, no instrumentation is needed
 		-->
 		<instrument verify="${instrument.verify}" verbose="false" finalArgs="true">
-			<fileset dir="${basedir}/testsrc/com/exedio/cope/pattern">
+			<fileset dir="${basedir}/testsrc/com/exedio/cope/im4java">
 				<include name="*Item.java" />
 			</fileset>
 		</instrument>
@@ -79,7 +79,7 @@
 				<pathelement location="lib/junit.jar" />
 			</classpath>
 			<sysproperty key="java.io.tmpdir" value="${basedir}/build/testtmpdir" />
-			<test name="com.exedio.cope.pattern.PackageUtilTest" todir="build/testresults" outfile="cope-util" />
+			<test name="com.exedio.cope.im4java.PackageUtilTest" todir="build/testresults" outfile="cope-util" />
 			<assertions><enable/></assertions>
 		</junit>
 	</target>

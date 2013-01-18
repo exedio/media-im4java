@@ -16,16 +16,16 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.pattern;
+package com.exedio.cope.im4java;
 
 import static com.exedio.cope.pattern.MediaType.GIF;
 import static com.exedio.cope.pattern.MediaType.JPEG;
 import static com.exedio.cope.pattern.MediaType.PNG;
-import static com.exedio.cope.pattern.ThumbnailMagickItem.TYPE;
-import static com.exedio.cope.pattern.ThumbnailMagickItem.file;
-import static com.exedio.cope.pattern.ThumbnailMagickItem.thumb;
-import static com.exedio.cope.pattern.ThumbnailMagickItem.thumbFull;
-import static com.exedio.cope.pattern.ThumbnailMagickItem.thumbSame;
+import static com.exedio.cope.im4java.ThumbnailMagickItem.TYPE;
+import static com.exedio.cope.im4java.ThumbnailMagickItem.file;
+import static com.exedio.cope.im4java.ThumbnailMagickItem.thumb;
+import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbFull;
+import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbSame;
 
 import java.io.IOException;
 import java.io.Serializable;
@@ -35,6 +35,7 @@ import java.util.HashSet;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.pattern.MediaType;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
