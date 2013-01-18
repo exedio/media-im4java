@@ -73,13 +73,13 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 
 	public MediaImageMagickFilter(final Media source, final IMOps operation)
 	{
-		this(source, null, operation);
+		this(source, operation, null);
 	}
 
 	public MediaImageMagickFilter(
 			final Media source,
-			final String outputContentType,
-			final IMOps operation)
+			final IMOps operation,
+			final String outputContentType)
 	{
 		super(source);
 		this.source = source;
@@ -113,7 +113,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 	{
 		if(contentType==null)
 			throw new NullPointerException("outputContentType");
-		return new MediaImageMagickFilter(getSource(), contentType, operation);
+		return new MediaImageMagickFilter(getSource(), operation, contentType);
 	}
 
 	private static MediaType supported(final MediaType type)
