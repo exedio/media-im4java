@@ -80,6 +80,10 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 
 		assertSerializedSame(thumb, 398);
 
+		thumb.getScript();
+		thumbFull.getScript();
+		thumbSame.getScript();
+
 		thumb.test();
 		thumbFull.test();
 		thumbSame.test();

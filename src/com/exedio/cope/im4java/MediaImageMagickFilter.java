@@ -299,11 +299,9 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 
 	private void execute(final File inFile, final File outFile) throws IOException
 	{
-		final IMOperation aOperation = new IMOperation();
-		aOperation.addOperation(operation);
-		aOperation.addImage(2);
+		final IMOperation aOperation = makeOperation();
 		final ConvertCmd cmd = new ConvertCmd();
-		//System.out.println("-----------" + log(aOperation));
+		//System.out.println("------script-----" + getScript());
 		try
 		{
 			cmd.run(aOperation, inFile.getAbsolutePath(), outFile.getAbsolutePath());
@@ -318,13 +316,22 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 		}
 	}
 
-	private static String log(final IMOperation aOperation)
+	public String getScript()
 	{
+		final IMOperation aOperation = makeOperation();
 		final ConvertCmd cmd = new ConvertCmd();
 		final StringWriter string = new StringWriter();
 		final PrintWriter pw = new PrintWriter(string);
 		cmd.createScript(pw, aOperation, new Properties());
 		pw.flush();
 		return string.toString();
+	}
+
+	private IMOperation makeOperation()
+	{
+		final IMOperation aOperation = new IMOperation();
+		aOperation.addOperation(operation);
+		aOperation.addImage(2);
+		return aOperation;
 	}
 }
