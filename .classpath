@@ -9,5 +9,6 @@
 	<classpathentry kind="lib" path="lib/exedio-cope-junit.jar" sourcepath="lib/exedio-cope-src.zip"/>
 	<classpathentry kind="lib" path="lib/servlet-api.jar" sourcepath="lib/servlet-api-source.jar"/>
 	<classpathentry kind="lib" path="lib/exedio-cope-instrument-annotations.jar"/>
+	<classpathentry kind="lib" path="lib/slf4j-api.jar"/>
 	<classpathentry kind="output" path=".eclipse-output"/>
 </classpath>
