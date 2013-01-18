@@ -19,8 +19,32 @@
 			</classpath>
 		</compile>
 	</target>
+
+	<target name="instrument.taskdef" depends="compile">
+		<taskdef resource="com/exedio/cope/instrument/ant.properties">
+			<classpath>
+				<pathelement location="build/classes/src" />
+				<pathelement location="lib/slf4j-api.jar" />
+				<pathelement location="lib/slf4j-log4j12.jar" />
+				<pathelement location="lib/log4j-bundle.jar" />
+				<pathelement location="lib/servlet-api.jar" />
+				<pathelement location="lib/exedio-cope-instrument.jar" />
+			</classpath>
+		</taskdef>
+	</target>
+	<target name="test.instrument" depends="instrument.taskdef" unless="skip.instrument">
+		<!--
+			build faster with "ant -Dskip.instrument=true",
+			if you know, no instrumentation is needed
+		-->
+		<instrument verify="${instrument.verify}" verbose="false" finalArgs="true">
+			<fileset dir="${basedir}/testsrc/com/exedio/cope/pattern">
+				<include name="ThumbnailMagickItem.java" />
+			</fileset>
+		</instrument>
+	</target>
 	
-	<target name="test.compile" depends="compile">
+	<target name="test.compile" depends="compile, test.instrument">
 		<compile srcdir="testsrc">
 			<classpath>
 				<pathelement location="build/classes/src" />
