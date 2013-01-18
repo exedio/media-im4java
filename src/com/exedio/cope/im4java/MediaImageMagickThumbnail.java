@@ -35,7 +35,7 @@ public final class MediaImageMagickThumbnail extends MediaImageMagickFilter
 
 	public MediaImageMagickThumbnail(final Media source, final int boundX, final int boundY)
 	{
-		this(source, boundX, boundY, 0, null, "image/jpeg");
+		this(source, boundX, boundY, 0, null, null);
 	}
 
 	private static String[] options(
@@ -91,11 +91,6 @@ public final class MediaImageMagickThumbnail extends MediaImageMagickFilter
 		if(contentType==null)
 			throw new NullPointerException("outputContentType");
 		return new MediaImageMagickThumbnail(getSource(), this.boundX, this.boundY, this.density, this.flattenColor, contentType);
-	}
-
-	public MediaImageMagickThumbnail outputContentTypeSame()
-	{
-		return new MediaImageMagickThumbnail(getSource(), this.boundX, this.boundY, this.density, this.flattenColor, null);
 	}
 
 	public MediaImageMagickThumbnail density(final int density)

@@ -89,7 +89,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 
 	public MediaImageMagickFilter(final Media source, final String[] options)
 	{
-		this(source, "image/jpeg", options);
+		this(source, null, options);
 	}
 
 	public MediaImageMagickFilter(

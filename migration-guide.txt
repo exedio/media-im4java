@@ -1,0 +1,6 @@
+
+* Output Content Type
+	- if it has a outputContentType already -> do nothing
+	- if it has no outputContentType -> add a outputContentType(MediaType.JPEG)
+	- if it has a outputContentTypeSame -> remove that outputContentTypeSame (does not exist anymore)
+	if it has multiple outputContentType and/or outputContentTypeSame, the last one did have effect anyway.
