@@ -39,7 +39,11 @@ public final class ThumbnailMagickItem extends Item
 	static final MediaImageMagickFilter thumbFull =
 			new MediaImageMagickFilter(
 				file,
-				new IMOperation().resize(20, 30, '>').density(300).units("PixelsPerInch").flatten().background("white")).
+				new IMOperation().
+					resize(20, 30, '>').
+					density(300).units("PixelsPerInch").
+					flatten().background("white")
+				).
 				outputContentType(MediaType.PNG);
 
 	@SuppressWarnings("boxing")
