@@ -88,8 +88,8 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 			throw new NullPointerException("operation");
 		this.operation = copyOperation(operation);
 		this.operationWithImage = new IMOperation();
-		operationWithImage.addOperation(operation);
-		operationWithImage.addImage(2);
+		this.operationWithImage.addOperation(operation);
+		this.operationWithImage.addImage(2);
 
 		if(outputContentType!=null)
 		{
