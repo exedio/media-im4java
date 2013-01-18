@@ -65,6 +65,7 @@ public class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 	private final Media source;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final MediaType constantOutputContentType;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final IMOps operation;
 
 	public MediaImageMagickFilter(final Media source, final IMOps operation)
