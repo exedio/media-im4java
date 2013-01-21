@@ -31,6 +31,7 @@ public class PackageTest extends TestCase
 		suite.addTestSuite(ThumbnailMagickTest.class);
 		suite.addTestSuite(ThumbnailMagickModifiableTest.class);
 		suite.addTestSuite(ThumbnailMagickOutputContentTypeTest.class);
+		suite.addTestSuite(ThumbnailMagickTestTest.class);
 		return suite;
 	}
 }

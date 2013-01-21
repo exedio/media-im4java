@@ -243,8 +243,8 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 	public void test() throws IOException
 	{
 		final MediaType type = MediaType.forName(MediaType.JPEG);
-		final File  inFile = File.createTempFile(MediaImageMagickFilter.class.getName() + ".in."  + getID(), ".data");
-		final File outFile = File.createTempFile(MediaImageMagickFilter.class.getName() + ".out." + getID(), outputContentType(type).getExtension());
+		final File  inFile = File.createTempFile(MediaImageMagickFilter.class.getName() + ".in."  + toString(), ".data");
+		final File outFile = File.createTempFile(MediaImageMagickFilter.class.getName() + ".out." + toString(), outputContentType(type).getExtension());
 
 
 		final byte[] b = new byte[1580]; // size of the file plus 2 to detect larger file
