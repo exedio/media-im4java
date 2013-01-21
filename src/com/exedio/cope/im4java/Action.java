@@ -94,7 +94,7 @@ final class Action
 		}
 	}
 
-	public String getScript()
+	String getScript()
 	{
 		final ConvertCmd cmd = new ConvertCmd();
 		final StringWriter string = new StringWriter();
