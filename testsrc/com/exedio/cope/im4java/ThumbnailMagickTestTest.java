@@ -68,24 +68,28 @@ public final class ThumbnailMagickTestTest extends CopeAssert
 		}
 		catch(final RuntimeException runtimeException)
 		{
-			assertEquals(
-					"org.im4java.core.CommandException: org.im4java.core.CommandException: convert: invalid argument for option `-resize': " + errorMessage + " @ convert.c/ConvertImageCommand/2211.",
+			assertStartsWith(
+					"org.im4java.core.CommandException: org.im4java.core.CommandException: convert: invalid argument for option `-resize': " + errorMessage + " @ convert.c/ConvertImageCommand/",
 					runtimeException.getMessage());
 			final CommandException commandException = (CommandException)runtimeException.getCause();
-			assertEquals(
-					"org.im4java.core.CommandException: convert: invalid argument for option `-resize': " + errorMessage + " @ convert.c/ConvertImageCommand/2211.",
+			assertStartsWith(
+					"org.im4java.core.CommandException: convert: invalid argument for option `-resize': " + errorMessage + " @ convert.c/ConvertImageCommand/",
 					commandException.getMessage());
 			assertEquals(-1, commandException.getReturnCode());
 			assertEquals(list(), commandException.getErrorText());
 			final CommandException commandException2 = (CommandException)commandException.getCause();
-			assertEquals(
+			assertStartsWith(
 					"convert: invalid argument for option `-resize': " + errorMessage + " @ convert.c/ConvertImageCommand/2211.",
 					commandException2.getMessage());
 			assertEquals(1, commandException2.getReturnCode());
-			assertEquals(list(
-					"convert: invalid argument for option `-resize': " + errorMessage + " @ convert.c/ConvertImageCommand/2211."),
-					commandException2.getErrorText());
 			assertEquals(null, commandException2.getCause());
 		}
+	}
+
+	private static final void assertStartsWith(
+			final String expected,
+			final String actual)
+	{
+		assertTrue(actual, actual.startsWith(expected));
 	}
 }
