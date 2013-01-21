@@ -43,9 +43,10 @@ public final class ThumbnailMagickOutputContentTypeTest extends CopeAssert
 		assertEquals(GIF,  new MediaImageMagickFilter(file, op, GIF).getOutputContentType());
 
 		assertEquals(null, new MediaImageMagickFilter(file, op, JPEG).forType(PNG, op, PNG).getOutputContentType());
-		assertEquals(JPEG, new MediaImageMagickFilter(file, op, JPEG).forType(PNG, op, JPEG).getOutputContentType());
 
-		assertEquals(null, new MediaImageMagickFilter(file, op, JPEG).forType(PNG, op, JPEG).forType(GIF, op, PNG).getOutputContentType());
-		assertEquals(JPEG, new MediaImageMagickFilter(file, op, JPEG).forType(PNG, op, JPEG).forType(GIF, op, JPEG).getOutputContentType());
+		final MediaImageMagickFilter f2 = new MediaImageMagickFilter(file, op, JPEG).forType(PNG, op, JPEG);
+		assertEquals(JPEG, f2.getOutputContentType());
+		assertEquals(null, f2.forType(GIF, op, PNG ).getOutputContentType());
+		assertEquals(JPEG, f2.forType(GIF, op, JPEG).getOutputContentType());
 	}
 }
