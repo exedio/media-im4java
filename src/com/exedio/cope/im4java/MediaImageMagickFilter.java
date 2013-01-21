@@ -60,7 +60,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 	private final Media source;
 
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final Action action;
+	private final Actions actions;
 
 	public MediaImageMagickFilter(final Media source, final IMOps operation)
 	{
@@ -74,7 +74,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 	{
 		super(source);
 		this.source = source;
-		this.action = new Action(operation, outputContentType);
+		this.actions = new Actions(new Action(operation, outputContentType));
 	}
 
 	static MediaType supported(final MediaType type)
@@ -83,6 +83,29 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 			return null;
 		return
 			supportedContentTypes.contains(type) ? type : null;
+	}
+
+	public MediaImageMagickFilter forType(
+			final String inputContentType,
+			final IMOps operation,
+			final String outputContentType)
+	{
+		if(inputContentType==null)
+			throw new NullPointerException("inputContentType");
+		final MediaType type = MediaImageMagickFilter.supported(MediaType.forName(inputContentType));
+		if(type==null)
+			throw new IllegalArgumentException("unsupported inputContentType >" + inputContentType + '<');
+
+		return new MediaImageMagickFilter(source, actions.forType(type, operation, outputContentType));
+	}
+
+	private MediaImageMagickFilter(
+			final Media source,
+			final Actions actions)
+	{
+		super(source);
+		this.source = source;
+		this.actions = actions;
 	}
 
 	@Override
@@ -105,7 +128,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 	 */
 	public String getOutputContentType()
 	{
-		return action.getOutputContentType();
+		return actions.getOutputContentType();
 	}
 
 	@Override
@@ -120,7 +143,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 		if(type==null)
 			return null;
 
-		return action.getContentType(type);
+		return actions.get(type).getContentType(type);
 	}
 
 	@Override
@@ -219,8 +242,9 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 	@Override
 	public void test() throws IOException
 	{
+		final MediaType type = MediaType.forName(MediaType.JPEG);
 		final File  inFile = File.createTempFile(MediaImageMagickFilter.class.getName() + ".in."  + getID(), ".data");
-		final File outFile = File.createTempFile(MediaImageMagickFilter.class.getName() + ".out." + getID(), outputContentType(MediaType.forName(MediaType.JPEG)).getExtension());
+		final File outFile = File.createTempFile(MediaImageMagickFilter.class.getName() + ".out." + getID(), outputContentType(type).getExtension());
 
 
 		final byte[] b = new byte[1580]; // size of the file plus 2 to detect larger file
@@ -249,7 +273,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 			}
 		}
 
-		action.execute(inFile, outFile);
+		actions.get(type).execute(inFile, outFile);
 
 		delete(inFile);
 		delete(outFile);
@@ -257,7 +281,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 
 	private MediaType outputContentType(final MediaType inputContentType)
 	{
-		return action.outputContentType(inputContentType);
+		return actions.get(inputContentType).outputContentType(inputContentType);
 	}
 
 	private final File execute(final Item item, final MediaType contentType) throws IOException
@@ -267,15 +291,15 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 
 		source.getBody(item, inFile);
 
-		action.execute(inFile, outFile);
+		actions.get(contentType).execute(inFile, outFile);
 
 		delete(inFile);
 
 		return outFile;
 	}
 
-	public String getScript()
+	public String getScript(final String contentType)
 	{
-		return action.getScript();
+		return actions.get(MediaType.forName(contentType)).getScript();
 	}
 }

@@ -22,6 +22,7 @@ import static com.exedio.cope.im4java.ThumbnailMagickItem.TYPE;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.file;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumb;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbFull;
+import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbRound;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbSame;
 import static com.exedio.cope.pattern.MediaType.GIF;
 import static com.exedio.cope.pattern.MediaType.JPEG;
@@ -63,6 +64,7 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 				thumb,
 				thumbFull,
 				thumbSame,
+				thumbRound,
 			}), TYPE.getFeatures());
 		assertEquals(TYPE, thumb.getType());
 		assertEquals("thumb", thumb.getName());
@@ -74,19 +76,22 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 		assertEquals(JPEG, thumb.getOutputContentType());
 		assertEquals(PNG, thumbFull.getOutputContentType());
 		assertEquals(null, thumbSame.getOutputContentType());
+		assertEquals(null, thumbRound.getOutputContentType());
 
 		assertEquals(file.isNull(), thumb.isNull());
 		assertEquals(file.isNotNull(), thumb.isNotNull());
 
 		assertSerializedSame(thumb, 398);
 
-		thumb.getScript();
-		thumbFull.getScript();
-		thumbSame.getScript();
+		thumb.getScript(MediaType.JPEG);
+		thumbFull.getScript(MediaType.JPEG);
+		thumbSame.getScript(MediaType.JPEG);
+		thumbRound.getScript(MediaType.JPEG);
 
 		thumb.test();
 		thumbFull.test();
 		thumbSame.test();
+		thumbRound.test();
 	}
 
 	@SuppressWarnings({"static-method", "unused"})
@@ -128,6 +133,73 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("unsupported outputContentType >non/sense<", e.getMessage());
+		}
+		final MediaImageMagickFilter template = new MediaImageMagickFilter(file, new IMOperation(), MediaType.JPEG);
+		try
+		{
+			template.forType(null, null, MediaType.ZIP);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("inputContentType", e.getMessage());
+		}
+		try
+		{
+			template.forType(MediaType.JPEG, null, MediaType.ZIP);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("operation", e.getMessage());
+		}
+		try
+		{
+			template.forType(MediaType.ZIP, new IMOperation(), MediaType.JPEG);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("unsupported inputContentType >application/zip<", e.getMessage());
+		}
+		try
+		{
+			template.forType("non/sense", new IMOperation(), MediaType.JPEG);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("unsupported inputContentType >non/sense<", e.getMessage());
+		}
+		try
+		{
+			template.forType(MediaType.JPEG, new IMOperation(), MediaType.ZIP);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("unsupported outputContentType >application/zip<", e.getMessage());
+		}
+		try
+		{
+			template.forType(MediaType.JPEG, new IMOperation(), "non/sense");
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("unsupported outputContentType >non/sense<", e.getMessage());
+		}
+		{
+			final MediaImageMagickFilter template2 = template.forType(MediaType.JPEG, new IMOperation(), MediaType.JPEG);
+			try
+			{
+				template2.forType(MediaType.JPEG, new IMOperation(), MediaType.JPEG);
+				fail();
+			}
+			catch(final IllegalArgumentException e)
+			{
+				assertEquals("duplicate inputContentType image/jpeg", e.getMessage());
+			}
 		}
 	}
 

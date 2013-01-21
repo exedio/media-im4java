@@ -22,6 +22,7 @@ import static com.exedio.cope.im4java.ThumbnailMagickItem.TYPE;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.file;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumb;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbFull;
+import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbRound;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbSame;
 import static com.exedio.cope.pattern.MediaType.GIF;
 import static com.exedio.cope.pattern.MediaType.JPEG;
@@ -144,6 +145,14 @@ public final class ThumbnailMagickTest extends CopeTest
 		assertEquals(null, txt.getThumbSameContentType());
 		assertEquals(null, emp.getThumbSameContentType());
 
+		assertEquals(PNG,  jpg.getThumbRoundContentType());
+		assertEquals(GIF,  png.getThumbRoundContentType());
+		assertEquals(JPEG, gif.getThumbRoundContentType());
+		assertEquals(PNG,  jpgX.getThumbRoundContentType());
+		assertEquals(GIF,  pngX.getThumbRoundContentType());
+		assertEquals(null, txt.getThumbRoundContentType());
+		assertEquals(null, emp.getThumbRoundContentType());
+
 		// get
 		assertType(JPEG, jpg.getThumb());
 		assertType(JPEG, png.getThumb());
@@ -169,6 +178,14 @@ public final class ThumbnailMagickTest extends CopeTest
 		assertNull(txt.getThumbSame());
 		assertNull(emp.getThumbSame());
 
+		assertType(PNG,  jpg.getThumbRound());
+		assertType(GIF,  png.getThumbRound());
+		assertType(JPEG, gif.getThumbRound());
+		assertType(PNG,  jpgX.getThumbRound());
+		assertType(GIF,  pngX.getThumbRound());
+		assertNull(txt.getThumbRound());
+		assertNull(emp.getThumbRound());
+
 		// doGet
 		assertDoGet(JPEG, thumb, jpg);
 		assertDoGet(JPEG, thumb, png);
@@ -193,6 +210,14 @@ public final class ThumbnailMagickTest extends CopeTest
 		assertDoGet(PNG,  thumbSame, pngX);
 		assertDoGet404("not computable", thumbSame, txt);
 		assertDoGet404("is null",        thumbSame, emp);
+
+		assertDoGet(PNG,  thumbRound, jpg);
+		assertDoGet(GIF,  thumbRound, png);
+		assertDoGet(JPEG, thumbRound, gif);
+		assertDoGet(PNG,  thumbRound, jpgX);
+		assertDoGet(GIF,  thumbRound, pngX);
+		assertDoGet404("not computable", thumbRound, txt);
+		assertDoGet404("is null",        thumbRound, emp);
 
 		// url
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbURL());
