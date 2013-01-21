@@ -103,15 +103,16 @@ final class Action
 		final File  inFile = File.createTempFile(MediaImageMagickFilter.class.getName() + ".in."  + id, ".data");
 		final File outFile = File.createTempFile(MediaImageMagickFilter.class.getName() + ".out." + id, outputContentType(inputContentType).getExtension());
 
+		final String inputContentTypeName = inputContentType.getName();
 		final int size;
-		if(MediaType.JPEG.equals(inputContentType.getName()))
+		if(MediaType.JPEG.equals(inputContentTypeName))
 			size = 1578;
-		else if(MediaType.PNG.equals(inputContentType.getName()))
+		else if(MediaType.PNG.equals(inputContentTypeName))
 			size = 5526;
-		else if(MediaType.GIF.equals(inputContentType.getName()))
+		else if(MediaType.GIF.equals(inputContentTypeName))
 			size = 2982;
 		else
-			throw new RuntimeException();
+			throw new RuntimeException(inputContentTypeName);
 
 		final byte[] b = new byte[size+2]; // size of the file plus 2 to detect larger file
 		{
