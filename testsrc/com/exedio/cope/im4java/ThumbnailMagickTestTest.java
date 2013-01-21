@@ -31,6 +31,8 @@ import org.im4java.core.IMOps;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.Media;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+
 public final class ThumbnailMagickTestTest extends CopeAssert
 {
 	static final Media file = new Media().optional().lengthMax(10000);
@@ -56,6 +58,7 @@ public final class ThumbnailMagickTestTest extends CopeAssert
 		f1.forType(PNG, new IMOperation().resize(40, 10, '#'), GIF ).test(); // TODO
 	}
 
+	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	private static final void assertFails(
 			final String errorMessage,
 			final MediaImageMagickFilter filter)
