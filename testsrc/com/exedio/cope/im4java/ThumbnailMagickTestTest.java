@@ -52,10 +52,10 @@ public final class ThumbnailMagickTestTest extends CopeAssert
 		assertFails("30x10#", new MediaImageMagickFilter(file, new IMOperation().resize(30, 10, '#'), PNG));
 		assertFails("30x10#", new MediaImageMagickFilter(file, new IMOperation().resize(30, 10, '#'), GIF));
 		final MediaImageMagickFilter f1 = new MediaImageMagickFilter(file, op);
-		f1.forType(PNG, new IMOperation().resize(40, 10, '#'), null).test(); // TODO
-		f1.forType(PNG, new IMOperation().resize(40, 10, '#'), JPEG).test(); // TODO
-		f1.forType(PNG, new IMOperation().resize(40, 10, '#'), PNG ).test(); // TODO
-		f1.forType(PNG, new IMOperation().resize(40, 10, '#'), GIF ).test(); // TODO
+		assertFails("40x10#", f1.forType(PNG, new IMOperation().resize(40, 10, '#'), null));
+		assertFails("40x10#", f1.forType(PNG, new IMOperation().resize(40, 10, '#'), JPEG));
+		assertFails("40x10#", f1.forType(PNG, new IMOperation().resize(40, 10, '#'), PNG ));
+		assertFails("40x10#", f1.forType(PNG, new IMOperation().resize(40, 10, '#'), GIF ));
 	}
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")

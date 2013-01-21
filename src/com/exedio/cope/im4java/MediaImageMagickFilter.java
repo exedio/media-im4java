@@ -22,9 +22,7 @@ import static com.exedio.cope.util.StrictFile.delete;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -242,41 +240,8 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 	@Override
 	public void test() throws IOException
 	{
-		final MediaType type = MediaType.forName(MediaType.JPEG);
-		final File  inFile = File.createTempFile(MediaImageMagickFilter.class.getName() + ".in."  + toString(), ".data");
-		final File outFile = File.createTempFile(MediaImageMagickFilter.class.getName() + ".out." + toString(), outputContentType(type).getExtension());
-
-
-		final byte[] b = new byte[1580]; // size of the file plus 2 to detect larger file
-		{
-			final InputStream inStream = MediaImageMagickFilter.class.getResourceAsStream("MediaImageMagickFilter-test.jpg");
-			try
-			{
-				final int inLength = inStream.read(b);
-				if(inLength!=1578) // size of the file
-					throw new RuntimeException(String.valueOf(inLength));
-			}
-			finally
-			{
-				inStream.close();
-			}
-		}
-		{
-			final FileOutputStream outStream = new FileOutputStream(inFile);
-			try
-			{
-				outStream.write(b);
-			}
-			finally
-			{
-				outStream.close();
-			}
-		}
-
-		actions.get(type).execute(inFile, outFile);
-
-		delete(inFile);
-		delete(outFile);
+		for(final MediaType type : supportedContentTypes)
+			actions.get(type).test(type, toString());
 	}
 
 	private MediaType outputContentType(final MediaType inputContentType)

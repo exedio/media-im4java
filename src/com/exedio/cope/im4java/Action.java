@@ -18,8 +18,12 @@
 
 package com.exedio.cope.im4java;
 
+import static com.exedio.cope.util.StrictFile.delete;
+
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.Properties;
@@ -92,6 +96,43 @@ final class Action
 		{
 			throw new RuntimeException(e);
 		}
+	}
+
+	void test(final MediaType inputContentType, final String id) throws IOException
+	{
+		final File  inFile = File.createTempFile(MediaImageMagickFilter.class.getName() + ".in."  + id, ".data");
+		final File outFile = File.createTempFile(MediaImageMagickFilter.class.getName() + ".out." + id, outputContentType(inputContentType).getExtension());
+
+		final byte[] b = new byte[1580]; // size of the file plus 2 to detect larger file
+		{
+			final InputStream inStream = MediaImageMagickFilter.class.getResourceAsStream("MediaImageMagickFilter-test.jpg");
+			try
+			{
+				final int inLength = inStream.read(b);
+				if(inLength!=1578) // size of the file
+					throw new RuntimeException(String.valueOf(inLength));
+			}
+			finally
+			{
+				inStream.close();
+			}
+		}
+		{
+			final FileOutputStream outStream = new FileOutputStream(inFile);
+			try
+			{
+				outStream.write(b);
+			}
+			finally
+			{
+				outStream.close();
+			}
+		}
+
+		execute(inFile, outFile);
+
+		delete(inFile);
+		delete(outFile);
 	}
 
 	String getScript()
