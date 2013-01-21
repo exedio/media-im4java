@@ -103,13 +103,23 @@ final class Action
 		final File  inFile = File.createTempFile(MediaImageMagickFilter.class.getName() + ".in."  + id, ".data");
 		final File outFile = File.createTempFile(MediaImageMagickFilter.class.getName() + ".out." + id, outputContentType(inputContentType).getExtension());
 
-		final byte[] b = new byte[1580]; // size of the file plus 2 to detect larger file
+		final int size;
+		if(MediaType.JPEG.equals(inputContentType.getName()))
+			size = 1578;
+		else if(MediaType.PNG.equals(inputContentType.getName()))
+			size = 5526;
+		else if(MediaType.GIF.equals(inputContentType.getName()))
+			size = 2982;
+		else
+			throw new RuntimeException();
+
+		final byte[] b = new byte[size+2]; // size of the file plus 2 to detect larger file
 		{
-			final InputStream inStream = MediaImageMagickFilter.class.getResourceAsStream("MediaImageMagickFilter-test.jpg");
+			final InputStream inStream = MediaImageMagickFilter.class.getResourceAsStream("MediaImageMagickFilter-test" + inputContentType.getExtension());
 			try
 			{
 				final int inLength = inStream.read(b);
-				if(inLength!=1578) // size of the file
+				if(inLength!=size) // size of the file
 					throw new RuntimeException(String.valueOf(inLength));
 			}
 			finally
