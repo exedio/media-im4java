@@ -165,7 +165,8 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 		if(type==null)
 			return notComputable;
 
-		final File outFile = execute(item, type);
+		final Action action = actions.get(type);
+		final File outFile = execute(item, type, action);
 
 		final long contentLength = outFile.length();
 		if(contentLength<=0)
@@ -173,7 +174,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 		if(contentLength<=Integer.MAX_VALUE)
 			response.setContentLength((int)contentLength);
 
-		response.setContentType(outputContentType(type).getName());
+		response.setContentType(action.outputContentType(type).getName());
 
 		final byte[] b = new byte[DataField.min(100*1024, contentLength)];
 		final FileInputStream body = new FileInputStream(outFile);
@@ -212,7 +213,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 		if(type==null)
 			return null;
 
-		final File outFile = execute(item, type);
+		final File outFile = execute(item, type, actions.get(type));
 
 		final long contentLength = outFile.length();
 		if(contentLength<=0)
@@ -244,19 +245,14 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 			actions.get(type).test(type, toString());
 	}
 
-	private MediaType outputContentType(final MediaType inputContentType)
-	{
-		return actions.get(inputContentType).outputContentType(inputContentType);
-	}
-
-	private final File execute(final Item item, final MediaType contentType) throws IOException
+	private final File execute(final Item item, final MediaType contentType, final Action action) throws IOException
 	{
 		final File  inFile = File.createTempFile(MediaImageMagickFilter.class.getName() + ".in."  + getID(), ".data");
-		final File outFile = File.createTempFile(MediaImageMagickFilter.class.getName() + ".out." + getID(), outputContentType(contentType).getExtension());
+		final File outFile = File.createTempFile(MediaImageMagickFilter.class.getName() + ".out." + getID(), action.outputContentType(contentType).getExtension());
 
 		source.getBody(item, inFile);
 
-		actions.get(contentType).execute(inFile, outFile);
+		action.execute(inFile, outFile);
 
 		delete(inFile);
 
