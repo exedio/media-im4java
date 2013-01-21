@@ -114,31 +114,34 @@ final class Action
 		else
 			throw new RuntimeException(inputContentTypeName);
 
-		final byte[] b = new byte[size+2]; // size of the file plus 2 to detect larger file
+		final byte[] b = new byte[size+2];
+		int transferredLength = 0;
 		{
 			final InputStream inStream = MediaImageMagickFilter.class.getResourceAsStream("MediaImageMagickFilter-test" + inputContentType.getExtension());
 			try
 			{
-				final int inLength = inStream.read(b);
-				if(inLength!=size) // size of the file
-					throw new RuntimeException(String.valueOf(inLength));
+				final FileOutputStream outStream = new FileOutputStream(inFile);
+				try
+				{
+					for(int len = inStream.read(b); len>=0; len = inStream.read(b))
+					{
+						transferredLength += len;
+						outStream.write(b, 0, len);
+					}
+				}
+				finally
+				{
+					outStream.close();
+				}
+
 			}
 			finally
 			{
 				inStream.close();
 			}
 		}
-		{
-			final FileOutputStream outStream = new FileOutputStream(inFile);
-			try
-			{
-				outStream.write(b);
-			}
-			finally
-			{
-				outStream.close();
-			}
-		}
+		if(transferredLength!=size) // size of the file
+			throw new RuntimeException(String.valueOf(transferredLength));
 
 		execute(inFile, outFile);
 
