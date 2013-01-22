@@ -32,4 +32,12 @@
 	
 		new MediaImageMagickThumbnail(new IMOperation().resize(20, 30, '>').flatten().background("white"))
 
+* Testing
+
+	Add a MediaTestableTest
+
+		for(final Type<?> type : Main.model.getTypes())
+			for(final Feature feature : type.getDeclaredFeatures())
+				if(feature instanceof MediaTestable)
+					((MediaTestable)feature).test();
 
