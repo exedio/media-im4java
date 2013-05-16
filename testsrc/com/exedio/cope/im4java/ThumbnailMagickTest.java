@@ -262,7 +262,7 @@ public final class ThumbnailMagickTest extends CopeTest
 				MediaType.forMagics(actualBody));
 	}
 
-	private static final void assertDoGet(
+	private final void assertDoGet(
 			final String expectedContentType,
 			final MediaImageMagickFilter feature,
 			final ThumbnailMagickItem item) throws IOException, NotFound
@@ -273,7 +273,9 @@ public final class ThumbnailMagickTest extends CopeTest
 
 		final Response response = new Response();
 		feature.doGetAndCommit(null, response, item);
+		assertFalse(model.hasCurrentTransaction());
 		response.assertIt(expectedContentType);
+		model.startTransaction(ThumbnailMagickTest.class.getName());
 	}
 
 	private static final class Response extends DummyResponse
@@ -333,7 +335,7 @@ public final class ThumbnailMagickTest extends CopeTest
 		}
 	}
 
-	private static final void assertDoGet404(
+	private final void assertDoGet404(
 			final String expectedResult,
 			final MediaImageMagickFilter feature,
 			final ThumbnailMagickItem item)
@@ -353,5 +355,6 @@ public final class ThumbnailMagickTest extends CopeTest
 		{
 			assertEquals(expectedResult, notFound.getMessage());
 		}
+		assertTrue(model.hasCurrentTransaction());
 	}
 }
