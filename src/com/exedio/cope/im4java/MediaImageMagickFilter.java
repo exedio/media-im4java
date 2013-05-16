@@ -151,19 +151,19 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 	}
 
 	@Override
-	public Media.Log doGetIfModified(
+	public void doGetAndCommit(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Item item)
-	throws IOException
+	throws IOException, NotFound
 	{
 		final String contentType = source.getContentType(item);
 		if(contentType==null)
-			return isNull;
+			throw notFoundIsNull();
 
 		final MediaType type = supported(MediaType.forNameAndAliases(contentType));
 		if(type==null)
-			return notComputable;
+			throw notFoundNotComputable();
 
 		final Action action = actions.get(type);
 		final File outFile = execute(item, type, action);
@@ -185,8 +185,6 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 			{
 				for(int len = body.read(b); len>=0; len = body.read(b))
 					out.write(b, 0, len);
-
-				return delivered;
 			}
 			finally
 			{
