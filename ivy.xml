@@ -18,8 +18,6 @@
 		<artifact name="exedio-cope-im4java" />
 		<artifact name="exedio-cope-im4java" type="src" ext="zip" />
 		<artifact name="exedio-cope-im4java" type="log" ext="txt" />
-		<artifact name="im4java" />
-		<artifact name="im4java" type="src" ext="zip" />
 	</publications>
 	<dependencies>
 		<dependency org="com.exedio" name="cope" rev="7450">
@@ -28,6 +26,7 @@
 			<conf name="build" mapped="junit" />
 			<conf name="build" mapped="sources" />
 		</dependency>
+		<dependency org="org.im4java" name="im4java" rev="1.4.0" conf="runtime->default,sources" />
 		<dependency org="junit" name="junit" rev="4.4" conf="build->default,sources" />
 		<dependency org="findbugs-x" name="findbugs" rev="2.0.1" conf="build->default" />
 	</dependencies>
