@@ -28,19 +28,18 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.im4java.core.IMOps;
 
-import com.exedio.cope.DataField;
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaFilter;
 import com.exedio.cope.pattern.MediaTestable;
 import com.exedio.cope.pattern.MediaType;
+import com.exedio.cope.pattern.MediaUtil;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
@@ -167,34 +166,12 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 
 		final Action action = actions.get(type);
 		final File outFile = execute(item, type, action, true);
-
-		final long contentLength = outFile.length();
-		if(contentLength<=0)
-			throw new RuntimeException(String.valueOf(contentLength));
-		if(contentLength<=Integer.MAX_VALUE)
-			response.setContentLength((int)contentLength);
-
-		response.setContentType(action.outputContentType(type).getName());
-
-		final byte[] b = new byte[DataField.min(100*1024, contentLength)];
-		final FileInputStream body = new FileInputStream(outFile);
 		try
 		{
-			final ServletOutputStream out = response.getOutputStream();
-			try
-			{
-				for(int len = body.read(b); len>=0; len = body.read(b))
-					out.write(b, 0, len);
-			}
-			finally
-			{
-				if(out!=null)
-					out.close();
-			}
+			MediaUtil.send(action.outputContentType(type).getName(), outFile, response);
 		}
 		finally
 		{
-			body.close();
 			delete(outFile);
 		}
 	}
