@@ -39,6 +39,7 @@ import javax.servlet.ServletOutputStream;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeTest;
+import com.exedio.cope.pattern.MediaPath.NotFound;
 import com.exedio.cope.pattern.MediaType;
 import com.exedio.cope.util.Properties;
 
@@ -118,7 +119,7 @@ public final class ThumbnailMagickTest extends CopeTest
 		return ThumbnailMagickTest.class.getResourceAsStream(name);
 	}
 
-	public void testThumbs() throws IOException
+	public void testThumbs() throws IOException, NotFound
 	{
 		// content type
 		assertEquals(JPEG, jpg.getThumbContentType());
@@ -261,18 +262,20 @@ public final class ThumbnailMagickTest extends CopeTest
 				MediaType.forMagics(actualBody));
 	}
 
-	private static final void assertDoGet(
+	private final void assertDoGet(
 			final String expectedContentType,
 			final MediaImageMagickFilter feature,
-			final ThumbnailMagickItem item) throws IOException
+			final ThumbnailMagickItem item) throws IOException, NotFound
 	{
 		assertNotNull(expectedContentType);
 		assertNotNull(feature);
 		assertNotNull(item);
 
 		final Response response = new Response();
-		assertEquals("delivered", feature.doGetIfModified(null, response, item).toString());
+		feature.doGetAndCommit(null, response, item);
+		assertFalse(model.hasCurrentTransaction());
 		response.assertIt(expectedContentType);
+		model.startTransaction(ThumbnailMagickTest.class.getName());
 	}
 
 	private static final class Response extends DummyResponse
@@ -332,7 +335,7 @@ public final class ThumbnailMagickTest extends CopeTest
 		}
 	}
 
-	private static final void assertDoGet404(
+	private final void assertDoGet404(
 			final String expectedResult,
 			final MediaImageMagickFilter feature,
 			final ThumbnailMagickItem item)
@@ -342,6 +345,16 @@ public final class ThumbnailMagickTest extends CopeTest
 		assertNotNull(item);
 
 		final DummyResponse response = new DummyResponse();
-		assertEquals(expectedResult, feature.doGetIfModified(null, response, item).toString());
+
+		try
+		{
+			feature.doGetAndCommit(null, response, item);
+			fail();
+		}
+		catch(final NotFound notFound)
+		{
+			assertEquals(expectedResult, notFound.getMessage());
+		}
+		assertTrue(model.hasCurrentTransaction());
 	}
 }

@@ -7,5 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* adapt to Media API Refactoring in cope
+	BEWARE: You need a new cope version !!!
 * im4java becomes ivy dependency
 	rename im4java-src.zip to im4java-source.jar

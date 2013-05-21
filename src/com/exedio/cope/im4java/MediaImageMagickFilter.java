@@ -151,22 +151,22 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 	}
 
 	@Override
-	public Media.Log doGetIfModified(
+	public void doGetAndCommit(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
 			final Item item)
-	throws IOException
+	throws IOException, NotFound
 	{
 		final String contentType = source.getContentType(item);
 		if(contentType==null)
-			return isNull;
+			throw notFoundIsNull();
 
 		final MediaType type = supported(MediaType.forNameAndAliases(contentType));
 		if(type==null)
-			return notComputable;
+			throw notFoundNotComputable();
 
 		final Action action = actions.get(type);
-		final File outFile = execute(item, type, action);
+		final File outFile = execute(item, type, action, true);
 
 		final long contentLength = outFile.length();
 		if(contentLength<=0)
@@ -185,8 +185,6 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 			{
 				for(int len = body.read(b); len>=0; len = body.read(b))
 					out.write(b, 0, len);
-
-				return delivered;
 			}
 			finally
 			{
@@ -213,7 +211,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 		if(type==null)
 			return null;
 
-		final File outFile = execute(item, type, actions.get(type));
+		final File outFile = execute(item, type, actions.get(type), false);
 
 		final long contentLength = outFile.length();
 		if(contentLength<=0)
@@ -245,12 +243,15 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 			actions.get(type).test(type, toString());
 	}
 
-	private final File execute(final Item item, final MediaType contentType, final Action action) throws IOException
+	private final File execute(final Item item, final MediaType contentType, final Action action, final boolean commit) throws IOException
 	{
 		final File  inFile = File.createTempFile(MediaImageMagickFilter.class.getName() + ".in."  + getID(), ".data");
 		final File outFile = File.createTempFile(MediaImageMagickFilter.class.getName() + ".out." + getID(), action.outputContentType(contentType).getExtension());
 
 		source.getBody(item, inFile);
+
+		if(commit)
+			commit();
 
 		action.execute(inFile, outFile);
 
