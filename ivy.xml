@@ -22,7 +22,7 @@
 		<artifact name="im4java" type="src" ext="zip" />
 	</publications>
 	<dependencies>
-		<dependency org="com.exedio" name="cope" rev="7450">
+		<dependency org="com.exedio" name="cope" rev="7549">
 			<conf name="runtime" mapped="runtime" />
 			<conf name="build" mapped="hsqldb" />
 			<conf name="build" mapped="junit" />
