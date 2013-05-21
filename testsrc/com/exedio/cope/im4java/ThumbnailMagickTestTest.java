@@ -72,17 +72,17 @@ public final class ThumbnailMagickTestTest extends CopeAssert
 		catch(final RuntimeException runtimeException)
 		{
 			assertStartsWith(
-					"org.im4java.core.CommandException: org.im4java.core.CommandException: convert.im6: invalid argument for option `-resize': " + errorMessage + " @ ",
+					"org.im4java.core.CommandException: org.im4java.core.CommandException: convert: invalid argument for option `-resize': " + errorMessage + " @ ",
 					runtimeException.getMessage());
 			final CommandException commandException = (CommandException)runtimeException.getCause();
 			assertStartsWith(
-					"org.im4java.core.CommandException: convert.im6: invalid argument for option `-resize': " + errorMessage + " @ ",
+					"org.im4java.core.CommandException: convert: invalid argument for option `-resize': " + errorMessage + " @ ",
 					commandException.getMessage());
 			assertEquals(-1, commandException.getReturnCode());
 			assertEquals(list(), commandException.getErrorText());
 			final CommandException commandException2 = (CommandException)commandException.getCause();
 			assertStartsWith(
-					"convert.im6: invalid argument for option `-resize': " + errorMessage + " @ ",
+					"convert: invalid argument for option `-resize': " + errorMessage + " @ ",
 					commandException2.getMessage());
 			assertEquals(1, commandException2.getReturnCode());
 			assertEquals(null, commandException2.getCause());
