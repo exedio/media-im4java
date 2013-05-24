@@ -101,8 +101,8 @@ final class Action
 
 	void test(final MediaType inputContentType, final String id) throws IOException
 	{
-		final File  inFile = createTempFile(MediaImageMagickFilter.class.getName() + ".in."  + id, ".data");
-		final File outFile = createTempFile(MediaImageMagickFilter.class.getName() + ".out." + id, outputContentType(inputContentType).getExtension());
+		final File  in = createTempFile(MediaImageMagickFilter.class.getName() + ".in."  + id, ".data");
+		final File out = createTempFile(MediaImageMagickFilter.class.getName() + ".out." + id, outputContentType(inputContentType).getExtension());
 
 		final String inputContentTypeName = inputContentType.getName();
 		final int size;
@@ -121,7 +121,7 @@ final class Action
 			final InputStream inStream = MediaImageMagickFilter.class.getResourceAsStream("MediaImageMagickFilter-test" + inputContentType.getExtension());
 			try
 			{
-				final FileOutputStream outStream = new FileOutputStream(inFile);
+				final FileOutputStream outStream = new FileOutputStream(in);
 				try
 				{
 					for(int len = inStream.read(b); len>=0; len = inStream.read(b))
@@ -144,10 +144,10 @@ final class Action
 		if(transferredLength!=size) // size of the file
 			throw new RuntimeException(String.valueOf(transferredLength));
 
-		execute(inFile, outFile);
+		execute(in, out);
 
-		delete(inFile);
-		delete(outFile);
+		delete(in);
+		delete(out);
 	}
 
 	String getScript()
