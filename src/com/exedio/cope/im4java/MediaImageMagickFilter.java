@@ -221,7 +221,12 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 			actions.get(type).test(type, toString());
 	}
 
-	private final File execute(final Item item, final MediaType contentType, final Action action, final boolean commit) throws IOException
+	private final File execute(
+			final Item item,
+			final MediaType contentType,
+			final Action action,
+			final boolean commit)
+		throws IOException
 	{
 		final File  inFile = createTempFile(MediaImageMagickFilter.class.getName() + ".in."  + getID(), ".data");
 		final File outFile = createTempFile(MediaImageMagickFilter.class.getName() + ".out." + getID(), action.outputContentType(contentType).getExtension());
