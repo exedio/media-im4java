@@ -81,13 +81,13 @@ final class Action
 				: inputContentType;
 	}
 
-	void execute(final File inFile, final File outFile) throws IOException
+	void execute(final File in, final File out) throws IOException
 	{
 		final ConvertCmd cmd = new ConvertCmd();
 		//System.out.println("------script-----" + getScript());
 		try
 		{
-			cmd.run(operationWithImage, inFile.getAbsolutePath(), outFile.getAbsolutePath());
+			cmd.run(operationWithImage, in.getAbsolutePath(), out.getAbsolutePath());
 		}
 		catch(final InterruptedException e)
 		{
