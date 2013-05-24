@@ -19,6 +19,7 @@
 package com.exedio.cope.im4java;
 
 import static com.exedio.cope.util.StrictFile.delete;
+import static java.io.File.createTempFile;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -222,8 +223,8 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 
 	private final File execute(final Item item, final MediaType contentType, final Action action, final boolean commit) throws IOException
 	{
-		final File  inFile = File.createTempFile(MediaImageMagickFilter.class.getName() + ".in."  + getID(), ".data");
-		final File outFile = File.createTempFile(MediaImageMagickFilter.class.getName() + ".out." + getID(), action.outputContentType(contentType).getExtension());
+		final File  inFile = createTempFile(MediaImageMagickFilter.class.getName() + ".in."  + getID(), ".data");
+		final File outFile = createTempFile(MediaImageMagickFilter.class.getName() + ".out." + getID(), action.outputContentType(contentType).getExtension());
 
 		source.getBody(item, inFile);
 
