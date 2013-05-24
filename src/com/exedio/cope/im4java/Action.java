@@ -19,6 +19,7 @@
 package com.exedio.cope.im4java;
 
 import static com.exedio.cope.util.StrictFile.delete;
+import static java.io.File.createTempFile;
 
 import java.io.File;
 import java.io.FileOutputStream;
