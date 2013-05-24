@@ -228,19 +228,19 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 			final boolean commit)
 		throws IOException
 	{
-		final File  inFile = createTempFile(MediaImageMagickFilter.class.getName() + ".in."  + getID(), ".data");
-		final File outFile = createTempFile(MediaImageMagickFilter.class.getName() + ".out." + getID(), action.outputContentType(contentType).getExtension());
+		final File  in = createTempFile(MediaImageMagickFilter.class.getName() + ".in."  + getID(), ".data");
+		final File out = createTempFile(MediaImageMagickFilter.class.getName() + ".out." + getID(), action.outputContentType(contentType).getExtension());
 
-		source.getBody(item, inFile);
+		source.getBody(item, in);
 
 		if(commit)
 			commit();
 
-		action.execute(inFile, outFile);
+		action.execute(in, out);
 
-		delete(inFile);
+		delete(in);
 
-		return outFile;
+		return out;
 	}
 
 	public String getScript(final String contentType)
