@@ -52,7 +52,8 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 			new HashSet<MediaType>(Arrays.asList(
 					MediaType.forName(MediaType.JPEG),
 					MediaType.forName(MediaType.PNG),
-					MediaType.forName(MediaType.GIF)
+					MediaType.forName(MediaType.GIF),
+					MediaType.forName("image/svg+xml")
 			));
 
 	private final Media source;
