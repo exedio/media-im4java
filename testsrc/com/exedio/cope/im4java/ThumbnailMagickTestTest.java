@@ -23,6 +23,7 @@ import static com.exedio.cope.pattern.MediaType.JPEG;
 import static com.exedio.cope.pattern.MediaType.PNG;
 
 import java.io.IOException;
+import java.util.regex.Pattern;
 
 import org.im4java.core.CommandException;
 import org.im4java.core.IMOperation;
@@ -71,28 +72,27 @@ public final class ThumbnailMagickTestTest extends CopeAssert
 		}
 		catch(final RuntimeException runtimeException)
 		{
-			assertStartsWith(
-					"org.im4java.core.CommandException: org.im4java.core.CommandException: convert: invalid argument for option `-resize': " + errorMessage + " @ ",
-					runtimeException.getMessage());
+			final String start = "org.im4java.core.CommandException: org.im4java.core.CommandException: convert";
+			final String message = ": invalid argument for option `-resize': " + errorMessage + " @ ";
+			assertExceptionMessage(runtimeException, start, message);
+
 			final CommandException commandException = (CommandException)runtimeException.getCause();
-			assertStartsWith(
-					"org.im4java.core.CommandException: convert: invalid argument for option `-resize': " + errorMessage + " @ ",
-					commandException.getMessage());
+			assertExceptionMessage(commandException, "org.im4java.core.CommandException: convert", message);
+
 			assertEquals(-1, commandException.getReturnCode());
 			assertEquals(list(), commandException.getErrorText());
 			final CommandException commandException2 = (CommandException)commandException.getCause();
-			assertStartsWith(
-					"convert: invalid argument for option `-resize': " + errorMessage + " @ ",
-					commandException2.getMessage());
+
+			assertExceptionMessage(commandException2, "convert", message);
 			assertEquals(1, commandException2.getReturnCode());
 			assertEquals(null, commandException2.getCause());
 		}
 	}
 
-	private static final void assertStartsWith(
-			final String expected,
-			final String actual)
+	private static void assertExceptionMessage( final Exception runtimeException, final String start, final String message)
 	{
-		assertTrue(actual, actual.startsWith(expected));
+		final String pattern = Pattern.quote(start)+ ".*?"+Pattern.quote(message);
+		assertTrue("The exception message >"+runtimeException.getMessage()+"< did not match the expected patterns >"+start+
+			"< >"+message+"<.", Pattern.compile(pattern).matcher(runtimeException.getMessage()).find());
 	}
 }
