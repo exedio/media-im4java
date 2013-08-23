@@ -113,7 +113,7 @@ final class Action
 		else if(MediaType.GIF.equals(inputContentTypeName))
 			size = 2982;
 		else if("image/svg+xml".equals(inputContentTypeName))
-			size = 1955;
+			size = 1934;
 		else
 			throw new RuntimeException(inputContentTypeName);
 
