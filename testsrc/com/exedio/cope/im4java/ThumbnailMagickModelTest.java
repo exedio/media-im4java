@@ -29,19 +29,16 @@ import static com.exedio.cope.pattern.MediaType.JPEG;
 import static com.exedio.cope.pattern.MediaType.PDF;
 import static com.exedio.cope.pattern.MediaType.PNG;
 
-import java.io.IOException;
-import java.io.Serializable;
-import java.util.Arrays;
-import java.util.HashSet;
-
-import org.im4java.core.IMOperation;
-
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.MediaType;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.io.IOException;
+import java.io.Serializable;
+import java.util.Arrays;
+import java.util.HashSet;
+import org.im4java.core.IMOperation;
 
 public final class ThumbnailMagickModelTest extends CopeAssert
 {

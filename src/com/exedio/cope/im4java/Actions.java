@@ -18,11 +18,9 @@
 
 package com.exedio.cope.im4java;
 
-import java.util.HashMap;
-
-import org.im4java.core.IMOps;
-
 import com.exedio.cope.pattern.MediaType;
+import java.util.HashMap;
+import org.im4java.core.IMOps;
 
 final class Actions
 {

@@ -22,11 +22,10 @@ import static com.exedio.cope.pattern.MediaType.GIF;
 import static com.exedio.cope.pattern.MediaType.JPEG;
 import static com.exedio.cope.pattern.MediaType.PNG;
 
-import org.im4java.core.IMOperation;
-import org.im4java.core.IMOps;
-
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.Media;
+import org.im4java.core.IMOperation;
+import org.im4java.core.IMOps;
 
 public final class ThumbnailMagickOutputContentTypeTest extends CopeAssert
 {

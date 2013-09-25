@@ -22,17 +22,14 @@ import static com.exedio.cope.pattern.MediaType.GIF;
 import static com.exedio.cope.pattern.MediaType.JPEG;
 import static com.exedio.cope.pattern.MediaType.PNG;
 
+import com.exedio.cope.junit.CopeAssert;
+import com.exedio.cope.pattern.Media;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.util.regex.Pattern;
-
 import org.im4java.core.CommandException;
 import org.im4java.core.IMOperation;
 import org.im4java.core.IMOps;
-
-import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.pattern.Media;
-
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class ThumbnailMagickTestTest extends CopeAssert
 {

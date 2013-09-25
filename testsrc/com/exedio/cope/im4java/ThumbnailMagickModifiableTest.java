@@ -18,17 +18,15 @@
 
 package com.exedio.cope.im4java;
 
-import java.io.IOException;
-
-import org.im4java.core.IMOperation;
-import org.im4java.core.IMOps;
-
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.Media;
+import java.io.IOException;
+import org.im4java.core.IMOperation;
+import org.im4java.core.IMOps;
 
 public final class ThumbnailMagickModifiableTest extends CopeAssert
 {

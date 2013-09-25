@@ -18,11 +18,10 @@
 
 package com.exedio.cope.im4java;
 
-import org.im4java.core.IMOperation;
-
 import com.exedio.cope.Item;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaType;
+import org.im4java.core.IMOperation;
 
 public final class ContentTypeInstrumentItem extends Item
 {

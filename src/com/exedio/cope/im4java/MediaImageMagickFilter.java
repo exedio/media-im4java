@@ -21,19 +21,6 @@ package com.exedio.cope.im4java;
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.io.File.createTempFile;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.im4java.core.IMOps;
-
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.pattern.Media;
@@ -41,8 +28,17 @@ import com.exedio.cope.pattern.MediaFilter;
 import com.exedio.cope.pattern.MediaTestable;
 import com.exedio.cope.pattern.MediaType;
 import com.exedio.cope.pattern.MediaUtil;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.im4java.core.IMOps;
 
 public final class MediaImageMagickFilter extends MediaFilter implements MediaTestable
 {
