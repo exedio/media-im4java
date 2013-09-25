@@ -112,6 +112,8 @@ final class Action
 			size = 5526;
 		else if(MediaType.GIF.equals(inputContentTypeName))
 			size = 2982;
+		else if(MediaType.PDF.equals(inputContentTypeName))
+			size = 10607;
 		else if("image/svg+xml".equals(inputContentTypeName))
 			size = 1934;
 		else
