@@ -226,9 +226,9 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 			final boolean commit)
 		throws IOException
 	{
-		final String name = MediaImageMagickFilter.class.getName();
-		final File  in = createTempFile(name + ".in."  + getID(), ".data");
-		final File out = createTempFile(name + ".out." + getID(), action.outputContentType(contentType).getExtension());
+		final String name = MediaImageMagickFilter.class.getName() + '_' + getID() + '_' + item.getCopeID();
+		final File  in = createTempFile(name + "_inp_", ".data");
+		final File out = createTempFile(name + "_out_", action.outputContentType(contentType).getExtension());
 
 		source.getBody(item, in);
 

@@ -99,8 +99,9 @@ final class Action
 
 	void test(final MediaType inputContentType, final String id) throws IOException
 	{
-		final File  in = createTempFile(MediaImageMagickFilter.class.getName() + ".in."  + id, ".data");
-		final File out = createTempFile(MediaImageMagickFilter.class.getName() + ".out." + id, outputContentType(inputContentType).getExtension());
+		final String name = MediaImageMagickFilter.class.getName() + '_' + id + "_test";
+		final File  in = createTempFile(name + "_inp_", ".data");
+		final File out = createTempFile(name + "_out_", outputContentType(inputContentType).getExtension());
 
 		final String inputContentTypeName = inputContentType.getName();
 		final int size;
