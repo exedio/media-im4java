@@ -56,6 +56,16 @@ public final class ThumbnailMagickTestTest extends CopeAssert
 		assertFails("40x10#", f1.forType(PNG, new IMOperation().resize(40, 10, '#'), GIF ));
 	}
 
+	@SuppressWarnings({"static-method","boxing"})
+	public void testUnsupportedBySource() throws IOException
+	{
+		final Media source = new Media().optional().lengthMax(10000).contentType(JPEG);
+		final MediaImageMagickFilter filter =
+				new MediaImageMagickFilter(source, op).
+				forType(PNG, new IMOperation().resize(30, 20, '#'), PNG);
+		assertFails("30x20#", filter); // TODO wrong, as PNG is not supported by source media
+	}
+
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	private static final void assertFails(
 			final String errorMessage,
