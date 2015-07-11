@@ -217,7 +217,21 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 	public void test() throws IOException
 	{
 		for(final MediaType type : supportedContentTypes)
-			actions.get(type).test(type, toString());
+		{
+			if(checkSourceContentType(type))
+				actions.get(type).test(type, toString());
+		}
+	}
+
+	private boolean checkSourceContentType(final MediaType type)
+	{
+		if(source.checkContentType(type.getName()))
+			return true;
+		for(final String alias : type.getAliases())
+			if(source.checkContentType(alias))
+				return true;
+
+		return false;
 	}
 
 	private final File execute(

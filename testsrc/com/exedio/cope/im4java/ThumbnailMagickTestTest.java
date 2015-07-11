@@ -63,7 +63,7 @@ public final class ThumbnailMagickTestTest extends CopeAssert
 		final MediaImageMagickFilter filter =
 				new MediaImageMagickFilter(source, op).
 				forType(PNG, new IMOperation().resize(30, 20, '#'), PNG);
-		assertFails("30x20#", filter); // TODO wrong, as PNG is not supported by source media
+		filter.test();
 	}
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
