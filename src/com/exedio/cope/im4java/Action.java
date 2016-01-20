@@ -101,7 +101,7 @@ final class Action
 	{
 		final String name = MediaImageMagickFilter.class.getName() + '_' + id + "_test";
 		final File  in = createTempFile(name + "_inp_", ".data");
-		final File out = createTempFile(name + "_out_", outputContentType(inputContentType).getExtension());
+		final File out = createTempFile(name + "_out_", outputContentType(inputContentType).getDefaultExtension());
 
 		final String inputContentTypeName = inputContentType.getName();
 		final int size;
@@ -121,7 +121,7 @@ final class Action
 		final byte[] b = new byte[size+2];
 		int transferredLength = 0;
 		{
-			final InputStream inStream = MediaImageMagickFilter.class.getResourceAsStream("MediaImageMagickFilter-test" + inputContentType.getExtension());
+			final InputStream inStream = MediaImageMagickFilter.class.getResourceAsStream("MediaImageMagickFilter-test" + inputContentType.getDefaultExtension());
 			try
 			{
 				final FileOutputStream outStream = new FileOutputStream(in);

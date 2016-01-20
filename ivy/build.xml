@@ -16,7 +16,11 @@
 				<include name="*-dist.tar.gz" />
 			</fileset>
 		</move>
-		
+		<delete dir="../lib">
+			<include name="*" />
+			<!-- TODO -->
+			<!--<exclude name="yaml_331_110618.zip" />-->
+		</delete>
 		<copy overwrite="true" todir="../lib">
 			<fileset dir="artifacts/lib">
 				<!--exclude name="example.jar" /-->

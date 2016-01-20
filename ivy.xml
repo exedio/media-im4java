@@ -2,7 +2,7 @@
 <ivy-module version="2.0"
 				xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 				xsi:noNamespaceSchemaLocation="http://ant.apache.org/ivy/schemas/ivy.xsd">
-	<info 
+	<info
 			organisation="com.exedio"
 			module="copeim4java"
 			revision="@BUILD_REVISION@">
@@ -12,21 +12,26 @@
 	</info>
 	<configurations>
 		<conf name="runtime" />
+		<conf name="sources" />
+		<conf name="changelog" />
 		<conf name="build" extends="runtime" visibility="private" />
 	</configurations>
 	<publications>
 		<artifact name="exedio-cope-im4java" />
-		<artifact name="exedio-cope-im4java" type="src" ext="zip" />
-		<artifact name="exedio-cope-im4java" type="log" ext="txt" />
+		<artifact name="exedio-cope-im4java" conf="sources"   type="src" ext="zip" />
+		<artifact name="exedio-cope-im4java" conf="changelog" type="log" ext="txt" />
 	</publications>
 	<dependencies>
-		<dependency org="com.exedio" name="cope" rev="7562">
+		<dependency org="javax.servlet" name="servlet-api" rev="2.5" conf="runtime->default; build->sources" />
+		<dependency org="com.exedio" name="copeutil" rev="483" conf="runtime->runtime; build->runtime,sources,changelog" />
+		<dependency org="com.exedio" name="cope" rev="8613">
 			<conf name="runtime" mapped="runtime" />
 			<conf name="build" mapped="hsqldb" />
 			<conf name="build" mapped="junit" />
 			<conf name="build" mapped="sources" />
+			<conf name="build" mapped="changelog"/>
 		</dependency>
-		<dependency org="org.im4java" name="im4java" rev="1.4.0" conf="runtime->default,sources" />
+		<dependency org="org.im4java" name="im4java" rev="1.4.0" conf="runtime->default; build->sources" />
 		<dependency org="junit" name="junit" rev="4.4" conf="build->default,sources" />
 		<dependency org="findbugs-x" name="findbugs" rev="3.0.0" conf="build->default" />
 	</dependencies>

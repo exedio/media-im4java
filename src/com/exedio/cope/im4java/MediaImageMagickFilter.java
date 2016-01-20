@@ -243,7 +243,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 	{
 		final String name = "com.exedio.cope.im4java_" + getID() + '_' + getPrimaryKeyColumnValue(item);
 		final File  in = createTempFile(name + "_inp_", ".data");
-		final File out = createTempFile(name + "_out_", action.outputContentType(contentType).getExtension());
+		final File out = createTempFile(name + "_out_", action.outputContentType(contentType).getDefaultExtension());
 
 		source.getBody(item, in);
 

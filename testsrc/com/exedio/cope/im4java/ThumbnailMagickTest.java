@@ -30,7 +30,7 @@ import static com.exedio.cope.pattern.MediaType.PNG;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
-import com.exedio.cope.junit.CopeTest;
+import com.exedio.cope.junit.CopeModelTest;
 import com.exedio.cope.pattern.MediaPath.NotFound;
 import com.exedio.cope.pattern.MediaType;
 import com.exedio.cope.util.Properties;
@@ -42,7 +42,7 @@ import java.util.Collection;
 import java.util.Collections;
 import javax.servlet.ServletOutputStream;
 
-public final class ThumbnailMagickTest extends CopeTest
+public final class ThumbnailMagickTest extends CopeModelTest
 {
 	static final Model MODEL = ThumbnailMagickModelTest.MODEL;
 
@@ -63,13 +63,13 @@ public final class ThumbnailMagickTest extends CopeTest
 	{
 		super.setUp();
 		mediaRootUrl = model.getConnectProperties().getMediaRootUrl();
-		jpg = deleteOnTearDown(new ThumbnailMagickItem());
-		jpgX= deleteOnTearDown(new ThumbnailMagickItem());
-		png = deleteOnTearDown(new ThumbnailMagickItem());
-		pngX= deleteOnTearDown(new ThumbnailMagickItem());
-		gif = deleteOnTearDown(new ThumbnailMagickItem());
-		txt = deleteOnTearDown(new ThumbnailMagickItem());
-		emp = deleteOnTearDown(new ThumbnailMagickItem());
+		jpg = new ThumbnailMagickItem();
+		jpgX= new ThumbnailMagickItem();
+		png = new ThumbnailMagickItem();
+		pngX= new ThumbnailMagickItem();
+		gif = new ThumbnailMagickItem();
+		txt = new ThumbnailMagickItem();
+		emp = new ThumbnailMagickItem();
 		jpg.setFile(resource("thumbnail-test.jpg"), JPEG);
 		png.setFile(resource("thumbnail-test.png"), PNG);
 		gif.setFile(resource("thumbnail-test.gif"), GIF);
