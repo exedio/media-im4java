@@ -4,20 +4,20 @@
 
 	<property file="local.properties" />
 	<property file="project.properties" />
-	
+
 	<import>
 		<fileset dir="macros">
 			<include name="*.xml" />
 		</fileset>
 	</import>
-	
+
 	<target name="compile">
 		<compile srcdir="src">
 			<classpath>
 				<pathelement location="lib/exedio-cope.jar" />
 				<pathelement location="lib/im4java.jar" />
 				<pathelement location="lib/servlet-api.jar" />
-				
+
 				<pathelement location="lib/exedio-cope-instrument-annotations.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
@@ -48,7 +48,7 @@
 			</fileset>
 		</instrument>
 	</target>
-	
+
 	<target name="test.compile" depends="compile, test.instrument">
 		<compile srcdir="testsrc">
 			<classpath>
@@ -56,16 +56,16 @@
 				<pathelement location="lib/exedio-cope.jar" />
 				<pathelement location="lib/im4java.jar" />
 				<pathelement location="lib/servlet-api.jar" />
-				
+
 				<pathelement location="lib/exedio-cope-instrument-annotations.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
-				
+
 				<pathelement location="lib/exedio-cope-junit.jar" />
 				<pathelement location="lib/junit.jar" />
 			</classpath>
 		</compile>
 	</target>
-	
+
 	<target name="test.run" depends="test.compile">
 		<mkdir dir="build/testresults" />
 		<mkdir dir="build/testtmpdir" />
@@ -90,9 +90,9 @@
 			<assertions><enable/></assertions>
 		</junit>
 	</target>
-	
+
 	<target name="test" depends="test.run" />
-	
+
 	<target name="jar" depends="compile">
 		<jar jarfile="build/exedio-cope-im4java.jar" basedir="build/classes/src" filesonly="true" duplicate="fail" strict="fail" level="9">
 			<manifest>
@@ -105,7 +105,7 @@
 			</manifest>
 		</jar>
 	</target>
-	
+
 	<target name="jar.src">
 		<mkdir dir="build" />
 		<zip destfile="build/exedio-cope-im4java-src.zip" filesonly="true" whenempty="fail" duplicate="fail" level="9">
@@ -114,7 +114,7 @@
 			</zipfileset>
 		</zip>
 	</target>
-	
+
 	<target name="clean">
 		<delete dir="build" />
 		<delete dir="api" /><!-- not created anymore-->
@@ -156,7 +156,7 @@
 			</classpath>
 		</javadoc>
 	</target>
-	
+
 	<target name="findbugs" depends="compile, test.compile, findbugs.taskdef">
 		<findbugs
 					home="${basedir}/build/findbugs-home"
@@ -179,8 +179,8 @@
 			</auxclasspath>
 		</findbugs>
 	</target>
-	
-	
+
+
 	<target name="build" depends="compile, test, jar, api" />
 	<target name="all" depends="build, jar.src, findbugs" />
 
@@ -198,5 +198,5 @@
 			</filterset>
 		</copy>
 	</target>
-	
+
 </project>
