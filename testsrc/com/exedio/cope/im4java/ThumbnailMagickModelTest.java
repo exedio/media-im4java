@@ -28,11 +28,11 @@ import static com.exedio.cope.pattern.MediaType.GIF;
 import static com.exedio.cope.pattern.MediaType.JPEG;
 import static com.exedio.cope.pattern.MediaType.PDF;
 import static com.exedio.cope.pattern.MediaType.PNG;
+import static com.exedio.cope.pattern.MediaType.ZIP;
 
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
-import com.exedio.cope.pattern.MediaType;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.Serializable;
@@ -81,10 +81,10 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 
 		assertSerializedSame(thumb, 398);
 
-		thumb.getScript(MediaType.JPEG);
-		thumbFull.getScript(MediaType.JPEG);
-		thumbSame.getScript(MediaType.JPEG);
-		thumbRound.getScript(MediaType.JPEG);
+		thumb.getScript(JPEG);
+		thumbFull.getScript(JPEG);
+		thumbSame.getScript(JPEG);
+		thumbRound.getScript(JPEG);
 
 		thumb.test();
 		thumbFull.test();
@@ -116,7 +116,7 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 		}
 		try
 		{
-			new MediaImageMagickFilter(file, new IMOperation(), MediaType.ZIP);
+			new MediaImageMagickFilter(file, new IMOperation(), ZIP);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -132,10 +132,10 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 		{
 			assertEquals("unsupported outputContentType >non/sense<", e.getMessage());
 		}
-		final MediaImageMagickFilter template = new MediaImageMagickFilter(file, new IMOperation(), MediaType.JPEG);
+		final MediaImageMagickFilter template = new MediaImageMagickFilter(file, new IMOperation(), JPEG);
 		try
 		{
-			template.forType(null, null, MediaType.ZIP);
+			template.forType(null, null, ZIP);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -144,7 +144,7 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 		}
 		try
 		{
-			template.forType(MediaType.JPEG, null, MediaType.ZIP);
+			template.forType(JPEG, null, ZIP);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -153,7 +153,7 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 		}
 		try
 		{
-			template.forType(MediaType.ZIP, new IMOperation(), MediaType.JPEG);
+			template.forType(ZIP, new IMOperation(), JPEG);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -162,7 +162,7 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 		}
 		try
 		{
-			template.forType("non/sense", new IMOperation(), MediaType.JPEG);
+			template.forType("non/sense", new IMOperation(), JPEG);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -171,7 +171,7 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 		}
 		try
 		{
-			template.forType(MediaType.JPEG, new IMOperation(), MediaType.ZIP);
+			template.forType(JPEG, new IMOperation(), ZIP);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -180,7 +180,7 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 		}
 		try
 		{
-			template.forType(MediaType.JPEG, new IMOperation(), "non/sense");
+			template.forType(JPEG, new IMOperation(), "non/sense");
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -188,10 +188,10 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 			assertEquals("unsupported outputContentType >non/sense<", e.getMessage());
 		}
 		{
-			final MediaImageMagickFilter template2 = template.forType(MediaType.JPEG, new IMOperation(), MediaType.JPEG);
+			final MediaImageMagickFilter template2 = template.forType(JPEG, new IMOperation(), JPEG);
 			try
 			{
-				template2.forType(MediaType.JPEG, new IMOperation(), MediaType.JPEG);
+				template2.forType(JPEG, new IMOperation(), JPEG);
 				fail();
 			}
 			catch(final IllegalArgumentException e)
