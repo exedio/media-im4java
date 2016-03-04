@@ -82,11 +82,11 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 
 		assertSerializedSame(thumb, 398);
 
-		assertEquals(asList("-resize", "20x30>", "?img?", "?img?"), thumb     .getCmdArgs(JPEG));
-		assertEquals(asList("-resize", "20x30>", "?img?", "?img?"), thumbSame .getCmdArgs(JPEG));
-		assertEquals(asList("-resize", "20x30>", "?img?", "?img?"), thumbRound.getCmdArgs(ZIP));
-		assertEquals(asList("-resize", "30x40>", "?img?", "?img?"), thumbRound.getCmdArgs(JPEG));
-		assertEquals(asList("-resize", "20x30>",
+		assertEquals(asList("-limit", "thread", "1", "-resize", "20x30>", "?img?", "?img?"), thumb     .getCmdArgs(JPEG));
+		assertEquals(asList("-limit", "thread", "1", "-resize", "20x30>", "?img?", "?img?"), thumbSame .getCmdArgs(JPEG));
+		assertEquals(asList("-limit", "thread", "1", "-resize", "20x30>", "?img?", "?img?"), thumbRound.getCmdArgs(ZIP));
+		assertEquals(asList("-limit", "thread", "1", "-resize", "30x40>", "?img?", "?img?"), thumbRound.getCmdArgs(JPEG));
+		assertEquals(asList("-limit", "thread", "1", "-resize", "20x30>",
 				"-density", "300", "-units", "PixelsPerInch",
 				"-flatten", "-background", "white",
 				"?img?", "?img?"),
