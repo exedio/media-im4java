@@ -20,6 +20,7 @@ package com.exedio.cope.im4java;
 
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.io.File.createTempFile;
+import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.pattern.MediaType;
 import java.io.File;
@@ -43,8 +44,8 @@ final class Action
 			final IMOps operation,
 			final String outputContentType)
 	{
-		if(operation==null)
-			throw new NullPointerException("operation");
+		requireNonNull(operation, "operation");
+
 		this.operationWithImage = new IMOperation();
 		this.operationWithImage.addOperation(operation);
 		this.operationWithImage.addImage(2);

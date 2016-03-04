@@ -21,6 +21,7 @@ package com.exedio.cope.im4java;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValue;
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.io.File.createTempFile;
+import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Wrap;
@@ -87,8 +88,8 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 			final IMOps operation,
 			final String outputContentType)
 	{
-		if(inputContentType==null)
-			throw new NullPointerException("inputContentType");
+		requireNonNull(inputContentType, "inputContentType");
+
 		final MediaType type = MediaImageMagickFilter.supported(MediaType.forName(inputContentType));
 		if(type==null)
 			throw new IllegalArgumentException("unsupported inputContentType >" + inputContentType + '<');
