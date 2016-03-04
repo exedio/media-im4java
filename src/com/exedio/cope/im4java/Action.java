@@ -29,6 +29,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.List;
 import java.util.Properties;
 import org.im4java.core.ConvertCmd;
 import org.im4java.core.IM4JavaException;
@@ -152,6 +153,11 @@ final class Action
 
 		delete(in);
 		delete(out);
+	}
+
+	List<String> getCmdArgs()
+	{
+		return operationWithImage.getCmdArgs();
 	}
 
 	String getScript()

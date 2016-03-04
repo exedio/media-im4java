@@ -29,6 +29,7 @@ import static com.exedio.cope.pattern.MediaType.JPEG;
 import static com.exedio.cope.pattern.MediaType.PDF;
 import static com.exedio.cope.pattern.MediaType.PNG;
 import static com.exedio.cope.pattern.MediaType.ZIP;
+import static java.util.Arrays.asList;
 
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
@@ -80,6 +81,16 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 		assertEquals(file.isNotNull(), thumb.isNotNull());
 
 		assertSerializedSame(thumb, 398);
+
+		assertEquals(asList("-resize", "20x30>", "?img?", "?img?"), thumb     .getCmdArgs(JPEG));
+		assertEquals(asList("-resize", "20x30>", "?img?", "?img?"), thumbSame .getCmdArgs(JPEG));
+		assertEquals(asList("-resize", "20x30>", "?img?", "?img?"), thumbRound.getCmdArgs(ZIP));
+		assertEquals(asList("-resize", "30x40>", "?img?", "?img?"), thumbRound.getCmdArgs(JPEG));
+		assertEquals(asList("-resize", "20x30>",
+				"-density", "300", "-units", "PixelsPerInch",
+				"-flatten", "-background", "white",
+				"?img?", "?img?"),
+				thumbFull.getCmdArgs(JPEG));
 
 		thumb.getScript(JPEG);
 		thumbFull.getScript(JPEG);

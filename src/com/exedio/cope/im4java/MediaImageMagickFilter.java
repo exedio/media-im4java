@@ -37,6 +37,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -256,6 +257,11 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 		delete(in);
 
 		return out;
+	}
+
+	List<String> getCmdArgs(final String contentType)
+	{
+		return actions.get(MediaType.forName(contentType)).getCmdArgs();
 	}
 
 	public String getScript(final String contentType)
