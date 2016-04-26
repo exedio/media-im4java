@@ -3,18 +3,13 @@
     <type>org.netbeans.modules.ant.freeform</type>
     <configuration>
         <general-data xmlns="http://www.netbeans.org/ns/freeform-project/1">
-            <name>cope util</name>
+            <name>cope im4java</name>
         </general-data>
         <general-data xmlns="http://www.netbeans.org/ns/freeform-project/2">
             <!-- Do not use Project Properties customizer when editing this file manually. -->
-            <name>cope util</name>
+            <name>cope im4java</name>
             <properties/>
             <folders>
-                <source-folder>
-                    <label>cope util</label>
-                    <location>.</location>
-                    <encoding>UTF-8</encoding>
-                </source-folder>
                 <source-folder>
                     <label>src</label>
                     <type>java</type>
@@ -74,7 +69,7 @@
             <compilation-unit>
                 <package-root>src</package-root>
                 <package-root>testsrc</package-root>
-                <classpath mode="compile">lib/junit.jar:lib/exedio-cope-util-src.zip:lib/exedio-cope-util.jar:lib/exedio-cope.jar:lib/findbugs-annotations.jar:lib/exedio-cope-instrument-annotations.jar:lib/exedio-cope-instrument.jar:lib/exedio-cope-servletutil-src.zip:lib/exedio-cope-servletutil.jar:lib/im4java-source.jar:lib/im4java.jar:lib/servlet-api-source.jar:lib/servlet-api.jar</classpath>
+                <classpath mode="compile">lib/junit.jar:lib/exedio-cope-util-src.zip:lib/exedio-cope-util.jar:lib/exedio-cope.jar:lib/exedio-cope-junit.jar:lib/findbugs-annotations.jar:lib/exedio-cope-instrument-annotations.jar:lib/exedio-cope-instrument.jar:lib/exedio-cope-servletutil-src.zip:lib/exedio-cope-servletutil.jar:lib/im4java-source.jar:lib/im4java.jar:lib/servlet-api-source.jar:lib/servlet-api.jar</classpath>
                 <source-level>1.5</source-level>
             </compilation-unit>
         </java-data>
