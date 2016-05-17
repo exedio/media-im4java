@@ -42,7 +42,7 @@
 			build faster with "ant -Dskip.instrument=true",
 			if you know, no instrumentation is needed
 		-->
-		<instrument verify="${instrument.verify}" annotateGenerated="false">
+		<instrument verify="${instrument.verify}">
 			<fileset dir="${basedir}/testsrc/com/exedio/cope/im4java">
 				<include name="*Item.java" />
 			</fileset>
