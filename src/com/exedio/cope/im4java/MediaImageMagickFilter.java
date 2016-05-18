@@ -48,7 +48,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 	private static final long serialVersionUID = 1l;
 
 	private static final HashSet<MediaType> supportedContentTypes =
-			new HashSet<MediaType>(Arrays.asList(
+			new HashSet<>(Arrays.asList(
 					MediaType.forName(MediaType.JPEG),
 					MediaType.forName(MediaType.PNG),
 					MediaType.forName(MediaType.GIF),
@@ -110,7 +110,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 	@Override
 	public Set<String> getSupportedSourceContentTypes()
 	{
-		final HashSet<String> result = new HashSet<String>();
+		final HashSet<String> result = new HashSet<>();
 		for(final MediaType type : supportedContentTypes)
 		{
 			result.add(type.getName());

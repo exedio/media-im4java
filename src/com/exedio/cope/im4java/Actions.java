@@ -30,7 +30,7 @@ final class Actions
 	Actions(final Action default_)
 	{
 		this.default_ = default_;
-		this.byInputContentType = new HashMap<MediaType, Action>();
+		this.byInputContentType = new HashMap<>();
 		assert default_!=null;
 	}
 
@@ -59,7 +59,7 @@ final class Actions
 			final String outputContentType)
 	{
 		final HashMap<MediaType, Action> byInputContentType =
-				new HashMap<MediaType, Action>(this.byInputContentType);
+				new HashMap<>(this.byInputContentType);
 		if(byInputContentType.put(inputContentType, new Action(operation, outputContentType))!=null)
 			throw new IllegalArgumentException("duplicate inputContentType " + inputContentType);
 		return new Actions(default_, byInputContentType);
