@@ -127,7 +127,7 @@ final class Action
 			size = 2982;
 		else if(MediaType.PDF.equals(inputContentTypeName))
 			size = 10607;
-		else if("image/svg+xml".equals(inputContentTypeName))
+		else if(MediaType.SVG.equals(inputContentTypeName))
 			size = 1934;
 		else
 			throw new RuntimeException(inputContentTypeName);
