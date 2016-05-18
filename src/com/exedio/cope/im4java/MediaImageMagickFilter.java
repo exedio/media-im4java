@@ -200,8 +200,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 
 		final byte[] result = new byte[(int)contentLength];
 
-		final FileInputStream body = new FileInputStream(outFile);
-		try
+		try(FileInputStream body = new FileInputStream(outFile))
 		{
 			final int readResult = body.read(result);
 			if(readResult!=contentLength)
@@ -209,7 +208,6 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 		}
 		finally
 		{
-			body.close();
 			delete(outFile);
 		}
 		return result;

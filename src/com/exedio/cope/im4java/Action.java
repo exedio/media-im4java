@@ -120,28 +120,14 @@ final class Action
 		final int size = sizeOfTestDummy(inputContentType);
 		final byte[] b = new byte[size+2];
 		int transferredLength = 0;
+		try(
+			InputStream inStream = MediaImageMagickFilter.class.getResourceAsStream("MediaImageMagickFilter-test" + inputContentType.getDefaultExtension());
+			FileOutputStream outStream = new FileOutputStream(in))
 		{
-			final InputStream inStream = MediaImageMagickFilter.class.getResourceAsStream("MediaImageMagickFilter-test" + inputContentType.getDefaultExtension());
-			try
+			for(int len = inStream.read(b); len>=0; len = inStream.read(b))
 			{
-				final FileOutputStream outStream = new FileOutputStream(in);
-				try
-				{
-					for(int len = inStream.read(b); len>=0; len = inStream.read(b))
-					{
-						transferredLength += len;
-						outStream.write(b, 0, len);
-					}
-				}
-				finally
-				{
-					outStream.close();
-				}
-
-			}
-			finally
-			{
-				inStream.close();
+				transferredLength += len;
+				outStream.write(b, 0, len);
 			}
 		}
 		if(transferredLength!=size) // size of the file
