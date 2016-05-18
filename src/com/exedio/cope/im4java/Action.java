@@ -155,19 +155,16 @@ final class Action
 
 	private static int sizeOfTestDummy(final MediaType inputContentType)
 	{
-		final String inputContentTypeName = inputContentType.getName();
-		if(MediaType.JPEG.equals(inputContentTypeName))
-			return 1578;
-		else if(MediaType.PNG.equals(inputContentTypeName))
-			return 5526;
-		else if(MediaType.GIF.equals(inputContentTypeName))
-			return 2982;
-		else if(MediaType.PDF.equals(inputContentTypeName))
-			return 10607;
-		else if(MediaType.SVG.equals(inputContentTypeName))
-			return 1934;
-		else
-			throw new RuntimeException(inputContentTypeName);
+		switch(inputContentType.getName())
+		{
+			case MediaType.JPEG: return 1578;
+			case MediaType.PNG : return 5526;
+			case MediaType.GIF : return 2982;
+			case MediaType.PDF : return 10607;
+			case MediaType.SVG : return 1934;
+			default:
+				throw new RuntimeException("" + inputContentType);
+		}
 	}
 
 	List<String> getCmdArgs()
