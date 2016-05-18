@@ -117,21 +117,7 @@ final class Action
 		final File  in = createTempFile(name + "_inp_", ".data");
 		final File out = createTempFile(name + "_out_", outputContentType(inputContentType).getDefaultExtension());
 
-		final String inputContentTypeName = inputContentType.getName();
-		final int size;
-		if(MediaType.JPEG.equals(inputContentTypeName))
-			size = 1578;
-		else if(MediaType.PNG.equals(inputContentTypeName))
-			size = 5526;
-		else if(MediaType.GIF.equals(inputContentTypeName))
-			size = 2982;
-		else if(MediaType.PDF.equals(inputContentTypeName))
-			size = 10607;
-		else if(MediaType.SVG.equals(inputContentTypeName))
-			size = 1934;
-		else
-			throw new RuntimeException(inputContentTypeName);
-
+		final int size = sizeOfTestDummy(inputContentType);
 		final byte[] b = new byte[size+2];
 		int transferredLength = 0;
 		{
@@ -165,6 +151,23 @@ final class Action
 
 		delete(in);
 		delete(out);
+	}
+
+	private static int sizeOfTestDummy(final MediaType inputContentType)
+	{
+		final String inputContentTypeName = inputContentType.getName();
+		if(MediaType.JPEG.equals(inputContentTypeName))
+			return 1578;
+		else if(MediaType.PNG.equals(inputContentTypeName))
+			return 5526;
+		else if(MediaType.GIF.equals(inputContentTypeName))
+			return 2982;
+		else if(MediaType.PDF.equals(inputContentTypeName))
+			return 10607;
+		else if(MediaType.SVG.equals(inputContentTypeName))
+			return 1934;
+		else
+			throw new RuntimeException(inputContentTypeName);
 	}
 
 	List<String> getCmdArgs()
