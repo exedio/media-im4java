@@ -24,7 +24,7 @@
 	<dependencies>
 		<dependency org="javax.servlet" name="javax.servlet-api" rev="3.0.1" conf="runtime->default; build->sources" />
 		<dependency org="com.exedio" name="copeutil" rev="483" conf="runtime->runtime; build->runtime,sources,changelog" />
-		<dependency org="com.exedio" name="cope" rev="8613">
+		<dependency org="com.exedio" name="cope" rev="8919">
 			<conf name="runtime" mapped="runtime" />
 			<conf name="build" mapped="hsqldb" />
 			<conf name="build" mapped="junit" />

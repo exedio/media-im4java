@@ -18,7 +18,7 @@
 
 package com.exedio.cope.im4java;
 
-import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValue;
+import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.io.File.createTempFile;
 import static java.util.Objects.requireNonNull;
@@ -241,7 +241,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 			final boolean commit)
 		throws IOException
 	{
-		final String name = "com.exedio.cope.im4java_" + getID() + '_' + getPrimaryKeyColumnValue(item);
+		final String name = "com.exedio.cope.im4java_" + getID() + '_' + getPrimaryKeyColumnValueL(item);
 		final File  in = createTempFile(name + "_inp_", ".data");
 		final File out = createTempFile(name + "_out_", action.outputContentType(contentType).getDefaultExtension());
 
