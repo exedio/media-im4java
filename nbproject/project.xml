@@ -69,7 +69,7 @@
             <compilation-unit>
                 <package-root>src</package-root>
                 <package-root>testsrc</package-root>
-                <classpath mode="compile">lib/junit.jar:lib/exedio-cope-util-src.zip:lib/exedio-cope-util.jar:lib/exedio-cope.jar:lib/exedio-cope-junit.jar:lib/findbugs-annotations.jar:lib/exedio-cope-instrument-annotations.jar:lib/exedio-cope-instrument.jar:lib/exedio-cope-servletutil-src.zip:lib/exedio-cope-servletutil.jar:lib/im4java-source.jar:lib/im4java.jar:lib/servlet-api-source.jar:lib/servlet-api.jar</classpath>
+                <classpath mode="compile">lib/junit.jar:lib/exedio-cope-util-src.zip:lib/exedio-cope-util.jar:lib/exedio-cope.jar:lib/exedio-cope-junit.jar:lib/findbugs-annotations.jar:lib/exedio-cope-instrument-annotations.jar:lib/exedio-cope-instrument.jar:lib/exedio-cope-servletutil-src.zip:lib/exedio-cope-servletutil.jar:lib/im4java-source.jar:lib/im4java.jar:lib/javax.servlet-api-source.jar:lib/javax.servlet-api.jar</classpath>
                 <source-level>1.5</source-level>
             </compilation-unit>
         </java-data>

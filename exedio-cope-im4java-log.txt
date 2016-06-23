@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* uses java servlet API 3.0
 * requires JDK 1.8.0_60
 * "-limit thread 1" prepended to command line.
 	See http://imagemagick.org/script/command-line-options.php#limit

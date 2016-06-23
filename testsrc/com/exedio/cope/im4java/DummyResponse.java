@@ -21,6 +21,7 @@ package com.exedio.cope.im4java;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
 import java.util.Locale;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
@@ -220,6 +221,26 @@ class DummyResponse implements HttpServletResponse
 	@Deprecated()
 	@Override
 	public void setStatus(final int sc, final String sm)
+	{
+		throw new RuntimeException();
+	}
+
+	public int getStatus()
+	{
+		throw new RuntimeException();
+	}
+
+	public String getHeader(String name)
+	{
+		throw new RuntimeException();
+	}
+
+	public Collection<String> getHeaders(String name)
+	{
+		throw new RuntimeException();
+	}
+
+	public Collection<String> getHeaderNames()
 	{
 		throw new RuntimeException();
 	}
