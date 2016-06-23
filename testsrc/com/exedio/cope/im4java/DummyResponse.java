@@ -225,21 +225,25 @@ class DummyResponse implements HttpServletResponse
 		throw new RuntimeException();
 	}
 
+	@Override
 	public int getStatus()
 	{
 		throw new RuntimeException();
 	}
 
-	public String getHeader(String name)
+	@Override
+	public String getHeader(final String name)
 	{
 		throw new RuntimeException();
 	}
 
-	public Collection<String> getHeaders(String name)
+	@Override
+	public Collection<String> getHeaders(final String name)
 	{
 		throw new RuntimeException();
 	}
 
+	@Override
 	public Collection<String> getHeaderNames()
 	{
 		throw new RuntimeException();
