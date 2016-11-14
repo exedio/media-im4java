@@ -45,15 +45,15 @@ public final class ThumbnailMagickTestTest extends CopeAssert
 		new MediaImageMagickFilter(file, op, PNG).test();
 		new MediaImageMagickFilter(file, op, GIF).test();
 
-		assertFails("30x10#", new MediaImageMagickFilter(file, new IMOperation().resize(30, 10, '#')));
-		assertFails("30x10#", new MediaImageMagickFilter(file, new IMOperation().resize(30, 10, '#'), JPEG));
-		assertFails("30x10#", new MediaImageMagickFilter(file, new IMOperation().resize(30, 10, '#'), PNG));
-		assertFails("30x10#", new MediaImageMagickFilter(file, new IMOperation().resize(30, 10, '#'), GIF));
+		assertFails("-kaputt", new MediaImageMagickFilter(file, (IMOperation)new IMOperation().addRawArgs("-kaputt")));
+		assertFails("-kaputt", new MediaImageMagickFilter(file, (IMOperation)new IMOperation().addRawArgs("-kaputt"), JPEG));
+		assertFails("-kaputt", new MediaImageMagickFilter(file, (IMOperation)new IMOperation().addRawArgs("-kaputt"), PNG));
+		assertFails("-kaputt", new MediaImageMagickFilter(file, (IMOperation)new IMOperation().addRawArgs("-kaputt"), GIF));
 		final MediaImageMagickFilter f1 = new MediaImageMagickFilter(file, op);
-		assertFails("40x10#", f1.forType(PNG, new IMOperation().resize(40, 10, '#'), null));
-		assertFails("40x10#", f1.forType(PNG, new IMOperation().resize(40, 10, '#'), JPEG));
-		assertFails("40x10#", f1.forType(PNG, new IMOperation().resize(40, 10, '#'), PNG ));
-		assertFails("40x10#", f1.forType(PNG, new IMOperation().resize(40, 10, '#'), GIF ));
+		assertFails("-broken", f1.forType(PNG, (IMOperation)new IMOperation().addRawArgs("-broken"), null));
+		assertFails("-broken", f1.forType(PNG, (IMOperation)new IMOperation().addRawArgs("-broken"), JPEG));
+		assertFails("-broken", f1.forType(PNG, (IMOperation)new IMOperation().addRawArgs("-broken"), PNG ));
+		assertFails("-broken", f1.forType(PNG, (IMOperation)new IMOperation().addRawArgs("-broken"), GIF ));
 	}
 
 	@SuppressWarnings({"static-method","boxing"})
@@ -80,7 +80,7 @@ public final class ThumbnailMagickTestTest extends CopeAssert
 		catch(final RuntimeException runtimeException)
 		{
 			final String start = "org.im4java.core.CommandException: org.im4java.core.CommandException: convert";
-			final String message = ": invalid argument for option `-resize': " + errorMessage + " @ ";
+			final String message = ": unrecognized option `" + errorMessage + "' @ ";
 			assertExceptionMessage(runtimeException, start, message);
 
 			final CommandException commandException = (CommandException)runtimeException.getCause();
