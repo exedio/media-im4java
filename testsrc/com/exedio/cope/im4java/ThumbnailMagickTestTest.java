@@ -37,7 +37,7 @@ public final class ThumbnailMagickTestTest extends CopeAssert
 	@SuppressWarnings("boxing")
 	static final IMOps op = new IMOperation().resize(20, 30, '>');
 
-	@SuppressWarnings({"static-method","boxing"})
+	@SuppressWarnings("static-method")
 	public void testTest() throws IOException
 	{
 		new MediaImageMagickFilter(file, op).test();
@@ -45,15 +45,21 @@ public final class ThumbnailMagickTestTest extends CopeAssert
 		new MediaImageMagickFilter(file, op, PNG).test();
 		new MediaImageMagickFilter(file, op, GIF).test();
 
-		assertFails("-kaputt", new MediaImageMagickFilter(file, (IMOperation)new IMOperation().addRawArgs("-kaputt")));
-		assertFails("-kaputt", new MediaImageMagickFilter(file, (IMOperation)new IMOperation().addRawArgs("-kaputt"), JPEG));
-		assertFails("-kaputt", new MediaImageMagickFilter(file, (IMOperation)new IMOperation().addRawArgs("-kaputt"), PNG));
-		assertFails("-kaputt", new MediaImageMagickFilter(file, (IMOperation)new IMOperation().addRawArgs("-kaputt"), GIF));
+		assertFails("-kaputt", new MediaImageMagickFilter(file, newIMOperation("-kaputt")));
+		assertFails("-kaputt", new MediaImageMagickFilter(file, newIMOperation("-kaputt"), JPEG));
+		assertFails("-kaputt", new MediaImageMagickFilter(file, newIMOperation("-kaputt"), PNG));
+		assertFails("-kaputt", new MediaImageMagickFilter(file, newIMOperation("-kaputt"), GIF));
 		final MediaImageMagickFilter f1 = new MediaImageMagickFilter(file, op);
-		assertFails("-broken", f1.forType(PNG, (IMOperation)new IMOperation().addRawArgs("-broken"), null));
-		assertFails("-broken", f1.forType(PNG, (IMOperation)new IMOperation().addRawArgs("-broken"), JPEG));
-		assertFails("-broken", f1.forType(PNG, (IMOperation)new IMOperation().addRawArgs("-broken"), PNG ));
-		assertFails("-broken", f1.forType(PNG, (IMOperation)new IMOperation().addRawArgs("-broken"), GIF ));
+		assertFails("-broken", f1.forType(PNG, newIMOperation("-broken"), null));
+		assertFails("-broken", f1.forType(PNG, newIMOperation("-broken"), JPEG));
+		assertFails("-broken", f1.forType(PNG, newIMOperation("-broken"), PNG ));
+		assertFails("-broken", f1.forType(PNG, newIMOperation("-broken"), GIF ));
+	}
+
+	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
+	private static IMOperation newIMOperation(final String arg)
+	{
+		return (IMOperation)new IMOperation().addRawArgs(arg);
 	}
 
 	@SuppressWarnings({"static-method","boxing"})
