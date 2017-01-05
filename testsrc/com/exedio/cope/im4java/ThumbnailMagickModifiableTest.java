@@ -35,7 +35,7 @@ public final class ThumbnailMagickModifiableTest extends CopeAssert
 	{
 		AnItem.thumb.test();
 		// deliverately break operation
-		AnItem.operation.resize(40, 50, '#');
+		AnItem.operation.addRawArgs("-kaputt");
 		// check, whether operation is still unmodified
 		AnItem.thumb.test();
 	}
