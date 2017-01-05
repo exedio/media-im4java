@@ -30,7 +30,7 @@ import org.im4java.core.IMOps;
 
 public final class ThumbnailMagickModifiableTest extends CopeAssert
 {
-	@SuppressWarnings({"static-method", "boxing"})
+	@SuppressWarnings("static-method")
 	public void testThumbs() throws IOException
 	{
 		AnItem.thumb.test();
