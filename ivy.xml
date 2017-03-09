@@ -17,7 +17,7 @@
 		<conf name="build" extends="runtime" visibility="private" />
 	</configurations>
 	<publications>
-		<artifact name="exedio-cope-im4java" />
+		<artifact name="exedio-cope-im4java" conf="runtime"   type="jar" ext="jar" />
 		<artifact name="exedio-cope-im4java" conf="sources"   type="src" ext="zip" />
 		<artifact name="exedio-cope-im4java" conf="changelog" type="log" ext="txt" />
 	</publications>
