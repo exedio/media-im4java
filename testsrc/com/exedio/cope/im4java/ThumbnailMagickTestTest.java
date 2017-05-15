@@ -85,10 +85,12 @@ public final class ThumbnailMagickTestTest extends CopeAssert
 		}
 		catch(final RuntimeException runtimeException)
 		{
-			final String start = "org.im4java.core.CommandException: org.im4java.core.CommandException: convert";
-			final String message = ": unrecognized option `" + errorMessage + "' @ ";
-			assertExceptionMessage(runtimeException, start, message);
+			assertTrue(
+					runtimeException.getMessage(),
+					runtimeException.getMessage().startsWith(
+							"-limit thread 1 " + errorMessage + " ?img? ?img? ==="));
 
+			final String message = ": unrecognized option `" + errorMessage + "' @ ";
 			final CommandException commandException = (CommandException)runtimeException.getCause();
 			assertExceptionMessage(commandException, "org.im4java.core.CommandException: convert", message);
 
@@ -102,7 +104,7 @@ public final class ThumbnailMagickTestTest extends CopeAssert
 		}
 	}
 
-	private static void assertExceptionMessage( final Exception runtimeException, final String start, final String message)
+	private static void assertExceptionMessage( final CommandException runtimeException, final String start, final String message)
 	{
 		final String pattern = Pattern.quote(start)+ ".*?"+Pattern.quote(message);
 		assertTrue("The exception message >"+runtimeException.getMessage()+"< did not match the expected patterns >"+start+
