@@ -101,11 +101,7 @@ final class Action
 		{
 			cmd.run(operationWithImage, in.getAbsolutePath(), out.getAbsolutePath());
 		}
-		catch(final InterruptedException e)
-		{
-			throw new RuntimeException(e);
-		}
-		catch(final IM4JavaException e)
+		catch(InterruptedException | IM4JavaException e)
 		{
 			throw new RuntimeException(e);
 		}
