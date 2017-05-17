@@ -250,7 +250,7 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertContains(jpg, jpgX, png, pngX, gif, txt, TYPE.search(thumb.isNotNull())); // TODO check for getSupportedSourceContentTypes, remove text
 	}
 
-	private static final void assertType(final String expectedContentType, final byte[] actualBody)
+	private static void assertType(final String expectedContentType, final byte[] actualBody)
 	{
 		assertNotNull(expectedContentType);
 		assertNotNull(actualBody);
@@ -259,7 +259,7 @@ public final class ThumbnailMagickTest extends CopeModelTest
 				MediaType.forMagics(actualBody));
 	}
 
-	private final void assertDoGet(
+	private void assertDoGet(
 			final String expectedContentType,
 			final MediaImageMagickFilter feature,
 			final ThumbnailMagickItem item) throws IOException, NotFound
@@ -332,7 +332,7 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		}
 	}
 
-	private final void assertDoGet404(
+	private void assertDoGet404(
 			final String expectedResult,
 			final MediaImageMagickFilter feature,
 			final ThumbnailMagickItem item)

@@ -73,7 +73,7 @@ public final class ThumbnailMagickTestTest extends CopeAssert
 	}
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-	private static final void assertFails(
+	private static void assertFails(
 			final String errorMessage,
 			final MediaImageMagickFilter filter)
 		throws IOException

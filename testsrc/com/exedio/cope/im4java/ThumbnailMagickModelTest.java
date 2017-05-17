@@ -213,7 +213,7 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 		}
 	}
 
-	private static final void assertSerializedSame(final Serializable value, final int expectedSize)
+	private static void assertSerializedSame(final Serializable value, final int expectedSize)
 	{
 		assertSame(value, reserialize(value, expectedSize));
 	}

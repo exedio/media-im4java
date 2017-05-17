@@ -234,7 +234,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 		return false;
 	}
 
-	private final File execute(
+	private File execute(
 			final Item item,
 			final MediaType contentType,
 			final Action action,
