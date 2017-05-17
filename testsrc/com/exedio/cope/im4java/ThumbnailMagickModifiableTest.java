@@ -18,10 +18,6 @@
 
 package com.exedio.cope.im4java;
 
-import com.exedio.cope.ActivationParameters;
-import com.exedio.cope.Item;
-import com.exedio.cope.Type;
-import com.exedio.cope.TypesBound;
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.Media;
 import java.io.IOException;
@@ -33,25 +29,15 @@ public final class ThumbnailMagickModifiableTest extends CopeAssert
 	@SuppressWarnings("static-method")
 	public void testThumbs() throws IOException
 	{
-		AnItem.thumb.test();
-		// deliverately break operation
-		AnItem.operation.addRawArgs("-kaputt");
-		// check, whether operation is still unmodified
-		AnItem.thumb.test();
-	}
-
-	static final class AnItem extends Item
-	{
-		static final Media file = new Media().optional().lengthMax(10000);
-
+		final Media file = new Media().optional().lengthMax(10000);
 		@SuppressWarnings("boxing")
-		static final IMOps operation = new IMOperation().resize(20, 30, '>');
+		final IMOps operation = new IMOperation().resize(20, 30, '>');
+		final MediaImageMagickFilter thumb = new MediaImageMagickFilter(file, operation);
 
-		static final MediaImageMagickFilter thumb = new MediaImageMagickFilter(file, operation);
-
-		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
-
-		AnItem(final ActivationParameters ap) { super(ap); }
-		private static final long serialVersionUID = 1l;
+		thumb.test();
+		// deliverately break operation
+		operation.addRawArgs("-kaputt");
+		// check, whether operation is still unmodified
+		thumb.test();
 	}
 }
