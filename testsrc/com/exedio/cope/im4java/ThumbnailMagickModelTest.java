@@ -92,10 +92,10 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 				"?img?", "?img?"),
 				thumbFull.getCmdArgs(JPEG));
 
-		thumb.getScript(JPEG);
-		thumbFull.getScript(JPEG);
-		thumbSame.getScript(JPEG);
-		thumbRound.getScript(JPEG);
+		assertNotNull(thumb.getScript(JPEG));
+		assertNotNull(thumbFull.getScript(JPEG));
+		assertNotNull(thumbSame.getScript(JPEG));
+		assertNotNull(thumbRound.getScript(JPEG));
 
 		thumb.test();
 		thumbFull.test();
