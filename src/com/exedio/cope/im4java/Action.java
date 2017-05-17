@@ -48,9 +48,9 @@ final class Action
 	{
 		requireNonNull(operation, "operation");
 
-		this.operationWithImage = limit(new IMOperation());
-		this.operationWithImage.addOperation(operation);
-		this.operationWithImage.addImage(2);
+		operationWithImage = limit(new IMOperation());
+		operationWithImage.addOperation(operation);
+		operationWithImage.addImage(2);
 
 		if(outputContentType!=null)
 		{
@@ -88,8 +88,8 @@ final class Action
 	MediaType outputContentType(final MediaType inputContentType)
 	{
 		return
-				this.constantOutputContentType!=null
-				? this.constantOutputContentType
+				constantOutputContentType!=null
+				? constantOutputContentType
 				: inputContentType;
 	}
 

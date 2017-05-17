@@ -288,7 +288,7 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		void assertIt(final String expectedContentType)
 		{
 			assertTrue(contentLength>0);
-			assertEquals(expectedContentType, this.contentType);
+			assertEquals(expectedContentType, contentType);
 			assertNotNull(body);
 			assertEquals(
 					Collections.singleton(MediaType.forName(contentType)),
