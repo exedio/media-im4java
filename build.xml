@@ -2,6 +2,7 @@
 
 <project name="cope im4java" default="build" basedir=".">
 
+	<!--suppress AntMissingPropertiesFileInspection -->
 	<property file="local.properties" />
 	<property file="project.properties" />
 

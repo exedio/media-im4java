@@ -319,6 +319,7 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		public ServletOutputStream getOutputStream()
 		{
 			assertNull(body);
+			@SuppressWarnings("NestedAssignment")
 			final ByteArrayOutputStream body = this.body = new ByteArrayOutputStream();
 
 			return new ServletOutputStream()
