@@ -146,7 +146,7 @@ final class Action
 			case MediaType.PNG : return 5526;
 			case MediaType.GIF : return 2982;
 			case MediaType.PDF : return 10607;
-			case MediaType.SVG : return 1934;
+			case MediaType.SVG : return 1891;
 			default:
 				throw new RuntimeException("" + inputContentType);
 		}
