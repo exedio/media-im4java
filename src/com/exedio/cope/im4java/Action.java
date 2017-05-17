@@ -104,7 +104,7 @@ final class Action
 		catch(InterruptedException | IM4JavaException e)
 		{
 			throw new RuntimeException(
-					operationWithImage.toString() + "===" +
+					operationWithImage + "===" +
 					in .getAbsolutePath() + "===" +
 					out.getAbsolutePath(), e);
 		}
