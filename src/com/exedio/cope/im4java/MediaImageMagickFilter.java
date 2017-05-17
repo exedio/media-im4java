@@ -91,7 +91,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 	{
 		requireNonNull(inputContentType, "inputContentType");
 
-		final MediaType type = MediaImageMagickFilter.supported(MediaType.forName(inputContentType));
+		final MediaType type = supported(MediaType.forName(inputContentType));
 		if(type==null)
 			throw new IllegalArgumentException("unsupported inputContentType >" + inputContentType + '<');
 
