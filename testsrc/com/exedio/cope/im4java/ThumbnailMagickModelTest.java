@@ -38,13 +38,12 @@ import com.exedio.cope.junit.CopeAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.Arrays;
 import java.util.HashSet;
 import org.im4java.core.IMOperation;
 
 public final class ThumbnailMagickModelTest extends CopeAssert
 {
-	static final Model MODEL = new Model(ThumbnailMagickItem.TYPE);
+	static final Model MODEL = new Model(TYPE);
 
 	static
 	{
@@ -54,7 +53,7 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 	@SuppressWarnings("static-method")
 	public void testThumbs() throws IOException
 	{
-		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
+		assertEqualsUnmodifiable(asList(new Feature[]{
 				TYPE.getThis(),
 				file,
 				file.getBody(),
@@ -70,7 +69,7 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 		assertEquals("thumb", thumb.getName());
 		assertSame(file, thumb.getSource());
 		assertEquals(
-				new HashSet<>(Arrays.asList(JPEG, "image/pjpeg", PNG, "image/x-png", GIF, PDF, "text/pdf", SVG)),
+				new HashSet<>(asList(JPEG, "image/pjpeg", PNG, "image/x-png", GIF, PDF, "text/pdf", SVG)),
 				thumb.getSupportedSourceContentTypes());
 
 		assertEquals(JPEG, thumb.getOutputContentType());
