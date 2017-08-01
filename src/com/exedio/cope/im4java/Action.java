@@ -158,6 +158,7 @@ final class Action
 			case MediaType.JPEG: return 1578;
 			case MediaType.PNG : return 5526;
 			case MediaType.GIF : return 2982;
+			case MediaType.TIFF: return 5506;
 			case MediaType.PDF : return 10607;
 			case MediaType.SVG : return 1891;
 			default:

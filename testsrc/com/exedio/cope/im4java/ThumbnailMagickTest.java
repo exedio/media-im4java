@@ -27,6 +27,7 @@ import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbSame;
 import static com.exedio.cope.pattern.MediaType.GIF;
 import static com.exedio.cope.pattern.MediaType.JPEG;
 import static com.exedio.cope.pattern.MediaType.PNG;
+import static com.exedio.cope.pattern.MediaType.TIFF;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
@@ -52,7 +53,7 @@ public final class ThumbnailMagickTest extends CopeModelTest
 	}
 
 	private String mediaRootUrl = null;
-	private ThumbnailMagickItem jpg, jpgX, png, pngX, gif, txt, emp;
+	private ThumbnailMagickItem jpg, jpgX, png, pngX, gif, tif, txt, emp;
 	private final byte[] data  = {-86,122,-8,23};
 
 	// Ok, because Media#set(Item,InputStream,String) closes the stream.
@@ -68,11 +69,13 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		png = new ThumbnailMagickItem();
 		pngX= new ThumbnailMagickItem();
 		gif = new ThumbnailMagickItem();
+		tif = new ThumbnailMagickItem();
 		txt = new ThumbnailMagickItem();
 		emp = new ThumbnailMagickItem();
 		jpg.setFile(resource("thumbnail-test.jpg"), JPEG);
 		png.setFile(resource("thumbnail-test.png"), PNG);
 		gif.setFile(resource("thumbnail-test.gif"), GIF);
+		tif.setFile(resource("thumbnail-test.tif"), TIFF);
 		jpgX.setFile(resource("thumbnail-test.jpg"), "image/pjpeg");
 		pngX.setFile(resource("thumbnail-test.png"), "image/x-png");
 		txt.setFile(data, "text/plain");
@@ -122,6 +125,7 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertEquals(JPEG, jpg.getThumbContentType());
 		assertEquals(JPEG, png.getThumbContentType());
 		assertEquals(JPEG, gif.getThumbContentType());
+		assertEquals(JPEG, tif.getThumbContentType());
 		assertEquals(JPEG, jpgX.getThumbContentType());
 		assertEquals(JPEG, pngX.getThumbContentType());
 		assertEquals(null, txt.getThumbContentType());
@@ -130,6 +134,7 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertEquals(PNG, jpg.getThumbFullContentType());
 		assertEquals(PNG, png.getThumbFullContentType());
 		assertEquals(PNG, gif.getThumbFullContentType());
+		assertEquals(PNG, tif.getThumbFullContentType());
 		assertEquals(PNG, jpgX.getThumbFullContentType());
 		assertEquals(PNG, pngX.getThumbFullContentType());
 		assertEquals(null, txt.getThumbFullContentType());
@@ -138,6 +143,7 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertEquals(JPEG, jpg.getThumbSameContentType());
 		assertEquals(PNG,  png.getThumbSameContentType());
 		assertEquals(GIF,  gif.getThumbSameContentType());
+		assertEquals(TIFF, tif.getThumbSameContentType());
 		assertEquals(JPEG, jpgX.getThumbSameContentType());
 		assertEquals(PNG,  pngX.getThumbSameContentType());
 		assertEquals(null, txt.getThumbSameContentType());
@@ -146,6 +152,7 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertEquals(PNG,  jpg.getThumbRoundContentType());
 		assertEquals(GIF,  png.getThumbRoundContentType());
 		assertEquals(JPEG, gif.getThumbRoundContentType());
+		assertEquals(TIFF, tif.getThumbRoundContentType());
 		assertEquals(PNG,  jpgX.getThumbRoundContentType());
 		assertEquals(GIF,  pngX.getThumbRoundContentType());
 		assertEquals(null, txt.getThumbRoundContentType());
@@ -155,6 +162,7 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertType(JPEG, jpg.getThumb());
 		assertType(JPEG, png.getThumb());
 		assertType(JPEG, gif.getThumb());
+		assertType(JPEG, tif.getThumb());
 		assertType(JPEG, jpgX.getThumb());
 		assertType(JPEG, pngX.getThumb());
 		assertNull(txt.getThumb());
@@ -163,6 +171,7 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertType(PNG, jpg.getThumbFull());
 		assertType(PNG, png.getThumbFull());
 		assertType(PNG, gif.getThumbFull());
+		assertType(PNG, tif.getThumbFull());
 		assertType(PNG, jpgX.getThumbFull());
 		assertType(PNG, pngX.getThumbFull());
 		assertNull(txt.getThumbFull());
@@ -171,6 +180,7 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertType(JPEG, jpg.getThumbSame());
 		assertType(PNG,  png.getThumbSame());
 		assertType(GIF,  gif.getThumbSame());
+		assertType(TIFF, tif.getThumbSame());
 		assertType(JPEG, jpgX.getThumbSame());
 		assertType(PNG,  pngX.getThumbSame());
 		assertNull(txt.getThumbSame());
@@ -179,6 +189,7 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertType(PNG,  jpg.getThumbRound());
 		assertType(GIF,  png.getThumbRound());
 		assertType(JPEG, gif.getThumbRound());
+		assertType(TIFF, tif.getThumbRound());
 		assertType(PNG,  jpgX.getThumbRound());
 		assertType(GIF,  pngX.getThumbRound());
 		assertNull(txt.getThumbRound());
@@ -188,6 +199,7 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertDoGet(JPEG, thumb, jpg);
 		assertDoGet(JPEG, thumb, png);
 		assertDoGet(JPEG, thumb, gif);
+		assertDoGet(JPEG, thumb, tif);
 		assertDoGet(JPEG, thumb, jpgX);
 		assertDoGet(JPEG, thumb, pngX);
 		assertDoGet404("not computable", thumb, txt);
@@ -196,6 +208,7 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertDoGet(PNG, thumbFull, jpg);
 		assertDoGet(PNG, thumbFull, png);
 		assertDoGet(PNG, thumbFull, gif);
+		assertDoGet(PNG, thumbFull, tif);
 		assertDoGet(PNG, thumbFull, jpgX);
 		assertDoGet(PNG, thumbFull, pngX);
 		assertDoGet404("not computable", thumbFull, txt);
@@ -204,6 +217,7 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertDoGet(JPEG, thumbSame, jpg);
 		assertDoGet(PNG,  thumbSame, png);
 		assertDoGet(GIF,  thumbSame, gif);
+		assertDoGet(TIFF, thumbSame, tif);
 		assertDoGet(JPEG, thumbSame, jpgX);
 		assertDoGet(PNG,  thumbSame, pngX);
 		assertDoGet404("not computable", thumbSame, txt);
@@ -212,6 +226,7 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertDoGet(PNG,  thumbRound, jpg);
 		assertDoGet(GIF,  thumbRound, png);
 		assertDoGet(JPEG, thumbRound, gif);
+		assertDoGet(TIFF, thumbRound, tif);
 		assertDoGet(PNG,  thumbRound, jpgX);
 		assertDoGet(GIF,  thumbRound, pngX);
 		assertDoGet404("not computable", thumbRound, txt);
@@ -221,12 +236,14 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbURL());
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbURL());
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + gif.getCopeID() + ".jpg", gif.getThumbURL());
+		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + tif.getCopeID() + ".jpg", tif.getThumbURL());
 		assertEquals(null, txt.getThumbURL());
 		assertEquals(null, emp.getThumbURL());
 
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + jpg.getCopeID() + ".png", jpg.getThumbFullURL());
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + png.getCopeID() + ".png", png.getThumbFullURL());
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + gif.getCopeID() + ".png", gif.getThumbFullURL());
+		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + tif.getCopeID() + ".png", tif.getThumbFullURL());
 		assertEquals(null, txt.getThumbFullURL());
 		assertEquals(null, emp.getThumbFullURL());
 
@@ -234,20 +251,22 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbURLWithFallbackToSource());
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbURLWithFallbackToSource());
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + gif.getCopeID() + ".jpg", gif.getThumbURLWithFallbackToSource());
+		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + tif.getCopeID() + ".jpg", tif.getThumbURLWithFallbackToSource());
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/file/"  + txt.getCopeID() + ".txt", txt.getThumbURLWithFallbackToSource());
 		assertEquals(null, emp.getThumbURLWithFallbackToSource());
 
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + jpg.getCopeID() + ".png", jpg.getThumbFullURLWithFallbackToSource());
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + png.getCopeID() + ".png", png.getThumbFullURLWithFallbackToSource());
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + gif.getCopeID() + ".png", gif.getThumbFullURLWithFallbackToSource());
+		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + tif.getCopeID() + ".png", tif.getThumbFullURLWithFallbackToSource());
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/file/"  + txt.getCopeID() + ".txt", txt.getThumbFullURLWithFallbackToSource());
 		assertEquals(null, emp.getThumbFullURLWithFallbackToSource());
 
 		// isNull
 		assertContains(emp, TYPE.search(file.isNull()));
-		assertContains(jpg, jpgX, png, pngX, gif, txt, TYPE.search(file.isNotNull()));
+		assertContains(jpg, jpgX, png, pngX, gif, tif, txt, TYPE.search(file.isNotNull()));
 		assertContains(emp , TYPE.search(thumb.isNull())); // TODO check for getSupportedSourceContentTypes, add text
-		assertContains(jpg, jpgX, png, pngX, gif, txt, TYPE.search(thumb.isNotNull())); // TODO check for getSupportedSourceContentTypes, remove text
+		assertContains(jpg, jpgX, png, pngX, gif, tif, txt, TYPE.search(thumb.isNotNull())); // TODO check for getSupportedSourceContentTypes, remove text
 	}
 
 	private static void assertType(final String expectedContentType, final byte[] actualBody)

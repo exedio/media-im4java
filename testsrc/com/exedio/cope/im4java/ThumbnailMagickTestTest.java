@@ -22,6 +22,7 @@ import static com.exedio.cope.pattern.MediaType.GIF;
 import static com.exedio.cope.pattern.MediaType.JPEG;
 import static com.exedio.cope.pattern.MediaType.PNG;
 import static com.exedio.cope.pattern.MediaType.SVG;
+import static com.exedio.cope.pattern.MediaType.TIFF;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.Media;
@@ -45,16 +46,19 @@ public final class ThumbnailMagickTestTest extends CopeAssert
 		new MediaImageMagickFilter(file, op, JPEG).test();
 		new MediaImageMagickFilter(file, op, PNG).test();
 		new MediaImageMagickFilter(file, op, GIF).test();
+		new MediaImageMagickFilter(file, op, TIFF).test();
 
 		assertFails("-kaputt", new MediaImageMagickFilter(file, newIMOperation("-kaputt")));
 		assertFails("-kaputt", new MediaImageMagickFilter(file, newIMOperation("-kaputt"), JPEG));
 		assertFails("-kaputt", new MediaImageMagickFilter(file, newIMOperation("-kaputt"), PNG));
 		assertFails("-kaputt", new MediaImageMagickFilter(file, newIMOperation("-kaputt"), GIF));
+		assertFails("-kaputt", new MediaImageMagickFilter(file, newIMOperation("-kaputt"), TIFF));
 		final MediaImageMagickFilter f1 = new MediaImageMagickFilter(file, op).forType(SVG, op, PNG); // do not create SVG as this is a svg-wrapped png anyway and makes trouble on Debian9
 		assertFails("-broken", f1.forType(PNG, newIMOperation("-broken"), null));
 		assertFails("-broken", f1.forType(PNG, newIMOperation("-broken"), JPEG));
 		assertFails("-broken", f1.forType(PNG, newIMOperation("-broken"), PNG ));
 		assertFails("-broken", f1.forType(PNG, newIMOperation("-broken"), GIF ));
+		assertFails("-broken", f1.forType(PNG, newIMOperation("-broken"), TIFF));
 	}
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")

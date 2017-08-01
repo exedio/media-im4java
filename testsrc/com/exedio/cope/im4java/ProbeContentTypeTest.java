@@ -40,6 +40,10 @@ public class ProbeContentTypeTest extends TestCase
 	{
 		assertEquals(MediaType.GIF,  type("MediaImageMagickFilter-test.gif"));
 	}
+	public void testTIFF() throws URISyntaxException, IOException
+	{
+		assertEquals(MediaType.TIFF, type("MediaImageMagickFilter-test.tif"));
+	}
 	public void testPDF() throws URISyntaxException, IOException
 	{
 		assertEquals(MediaType.PDF,  type("MediaImageMagickFilter-test.pdf"));

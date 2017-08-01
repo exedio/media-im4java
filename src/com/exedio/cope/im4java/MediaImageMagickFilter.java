@@ -52,6 +52,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 					MediaType.forName(MediaType.JPEG),
 					MediaType.forName(MediaType.PNG),
 					MediaType.forName(MediaType.GIF),
+					MediaType.forName(MediaType.TIFF),
 					MediaType.forName(MediaType.PDF),
 					MediaType.forName(MediaType.SVG)
 			));
