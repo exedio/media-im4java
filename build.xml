@@ -35,6 +35,9 @@
 				<pathelement location="lib/log4j-bundle.jar" />
 				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/exedio-cope-instrument.jar" />
+				<pathelement location="lib/findbugs-annotations.jar" />
+				<pathelement location="lib/exedio-cope-junit.jar" />
+				<pathelement location="lib/junit.jar" />
 			</classpath>
 		</taskdef>
 	</target>
@@ -43,11 +46,10 @@
 			build faster with "ant -Dskip.instrument=true",
 			if you know, no instrumentation is needed
 		-->
-		<instrument verify="${instrument.verify}">
-			<fileset dir="${basedir}/testsrc/com/exedio/cope/im4java">
-				<include name="*Item.java" />
-			</fileset>
-		</instrument>
+		<instrument
+				verify="${instrument.verify}"
+				dir="${basedir}/testsrc/com/exedio/cope/im4java"
+				hintFormat="forTags" />
 	</target>
 
 	<target name="test.compile" depends="compile, test.instrument">
