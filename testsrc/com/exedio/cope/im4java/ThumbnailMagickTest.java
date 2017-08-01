@@ -82,7 +82,7 @@ public final class ThumbnailMagickTest extends CopeModelTest
 	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
 	public ConnectProperties getConnectProperties()
 	{
-		return new ConnectProperties(new Properties.Source()
+		return ConnectProperties.create(new Properties.Source()
 		{
 			@Override
 			public Collection<String> keySet()
@@ -108,7 +108,7 @@ public final class ThumbnailMagickTest extends CopeModelTest
 				else
 					return null;
 			}
-		}, null);
+		});
 	}
 
 	private static InputStream resource(final String name)
