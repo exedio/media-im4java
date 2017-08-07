@@ -4,7 +4,7 @@ jdk:
   - oraclejdk8
 
 before_script:
-  - sudo apt-get install ant-optional
+  - sudo apt-get install ant-optional ghostscript
   - ant -version
 
 script: "ant clean jenkins"
