@@ -18,17 +18,21 @@
 
 package com.exedio.cope.im4java;
 
-import static com.exedio.cope.util.StrictFile.delete;
-import static java.io.File.createTempFile;
+import static com.exedio.cope.im4java.MediaImageMagickFilter.OWNER_READ_WRITE;
+import static java.nio.file.Files.createTempFile;
+import static java.nio.file.Files.delete;
+import static java.nio.file.Files.newOutputStream;
+import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
+import static java.nio.file.StandardOpenOption.WRITE;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.pattern.MediaType;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.Properties;
 import java.util.Set;
@@ -93,8 +97,8 @@ final class Action
 	}
 
 	void execute(
-			final File in, final MediaType inContentType,
-			final File out, final MediaType outContentType)
+			final Path in, final MediaType inContentType,
+			final Path out, final MediaType outContentType)
 	throws IOException
 	{
 		final ConvertCmd cmd = new ConvertCmd();
@@ -109,8 +113,8 @@ final class Action
 		{
 			throw new RuntimeException(
 					operationWithImage + "===" +
-					in .getAbsolutePath() + "===" + inContentType + "===" +
-					out.getAbsolutePath(), e);
+					in .toAbsolutePath() + "===" + inContentType + "===" +
+					out.toAbsolutePath(), e);
 		}
 	}
 
@@ -122,27 +126,27 @@ final class Action
 	 * and "Other Security Considerations" in
 	 * https://www.imagemagick.org/script/security-policy.php
 	 */
-	private static String explicitFormat(final File file, final MediaType contentType)
+	private static String explicitFormat(final Path file, final MediaType contentType)
 	{
 		return
 				contentType.getDefaultExtension().substring(1) + // substring drops leading dot
 				':' +
-				file.getAbsolutePath();
+				file.toAbsolutePath();
 	}
 
 	void test(final MediaType inputContentType, final String id) throws IOException
 	{
 		final String name = MediaImageMagickFilter.class.getName() + '_' + id + "_test";
 		final MediaType outputContentType = outputContentType(inputContentType);
-		final File  in = createTempFile(name + "_inp_", ".data");
-		final File out = createTempFile(name + "_out_", outputContentType.getDefaultExtension());
+		final Path  in = createTempFile(name + "_inp_", ".data", OWNER_READ_WRITE);
+		final Path out = createTempFile(name + "_out_", outputContentType.getDefaultExtension(), OWNER_READ_WRITE);
 
 		final int size = sizeOfTestDummy(inputContentType);
 		final byte[] b = new byte[size+2];
 		int transferredLength = 0;
 		try(
 			InputStream inStream = MediaImageMagickFilter.class.getResourceAsStream("MediaImageMagickFilter-test" + inputContentType.getDefaultExtension());
-			FileOutputStream outStream = new FileOutputStream(in))
+			OutputStream outStream = newOutputStream(in, WRITE, TRUNCATE_EXISTING))
 		{
 			for(int len = inStream.read(b); len>=0; len = inStream.read(b))
 			{

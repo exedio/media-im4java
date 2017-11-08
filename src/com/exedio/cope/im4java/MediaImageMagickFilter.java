@@ -19,8 +19,10 @@
 package com.exedio.cope.im4java;
 
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
-import static com.exedio.cope.util.StrictFile.delete;
-import static java.io.File.createTempFile;
+import static java.nio.file.Files.createTempFile;
+import static java.nio.file.Files.delete;
+import static java.nio.file.Files.newInputStream;
+import static java.nio.file.StandardOpenOption.READ;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Item;
@@ -31,12 +33,16 @@ import com.exedio.cope.pattern.MediaPreviewable;
 import com.exedio.cope.pattern.MediaTestable;
 import com.exedio.cope.pattern.MediaType;
 import com.exedio.cope.pattern.MediaUtil;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.attribute.FileAttribute;
+import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -184,7 +190,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaPr
 			throw notFoundNotComputable();
 
 		final Action action = actions.get(type);
-		final File outFile = execute(item, type, action, true);
+		final Path outFile = execute(item, type, action, true);
 		try
 		{
 			MediaUtil.send(action.outputContentType(type).getName(), outFile, response);
@@ -206,9 +212,9 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaPr
 		if(type==null)
 			return null;
 
-		final File outFile = execute(item, type, actions.get(type), false);
+		final Path outFile = execute(item, type, actions.get(type), false);
 
-		final long contentLength = outFile.length();
+		final long contentLength = Files.size(outFile);
 		if(contentLength<=0)
 			throw new RuntimeException(String.valueOf(contentLength));
 		if(contentLength>=Integer.MAX_VALUE)
@@ -216,7 +222,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaPr
 
 		final byte[] result = new byte[(int)contentLength];
 
-		try(FileInputStream body = new FileInputStream(outFile))
+		try(InputStream body = newInputStream(outFile, READ))
 		{
 			final int readResult = body.read(result);
 			if(readResult!=contentLength)
@@ -243,7 +249,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaPr
 		final Action action = actions.get(type);
 		final MediaType outputContentType = action.outputContentType(type);
 
-		action.execute(sourceBody.toFile(), type, target.toFile(), outputContentType);
+		action.execute(sourceBody, type, target, outputContentType);
 
 		return outputContentType.getName();
 	}
@@ -269,7 +275,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaPr
 		return false;
 	}
 
-	private File execute(
+	private Path execute(
 			final Item item,
 			final MediaType contentType,
 			final Action action,
@@ -278,8 +284,8 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaPr
 	{
 		final String name = "com.exedio.cope.im4java_" + getID() + '_' + getPrimaryKeyColumnValueL(item);
 		final MediaType outputContentType = action.outputContentType(contentType);
-		final File  in = createTempFile(name + "_inp_", ".data");
-		final File out = createTempFile(name + "_out_", outputContentType.getDefaultExtension());
+		final Path  in = createTempFile(name + "_inp_", ".data", OWNER_READ_WRITE);
+		final Path out = createTempFile(name + "_out_", outputContentType.getDefaultExtension(), OWNER_READ_WRITE);
 
 		source.getBody(item, in);
 
@@ -292,6 +298,9 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaPr
 
 		return out;
 	}
+
+	static final FileAttribute<Set<PosixFilePermission>> OWNER_READ_WRITE =
+			PosixFilePermissions.asFileAttribute(EnumSet.of(PosixFilePermission.OWNER_READ, PosixFilePermission.OWNER_WRITE));
 
 	List<String> getCmdArgs(final String contentType)
 	{
