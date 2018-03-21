@@ -131,6 +131,21 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 		return actions.getOutputContentType();
 	}
 
+	/**
+	 * @param contentType the {@link #getSource() source} content type
+	 */
+	public String getOutputContentType(final String contentType)
+	{
+		if(contentType==null)
+			return null;
+
+		final MediaType type = supported(MediaType.forNameAndAliases(contentType));
+		if(type==null)
+			return null;
+
+		return actions.get(type).getContentType(type);
+	}
+
 	@Override
 	public String getContentType(final Item item)
 	{

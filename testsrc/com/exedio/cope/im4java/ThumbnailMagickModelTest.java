@@ -77,6 +77,38 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 		assertEquals(null, thumbSame.getOutputContentType());
 		assertEquals(null, thumbRound.getOutputContentType());
 
+		assertEquals(JPEG, thumb.getOutputContentType(JPEG));
+		assertEquals(JPEG, thumb.getOutputContentType(PNG));
+		assertEquals(JPEG, thumb.getOutputContentType(GIF));
+		assertEquals(JPEG, thumb.getOutputContentType("image/pjpeg"));
+		assertEquals(JPEG, thumb.getOutputContentType("image/x-png"));
+		assertEquals(null, thumb.getOutputContentType("text/plain"));
+		assertEquals(null, thumb.getOutputContentType(null));
+
+		assertEquals(PNG,  thumbFull.getOutputContentType(JPEG));
+		assertEquals(PNG,  thumbFull.getOutputContentType(PNG));
+		assertEquals(PNG,  thumbFull.getOutputContentType(GIF));
+		assertEquals(PNG,  thumbFull.getOutputContentType("image/pjpeg"));
+		assertEquals(PNG,  thumbFull.getOutputContentType("image/x-png"));
+		assertEquals(null, thumbFull.getOutputContentType("text/plain"));
+		assertEquals(null, thumbFull.getOutputContentType(null));
+
+		assertEquals(JPEG, thumbSame.getOutputContentType(JPEG));
+		assertEquals(PNG,  thumbSame.getOutputContentType(PNG));
+		assertEquals(GIF,  thumbSame.getOutputContentType(GIF));
+		assertEquals(JPEG, thumbSame.getOutputContentType("image/pjpeg"));
+		assertEquals(PNG,  thumbSame.getOutputContentType("image/x-png"));
+		assertEquals(null, thumbSame.getOutputContentType("text/plain"));
+		assertEquals(null, thumbSame.getOutputContentType(null));
+
+		assertEquals(PNG,  thumbRound.getOutputContentType(JPEG));
+		assertEquals(GIF,  thumbRound.getOutputContentType(PNG));
+		assertEquals(JPEG, thumbRound.getOutputContentType(GIF));
+		assertEquals(PNG,  thumbRound.getOutputContentType("image/pjpeg"));
+		assertEquals(GIF,  thumbRound.getOutputContentType("image/x-png"));
+		assertEquals(null, thumbRound.getOutputContentType("text/plain"));
+		assertEquals(null, thumbRound.getOutputContentType(null));
+
 		assertEquals(file.isNull(), thumb.isNull());
 		assertEquals(file.isNotNull(), thumb.isNotNull());
 
