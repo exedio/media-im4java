@@ -93,7 +93,10 @@ final class Action
 				: inputContentType;
 	}
 
-	void execute(final File in, final File out) throws IOException
+	void execute(
+			final File in, final MediaType inContentType,
+			final File out)
+	throws IOException
 	{
 		final ConvertCmd cmd = new ConvertCmd();
 		//System.out.println("------script-----" + getScript());
@@ -105,7 +108,7 @@ final class Action
 		{
 			throw new RuntimeException(
 					operationWithImage + "===" +
-					in .getAbsolutePath() + "===" +
+					in .getAbsolutePath() + "===" + inContentType + "===" +
 					out.getAbsolutePath(), e);
 		}
 	}
@@ -132,7 +135,7 @@ final class Action
 		if(transferredLength!=size) // size of the file
 			throw new RuntimeException(String.valueOf(transferredLength));
 
-		execute(in, out);
+		execute(in, inputContentType, out);
 
 		delete(in);
 		delete(out);

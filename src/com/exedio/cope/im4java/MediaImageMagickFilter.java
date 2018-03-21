@@ -266,7 +266,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 		if(commit)
 			commit();
 
-		action.execute(in, out);
+		action.execute(in, contentType, out);
 
 		delete(in);
 
