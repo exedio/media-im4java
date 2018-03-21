@@ -20,6 +20,7 @@ package com.exedio.cope.im4java;
 
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.io.File.createTempFile;
+import static java.nio.file.Files.probeContentType;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.pattern.MediaType;
@@ -116,8 +117,9 @@ final class Action
 	void test(final MediaType inputContentType, final String id) throws IOException
 	{
 		final String name = MediaImageMagickFilter.class.getName() + '_' + id + "_test";
+		final MediaType outputContentType = outputContentType(inputContentType);
 		final File  in = createTempFile(name + "_inp_", ".data");
-		final File out = createTempFile(name + "_out_", outputContentType(inputContentType).getDefaultExtension());
+		final File out = createTempFile(name + "_out_", outputContentType.getDefaultExtension());
 
 		final int size = sizeOfTestDummy(inputContentType);
 		final byte[] b = new byte[size+2];
@@ -138,6 +140,14 @@ final class Action
 		execute(in, inputContentType, out);
 
 		delete(in);
+
+		final String outProbed = probeContentType(out.toPath());
+		final MediaType outProbedType = MediaType.forNameAndAliases(outProbed);
+		if(outputContentType!=outProbedType)
+			throw new RuntimeException(
+					"mismatch outProbe " + id + " ===" + inputContentType + "===" +
+							outProbed + "===" + outProbedType + "===");
+
 		delete(out);
 	}
 
