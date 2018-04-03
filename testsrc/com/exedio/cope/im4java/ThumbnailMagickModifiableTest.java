@@ -18,6 +18,9 @@
 
 package com.exedio.cope.im4java;
 
+import static com.exedio.cope.pattern.MediaType.PNG;
+import static com.exedio.cope.pattern.MediaType.SVG;
+
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.Media;
 import java.io.IOException;
@@ -32,7 +35,8 @@ public final class ThumbnailMagickModifiableTest extends CopeAssert
 		final Media file = new Media().optional().lengthMax(10000);
 		@SuppressWarnings("boxing")
 		final IMOps operation = new IMOperation().resize(20, 30, '>');
-		final MediaImageMagickFilter thumb = new MediaImageMagickFilter(file, operation);
+		final MediaImageMagickFilter thumb = new MediaImageMagickFilter(file, operation).
+				forType(SVG, operation, PNG); // do not create SVG as this is a svg-wrapped png anyway and makes trouble on Debian9
 
 		thumb.test();
 		// deliverately break operation

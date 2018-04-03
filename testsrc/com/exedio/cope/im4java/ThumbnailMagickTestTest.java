@@ -21,6 +21,7 @@ package com.exedio.cope.im4java;
 import static com.exedio.cope.pattern.MediaType.GIF;
 import static com.exedio.cope.pattern.MediaType.JPEG;
 import static com.exedio.cope.pattern.MediaType.PNG;
+import static com.exedio.cope.pattern.MediaType.SVG;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.Media;
@@ -40,7 +41,7 @@ public final class ThumbnailMagickTestTest extends CopeAssert
 	@SuppressWarnings("static-method")
 	public void testTest() throws IOException
 	{
-		new MediaImageMagickFilter(file, op).test();
+		new MediaImageMagickFilter(file, op).forType(SVG, op, PNG).test(); // do not create SVG as this is a svg-wrapped png anyway and makes trouble on Debian9
 		new MediaImageMagickFilter(file, op, JPEG).test();
 		new MediaImageMagickFilter(file, op, PNG).test();
 		new MediaImageMagickFilter(file, op, GIF).test();
@@ -49,7 +50,7 @@ public final class ThumbnailMagickTestTest extends CopeAssert
 		assertFails("-kaputt", new MediaImageMagickFilter(file, newIMOperation("-kaputt"), JPEG));
 		assertFails("-kaputt", new MediaImageMagickFilter(file, newIMOperation("-kaputt"), PNG));
 		assertFails("-kaputt", new MediaImageMagickFilter(file, newIMOperation("-kaputt"), GIF));
-		final MediaImageMagickFilter f1 = new MediaImageMagickFilter(file, op);
+		final MediaImageMagickFilter f1 = new MediaImageMagickFilter(file, op).forType(SVG, op, PNG); // do not create SVG as this is a svg-wrapped png anyway and makes trouble on Debian9
 		assertFails("-broken", f1.forType(PNG, newIMOperation("-broken"), null));
 		assertFails("-broken", f1.forType(PNG, newIMOperation("-broken"), JPEG));
 		assertFails("-broken", f1.forType(PNG, newIMOperation("-broken"), PNG ));
