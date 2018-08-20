@@ -66,7 +66,7 @@ final class Action
 	}
 
 	/**
-	 * See http://imagemagick.org/script/command-line-options.php#limit
+	 * See https://imagemagick.org/script/command-line-options.php#limit
 	 * Reduces time and CPU cycles needed by convert.
 	 * Replaces MAGICK_THREAD_LIMIT=1 in a more robust way.
 	 */
