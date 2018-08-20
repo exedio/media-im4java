@@ -48,8 +48,7 @@
 		-->
 		<instrument
 				verify="${instrument.verify}"
-				dir="${basedir}/testsrc/com/exedio/cope/im4java"
-				hintFormat="forTags" />
+				dir="${basedir}/testsrc/com/exedio/cope/im4java" />
 	</target>
 
 	<target name="test.compile" depends="compile, test.instrument">
