@@ -7,6 +7,220 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* @VaultServiceProperties replaced by @ServiceProperties.
+	This extensively breaks backwards API compatibility of the recently introduced Vault API (Jun 2 2017),
+	causes compiler errors.
+* Fixed wrong nullability info for MoneyField#get:
+	The wrapping get-methods for mandatory MoneyFields were incorrectly annotated as @Nullable, now fixed to @NonNull.
+	Affects instrumented code.
+* The instrumentor no longer generates deprecated wrapping methods for deprecated feature methods.
+	To keep individual methods, you can whitelist them in your build.xml:
+	<instrument ...>
+		<generateDeprecated>com.exedio.cope.pattern.PasswordRecovery#purge(com.exedio.cope.util.Interrupter)</generateDeprecated>
+		<generateDeprecated>com.exedio.cope.pattern.Dispatcher#dispatch(java.lang.Class,com.exedio.cope.pattern.Dispatcher$Config,com.exedio.cope.util.Interrupter)</generateDeprecated>
+	</instrument>
+	Affects instrumented code.
+* support @Wrapper(parameters={...}) for better control of generated code
+* ListField#removeAll added.
+	Affects instrumented code.
+* VaultFileService changes its file layout to support a directory structure.
+	Use dataField.vault.service.directory=false in ConnectProperties to
+	revert to previous behaviour.
+* Ivy configuration 'instrument' is applied to dependency beanshell.
+* The instrumentor now assigns a different serialVersionUID to item classes that are abstract.
+  To disable this feature, set <instrument ... differentSerialVersionUIDForAbstract="false">.
+  Changing the serialVersionUID breaks serialization compatibility - projects might want to keep
+  differentSerialVersionUIDForAbstract disabled until a release that breaks session
+  serialization anyway.
+* StringField#hashMatches/hashDoesNotMatch added.
+* Dispatcher#purge supports restriction.
+	Affects instrumented code.
+* DispatcherPurgeProperties: rename keys delayDays[Success|FinalFailure] to
+	retainDays[Success|FinalFailure].
+	This breaks backwards API compatibility, check your deployed systems!
+	If these keys are at their defaults you don't have to do anything.
+* Ivy configuration 'instrument' added.
+	Instrumentor is not included in configuration 'runtime' anymore.
+* Return type of several methods is weakened from "List<Abc>" to "List<? extends Abc>":
+	- Type#getSubtypes[Transitively]
+	- Type#get[Declared]Features
+	- Type#get[Declared]Fields
+	- Type#get[Declared]UniqueConstraints
+	- Type#get[Declared]CheckConstraints
+	- Type#get[Declared]CopyConstraints
+	- [Composite|Block]Field#get[Templates|Components]
+	This breaks backwards API compatibility, causes compiler error.
+* Enum[Set|Map]Field supports @CopeName for enum facets.
+	Affects database schema if you already have such annotations.
+* CompositeType and CompositeField#getValueType() added.
+* UniqueHashedMedia changes its default digest from MD5 to SHA-512.
+	Affects database schema - you have to recompute all hashes.
+	For previous behaviour use: new UniqueHashedMedia(media, "MD5")
+* StringFields with a char set allowing non-ASCII characters now get a check constraint on MySQL, verifying that the
+	data does not contain forbidden ASCII characters (characters > \u007F still don't get checked).
+	No impact on database schema, or Java-level checks of charsets.
+	Constraint checks that are started manually from COPE console can now detect additional errors.
+* MediaPathes with @PreventUrlGuessing do change their url pattern:
+
+	/media/Product/image/Product-42.jpg?t=abcdef0123456789abcd becomes
+	/media/Product/image/.tabcdef0123456789abcd/Product-42.jpg
+
+	BEWARE: Old urls will receive a http response "404 Not Found". You may want
+	to setup a rewrite rule in apache etc. From now on media urls do not use query
+	strings anymore.
+
+* @PreventUrlGuessing/@UrlFingerPrinting can be applied to types as well.
+* RevisionStatistics#getExplicitTypes and #isContainedIn added.
+* Attribute <instrument configByTags changes its default from "warn" to "error".
+	This attribute is to be removed in the near future, so you may want to remove
+	it from your build script.
+* item cache is now global (rather than split into separate segments for each type)
+  * @CopeCacheWeight is no longer applicable, and therefore deprecated;
+    use @CopeExternal instead of @CopeCacheWeight(0) to disable caching of a type
+  * reconsider cache limits:
+    With the same limit, the global cache will end up having more entries (and
+    using more memory) than the per-type cache.
+    Cache limit is now controlled by property "cache.item.globalLimit", which falls
+    back to the old "cope.cache.item.limit".
+* ConnectProperties: renamed several keys:
+
+	changeListeners.threads     -> changeListeners.threads.initial
+	changeListeners.threadsMax  -> changeListeners.threads.max
+	changeListeners.prioritySet -> changeListeners.threads.priority.set
+	changeListeners.priority    -> changeListeners.threads.priority.value
+	cluster.listenThreads       -> cluster.listen.threads.initial
+	cluster.listenThreadsMax    -> cluster.listen.threads.max
+	cluster.listenPrioritySet   -> cluster.listen.threads.priority.set
+	cluster.listenPriority      -> cluster.listen.threads.priority.value
+
+	This breaks backwards API compatibility, check your deployed systems!
+	Probably these keys is at their defaults, then you don't have to do anything.
+
+* ConnectProperties: key "dialect" changes its meaning.
+	This breaks backwards API compatibility, check your deployed systems!
+	Probably this key is at its default, then you don't have to do anything.
+* ConnectToken becomes AutoCloseable
+* @CopeExternal can be used to mark types whose instances are modified by other systems;
+	disables item and query cache for that type;
+	consider replacing @CopeCacheWeight(0) with @CopeExternal
+* ModelBuilder#name added.
+* dsmf.Column#getCumulativeColor considers Column#getConstraints()
+* cleaner instrument classpath handling:
+  * <taskdef> classpath: COPE libs (and required libs)
+  * <instrument> classpath: project-specific feature classes (and required libs)
+  -> in projects, the <taskdef> usually does not depend on any compilation
+* QueryCacheInfo#getConcurrentLoads added.
+* instrumentor supports importing item types from classpath
+* dsmf.Column#getExistingType() added.
+* exedio-cope-instrument-completion.jar (get via ivy conf "completion") provides
+	code completion for Netbeans IDE
+* ConnectToken#returnOnFailureOf added.
+* support @Wrapper(wrap="*")
+* Instrumentor omits fields from initial constructor, that are completely redundant,
+	because they are covered by a CopyConstraint with a mandatory target.
+	Use @WrapperInitial to enforce previous behaviour.
+* MoneyField#exclusive creates unison check constraint if optional.
+	This requires modification of database schema where check constraints
+	are supported (not MySQL), if not, check unsupported constraints in cope console.
+* @WrapperInitial(false) can be used to mark features as _non_-initial
+* util.CopeFilter removed, was deprecated since Dec 9 2009, use misc.CopeFilter instead.
+* @WrapperIgnore can be used at class level
+* exedio-cope-src.zip contains sources for exedio-cope-instrument-annotations.jar
+* The hints added to generated code changed, both in content (now hint to control via
+	annotations) and formatting (now add whitespace between generated elements).
+	Use this parameter:
+		<instrument hintFormat="forTags" ...
+	to enable previous behaviour - new default is "forAnnotations".
+	(Switching back from "forAnnotations" to "forTags" is not supported - adds empty lines.)
+* Instrumentor is now controlled via annotations, instead of javadoc tags.
+
+	javadoc tag                       | annotation
+	----------------------------------+---------------------------------
+	/**                               | @WrapperType(
+	 * @cope.type none                |   type=NONE,
+	 * @cope.constructor none         |   constructor=NONE,
+	 * @cope.generic.constructor none |   genericConstructor=NONE,
+	 * @cope.indent 2                 |   indent=2
+	 */                               | )
+	/**                               |
+	 * @cope.ignore                   | @WrapperIgnore
+	 * @cope.initial                  | @WrapperInitial
+	 * @cope.methodName ...           | @Wrapper(wrap="methodName", ...)
+	 */
+
+	<instrument configByTags="support|warn|error|ignore|convertToAnnotations"> (default is "warn")
+	Steps for migrating from tags to annotations:
+	1. <instrument configByTags="support"> - verify that everthing works as before
+	2. <instrument configByTags="convertToAnnotations"> - run once to get tags auto-transformed into annotations; review code changes
+	3. <instrument configByTags="error"> - if necessary, manually convert tags that have not been auto-transformed
+* bugfix: in instrumentor tags "internal" together with "package", "protected",
+	or "public" does work now. Before, "internal" methods always became private.
+* dsmf.Column#getConstraints() added.
+* dsmf.Sequence#getType() added.
+* Dispatcher.Result added
+	Dispatcher#getRunSuccess() replaced by getRunResult()
+	This breaks backwards API compatibility, causes compiler error.
+* bugfix: wrong column type for EnumField with negative @CopeSchemaValue.
+	Affects database schema.
+* Instrumentor parameter default changed. For previous behaviour set:
+	<instrument ... parenthesesOnEmptyMemberAnnotations="true">
+* @WrapFeature moved from Pattern to its subclasses.
+	Add @WrapFeature to your own patterns, otherwise instrumentor will not work anymore.
+	You may remove @cope.ignore from MultiItemField.
+* Class com.exedio.cope.instrument.Wrapper removed.
+	This breaks backwards API compatibility, causes compiler errors.
+* Instrumentor determines whether an element (method or field) has been generated
+  by annotation @Generated rather than javadoc tag @cope.generated.
+  (makes no difference unless you still use <instrument annotateGenerated="false"/>)
+* Instrumentor is now based on Javac. This allows full use of generics and
+	annotation syntax in code that gets parsed.
+	This disables some bugs of the old, custom implementation - noteably, Java
+	source tokens after annotations without parentheses were dropped. Also, the
+	old implementation tolerated javadoc between annotations and field/method
+	(must be javadoc - annotations - field/method).
+	The instrumentor now needs to get access to libraries and the full source
+	code that's being compiled. Adapt your instrumentor call:
+	Old:
+		<instrument>
+			<fileset dir="src/my/package">
+				<include name="SomeItem.java>
+			</fileset>
+			<fileset dir="additionalsrc/my/otherpackage">
+				<include name="Foo.java>
+			</fileset>
+		</instrument>
+	New - easy migration:
+		<instrument dir="src:additionalsrc">
+			<classpath refid="compile.lib" /> <!-- same as used for compiling -->
+			<dontignore>
+				... <!-- move old 'fileset' configuration here -->
+			</dontignore>
+		</instrument>
+	New - more compact form, especially since generics etc no longer have to be avoided:
+		<instrument dir="src:additionalsrc">
+			<classpath refid="compile.lib" /> <!-- same as used for compiling -->
+			<ignore>
+				<fileset dir="src" includes="my/package/shop/**/*.java"/>
+			</ignore>
+		</instrument>
+	If using jspms, make sure the jspm compiler runs before the instrumentor.
+* AverageAggregate always returns double instead source type.
+	This breaks backwards API compatibility.
+* ExtremumAggregate/SumAggregate/AverageAggregate move from package
+	com.exedio.cope.search to com.exedio.cope.
+	This breaks backwards API compatibility.
+	requires copelive >= #242, copeview >= #2038
+* EnumMapField#fallbackTo(K) and #fallback() added.
+* bugfix: getter results became unmodifiable in com.exedio.dsmf for
+	Schema#getTables(), #getSequences(), Table#getColumns(), and #getConstraints().
+	This breaks backwards API compatibility.
+* Constraint names can use up to 60 characters instead of just 25.
+	This heavily affects database schema.
+	Use schema.mysql.longConstraintNames=false in ConnectProperties to
+	revert to previous behaviour on MySQL.
+* EnvironmentInfo#getCatalog() added.
+* <instrument annotateGenerated="false" not supported any longer.
+* cojen.jar not required anymore.
 * @Override generated by instrumentor is put on a separate line.
 	Affects instrumented code.
 	Use this parameter:
