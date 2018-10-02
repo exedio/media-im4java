@@ -6,7 +6,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="lib/findbugs-annotations.jar"/>
 	<classpathentry kind="lib" path="lib/exedio-cope.jar" sourcepath="lib/exedio-cope-src.zip"/>
-	<classpathentry kind="lib" path="lib/exedio-cope-junit.jar" sourcepath="lib/exedio-cope-src.zip"/>
 	<classpathentry kind="lib" path="lib/javax.servlet-api.jar" sourcepath="lib/javax.servlet-api-source.jar"/>
 	<classpathentry kind="lib" path="lib/exedio-cope-instrument-annotations.jar"/>
 	<classpathentry kind="lib" path="lib/slf4j-api.jar"/>

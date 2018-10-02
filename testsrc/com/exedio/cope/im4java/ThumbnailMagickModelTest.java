@@ -54,7 +54,7 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 	@SuppressWarnings("static-method")
 	public void testThumbs() throws IOException
 	{
-		assertEqualsUnmodifiable(asList(new Feature[]{
+		assertEquals(asList(new Feature[]{
 				TYPE.getThis(),
 				file,
 				file.getBody(),

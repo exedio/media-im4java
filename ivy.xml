@@ -28,12 +28,13 @@
 			<conf name="runtime" mapped="runtime" />
 			<conf name="build" mapped="hsqldb" />
 			<conf name="build" mapped="instrument" />
-			<conf name="build" mapped="junit" />
 			<conf name="build" mapped="sources" />
 			<conf name="build" mapped="changelog"/>
 		</dependency>
 		<dependency org="org.im4java" name="im4java" rev="1.4.0" conf="runtime->default; build->sources" />
-		<dependency org="junit" name="junit" rev="4.4" conf="build->default,sources" />
+		<dependency org="junit" name="junit" rev="4.10" conf="build->default,sources">
+			<exclude org="org.hamcrest" />
+		</dependency>
 		<dependency org="findbugs-x" name="findbugs" rev="3.0.0" conf="build->default" />
 		<!-- we use servlet-api 3.0, which goes in a different 'module' (javax.servlet-api) -->
 		<exclude org="javax.servlet" module="servlet-api"/> <!-- for servlet API < 3.0 -->
