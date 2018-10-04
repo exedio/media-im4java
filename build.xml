@@ -39,7 +39,7 @@
 		-->
 		<instrument
 				verify="${instrument.verify}"
-				dir="${basedir}/testsrc/com/exedio/cope/im4java">
+				dir="${basedir}/testsrc">
 			<classpath>
 				<pathelement location="build/classes/src" />
 				<pathelement location="lib/im4java.jar" />
