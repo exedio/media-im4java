@@ -96,14 +96,16 @@ final class Action
 
 	void execute(
 			final File in, final MediaType inContentType,
-			final File out)
+			final File out, final MediaType outContentType)
 	throws IOException
 	{
 		final ConvertCmd cmd = new ConvertCmd();
 		//System.out.println("------script-----" + getScript());
 		try
 		{
-			cmd.run(operationWithImage, in.getAbsolutePath(), out.getAbsolutePath());
+			cmd.run(operationWithImage,
+					explicitFormat( in,  inContentType),
+					explicitFormat(out, outContentType));
 		}
 		catch(InterruptedException | IM4JavaException e)
 		{
@@ -112,6 +114,22 @@ final class Action
 					in .getAbsolutePath() + "===" + inContentType + "===" +
 					out.getAbsolutePath(), e);
 		}
+	}
+
+	/**
+	 * See "Explicit Image Format" in
+	 * https://www.imagemagick.org/script/command-line-processing.php
+	 * Improves security:
+	 * https://lcamtuf.blogspot.com/2016/05/clearing-up-some-misconceptions-around.html
+	 * and "Other Security Considerations" in
+	 * https://www.imagemagick.org/script/security-policy.php
+	 */
+	private static String explicitFormat(final File file, final MediaType contentType)
+	{
+		return
+				contentType.getDefaultExtension().substring(1) + // substring drops leading dot
+				':' +
+				file.getAbsolutePath();
 	}
 
 	void test(final MediaType inputContentType, final String id) throws IOException
@@ -137,7 +155,7 @@ final class Action
 		if(transferredLength!=size) // size of the file
 			throw new RuntimeException(String.valueOf(transferredLength));
 
-		execute(in, inputContentType, out);
+		execute(in, inputContentType, out, outputContentType);
 
 		delete(in);
 

@@ -259,15 +259,16 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 		throws IOException
 	{
 		final String name = "com.exedio.cope.im4java_" + getID() + '_' + getPrimaryKeyColumnValueL(item);
+		final MediaType outputContentType = action.outputContentType(contentType);
 		final File  in = createTempFile(name + "_inp_", ".data");
-		final File out = createTempFile(name + "_out_", action.outputContentType(contentType).getDefaultExtension());
+		final File out = createTempFile(name + "_out_", outputContentType.getDefaultExtension());
 
 		source.getBody(item, in);
 
 		if(commit)
 			commit();
 
-		action.execute(in, contentType, out);
+		action.execute(in, contentType, out, outputContentType);
 
 		delete(in);
 
