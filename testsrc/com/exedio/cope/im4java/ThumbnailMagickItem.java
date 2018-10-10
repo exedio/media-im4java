@@ -25,7 +25,7 @@ import org.im4java.core.IMOperation;
 
 public final class ThumbnailMagickItem extends Item
 {
-	static final Media file = new Media().optional().lengthMax(10000);
+	static final Media file = new Media().optional().lengthMax(15000);
 
 	@SuppressWarnings("boxing")
 	static final MediaImageMagickFilter thumb =
