@@ -66,6 +66,20 @@ timestamps
 						usePreviousBuildAsReference: false,
 						useStableBuildAsReference: false])
 				archive 'build/success/*'
+				step([$class: 'PlotBuilder',
+						csvFileName: 'plots.csv',
+						exclZero: false,
+						keepRecords: false,
+						group: 'Sizes',
+						title: 'exedio-cope-im4java.jar',
+						numBuilds: '1000',
+						style: 'line',
+						useDescr: false,
+						propertiesSeries: [
+							[ file: 'build/exedio-cope-im4java.jar-plot.properties',     label: 'exedio-cope-im4java.jar' ],
+							[ file: 'build/exedio-cope-im4java-src.zip-plot.properties', label: 'exedio-cope-im4java-src.zip' ],
+						],
+				])
 			}
 		}
 		catch(Exception e)

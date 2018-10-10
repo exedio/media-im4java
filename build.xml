@@ -103,6 +103,7 @@
 				<attribute name="Implementation-Vendor" value="exedio GmbH"/>
 			</manifest>
 		</jar>
+		<plot file="build/exedio-cope-im4java.jar" />
 	</target>
 
 	<target name="jar.src">
@@ -112,6 +113,7 @@
 				<include name="**/*.java" />
 			</zipfileset>
 		</zip>
+		<plot file="build/exedio-cope-im4java-src.zip" />
 	</target>
 
 	<target name="clean">
