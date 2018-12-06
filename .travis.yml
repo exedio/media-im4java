@@ -4,7 +4,7 @@ jdk:
   - openjdk8
 
 before_script:
-  - sudo apt-get install ant-optional ghostscript
+  - sudo apt-get install ant-optional ghostscript webp
   - grep -v '^.*policy.*coder.*none.*PDF.*$' < /etc/ImageMagick-6/policy.xml > policy.xml-new
   - sudo cp policy.xml-new /etc/ImageMagick-6/policy.xml
   - ant -version

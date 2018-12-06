@@ -25,6 +25,7 @@ import static com.exedio.cope.pattern.MediaType.PDF;
 import static com.exedio.cope.pattern.MediaType.PNG;
 import static com.exedio.cope.pattern.MediaType.SVG;
 import static com.exedio.cope.pattern.MediaType.TIFF;
+import static com.exedio.cope.pattern.MediaType.WEBP;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.junit.CopeModelTest;
@@ -119,6 +120,28 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.png"), GIF);
 		assertFails(item, "convert: improper image header `");
+	}
+
+
+	public void testWebpJpeg() throws IOException
+	{
+		final ThumbnailMagickItem item = new ThumbnailMagickItem();
+		item.setFile(resource("thumbnail-test.jpg"), WEBP);
+		assertFails(item, "Decoding of ");
+	}
+
+	public void testWebpPng() throws IOException
+	{
+		final ThumbnailMagickItem item = new ThumbnailMagickItem();
+		item.setFile(resource("thumbnail-test.png"), WEBP);
+		assertFails(item, "Decoding of ");
+	}
+
+	public void testWebpPdf() throws IOException
+	{
+		final ThumbnailMagickItem item = new ThumbnailMagickItem();
+		item.setFile(resource("thumbnail-test.pdf"), WEBP);
+		assertFails(item, "Decoding of ");
 	}
 
 

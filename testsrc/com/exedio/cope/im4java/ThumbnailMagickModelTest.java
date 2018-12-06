@@ -30,6 +30,7 @@ import static com.exedio.cope.pattern.MediaType.PDF;
 import static com.exedio.cope.pattern.MediaType.PNG;
 import static com.exedio.cope.pattern.MediaType.SVG;
 import static com.exedio.cope.pattern.MediaType.TIFF;
+import static com.exedio.cope.pattern.MediaType.WEBP;
 import static com.exedio.cope.pattern.MediaType.ZIP;
 import static java.util.Arrays.asList;
 
@@ -70,7 +71,7 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 		assertEquals("thumb", thumb.getName());
 		assertSame(file, thumb.getSource());
 		assertEquals(
-				new HashSet<>(asList(JPEG, "image/pjpeg", PNG, "image/x-png", GIF, TIFF, PDF, "text/pdf", SVG)),
+				new HashSet<>(asList(JPEG, "image/pjpeg", PNG, "image/x-png", GIF, WEBP, TIFF, PDF, "text/pdf", SVG)),
 				thumb.getSupportedSourceContentTypes());
 
 		assertEquals(JPEG, thumb.getOutputContentType());
