@@ -221,6 +221,18 @@ public final class ThumbnailMagickItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setFile(final java.nio.file.Path body,final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		ThumbnailMagickItem.file.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #file}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setFile(final java.io.File body,final java.lang.String contentType)
 			throws
 				java.io.IOException

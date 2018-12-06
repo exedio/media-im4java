@@ -216,6 +216,18 @@ public final class ContentTypeInstrumentItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setAll(final java.nio.file.Path body,final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		ContentTypeInstrumentItem.all.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #all}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setAll(final java.io.File body,final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -330,6 +342,18 @@ public final class ContentTypeInstrumentItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setOne(final java.io.InputStream body,final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		ContentTypeInstrumentItem.one.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #one}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setOne(final java.nio.file.Path body,final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
