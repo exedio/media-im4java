@@ -1,10 +1,12 @@
-dist: trusty
+dist: xenial
 language: java
 jdk:
   - openjdk8
 
 before_script:
-  - sudo apt-get install ghostscript
+  - sudo apt-get install ant-optional ghostscript
+  - grep -v '^.*policy.*coder.*none.*PDF.*$' < /etc/ImageMagick-6/policy.xml > policy.xml-new
+  - sudo cp policy.xml-new /etc/ImageMagick-6/policy.xml
   - ant -version
 
 script: "ant clean jenkins"
