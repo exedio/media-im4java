@@ -92,8 +92,8 @@ public final class ThumbnailMagickPreviewTest
 		final String message = e.getCause().getMessage();
 		assumeNotGithub();
 		assertTrue(message.startsWith(
-				"org.im4java.core.CommandException: " + getProgramName() + ": Expected 5166 bytes; found 2029 bytes " +
-				"`" + sourceBody + "' @ warning/png.c/MagickPNGWarningHandler/"), message);
+				"org.im4java.core.CommandException: " + getProgramName() + ": no images defined " +
+				"`png:" + target + "' @ error/convert.c/ConvertImageCommand/"), message);
 		assertFalse(Files.exists(target));
 	}
 	@Test void testUnsupportedContentType() throws IOException
