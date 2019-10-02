@@ -23,7 +23,14 @@ import static java.nio.file.Files.probeContentType;
 import com.exedio.cope.pattern.MediaType;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.nio.file.spi.FileTypeDetector;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.ServiceLoader;
 import junit.framework.TestCase;
 
 public class ProbeContentTypeTest extends TestCase
@@ -32,33 +39,82 @@ public class ProbeContentTypeTest extends TestCase
 	{
 		assertEquals(MediaType.JPEG, type("MediaImageMagickFilter-test.jpg"));
 	}
+	public void testJPEGAnon() throws URISyntaxException, IOException
+	{
+		assertEquals(MediaType.JPEG, typeAnon("MediaImageMagickFilter-test.jpg"));
+	}
 	public void testPNG() throws URISyntaxException, IOException
 	{
 		assertEquals(MediaType.PNG,  type("MediaImageMagickFilter-test.png"));
+	}
+	public void testPNGAnon() throws URISyntaxException, IOException
+	{
+		assertEquals(MediaType.PNG,  typeAnon("MediaImageMagickFilter-test.png"));
 	}
 	public void testGIF() throws URISyntaxException, IOException
 	{
 		assertEquals(MediaType.GIF,  type("MediaImageMagickFilter-test.gif"));
 	}
+	public void testGIFAnon() throws URISyntaxException, IOException
+	{
+		assertEquals(MediaType.GIF,  typeAnon("MediaImageMagickFilter-test.gif"));
+	}
 	public void testWEBP() throws URISyntaxException, IOException
 	{
 		assertEquals(MediaType.WEBP, type("MediaImageMagickFilter-test.webp"));
+	}
+	public void testWEBPAnon() throws URISyntaxException, IOException
+	{
+		assertEquals(MediaType.WEBP, typeAnon("MediaImageMagickFilter-test.webp"));
 	}
 	public void testTIFF() throws URISyntaxException, IOException
 	{
 		assertEquals(MediaType.TIFF, type("MediaImageMagickFilter-test.tif"));
 	}
+	public void testTIFFAnon() throws URISyntaxException, IOException
+	{
+		assertEquals(MediaType.TIFF, typeAnon("MediaImageMagickFilter-test.tif"));
+	}
 	public void testPDF() throws URISyntaxException, IOException
 	{
 		assertEquals(MediaType.PDF,  type("MediaImageMagickFilter-test.pdf"));
+	}
+	public void testPDFAnon() throws URISyntaxException, IOException
+	{
+		assertEquals(MediaType.PDF,  typeAnon("MediaImageMagickFilter-test.pdf"));
 	}
 	public void testSVG() throws URISyntaxException, IOException
 	{
 		assertEquals(MediaType.SVG,  type("MediaImageMagickFilter-test.svg"));
 	}
+	public void testSVGAnon() throws URISyntaxException, IOException
+	{
+		assertEquals(MediaType.SVG,  typeAnon("MediaImageMagickFilter-test.svg"));
+	}
 
 	private static String type(final String name) throws URISyntaxException, IOException
 	{
-		return probeContentType(Paths.get(ProbeContentTypeTest.class.getResource(name).toURI()));
+		return probeContentType(path(name));
+	}
+
+	private static String typeAnon(final String name) throws URISyntaxException, IOException
+	{
+		final Path withoutExtension = Files.createTempFile(ProbeContentTypeTest.class.getName(), ".data");
+		Files.copy(path(name), withoutExtension, StandardCopyOption.REPLACE_EXISTING);
+		return probeContentType(withoutExtension);
+	}
+
+	private static Path path(final String name) throws URISyntaxException
+	{
+		return Paths.get(ProbeContentTypeTest.class.getResource(name).toURI());
+	}
+
+
+	public void testDetectors()
+	{
+		final ArrayList<String> actual = new ArrayList<>();
+		for(final FileTypeDetector detector : ServiceLoader.load(FileTypeDetector.class))
+			actual.add(detector.getClass().getName());
+		assertEquals(Arrays.asList(), actual);
 	}
 }
