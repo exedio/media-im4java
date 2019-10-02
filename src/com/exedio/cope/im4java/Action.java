@@ -31,6 +31,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Properties;
 import org.im4java.core.ConvertCmd;
@@ -159,7 +162,12 @@ final class Action
 
 		delete(in);
 
-		final String outProbed = probeContentType(out.toPath());
+		// NOTE
+		// probeContentType is called on a path without a well known extension,
+		// so it cannot shortcut by guessing from the extension.
+		final Path outWithoutExtension = Files.createTempFile(name + "_prb_", ".data");
+		Files.copy(out.toPath(), outWithoutExtension, StandardCopyOption.REPLACE_EXISTING);
+		final String outProbed = probeContentType(outWithoutExtension);
 		final MediaType outProbedType = MediaType.forNameAndAliases(outProbed);
 		if(outputContentType!=outProbedType)
 			throw new RuntimeException(
