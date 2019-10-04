@@ -20,7 +20,6 @@ package com.exedio.cope.im4java;
 
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.io.File.createTempFile;
-import static java.nio.file.Files.probeContentType;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.pattern.MediaType;
@@ -31,11 +30,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Properties;
+import java.util.Set;
 import org.im4java.core.ConvertCmd;
 import org.im4java.core.IM4JavaException;
 import org.im4java.core.IMOperation;
@@ -162,17 +159,11 @@ final class Action
 
 		delete(in);
 
-		// NOTE
-		// probeContentType is called on a path without a well known extension,
-		// so it cannot shortcut by guessing from the extension.
-		final Path outWithoutExtension = Files.createTempFile(name + "_prb_", ".data");
-		Files.copy(out.toPath(), outWithoutExtension, StandardCopyOption.REPLACE_EXISTING);
-		final String outProbed = probeContentType(outWithoutExtension);
-		final MediaType outProbedType = MediaType.forNameAndAliases(outProbed);
-		if(outputContentType!=outProbedType)
+		final Set<MediaType> outProbedTypes = MediaType.forMagics(out);
+		if(!outProbedTypes.contains(outputContentType))
 			throw new RuntimeException(
 					"mismatch outProbe " + id + " ===" + inputContentType + "===" +
-							outProbed + "===" + outProbedType + "===");
+							outputContentType + "===" + outProbedTypes + "===");
 
 		delete(out);
 	}
