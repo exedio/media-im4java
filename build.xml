@@ -38,6 +38,9 @@
 			if you know, no instrumentation is needed
 		-->
 		<instrument
+				convertTT2Code="false"
+				genericConstructorOneline="false"
+				javaxAnnotationGenerated="true"
 				verify="${instrument.verify}"
 				dir="${basedir}/testsrc">
 			<classpath>
@@ -46,6 +49,7 @@
 				<pathelement location="lib/findbugs-annotations.jar" />
 				<pathelement location="lib/junit.jar" />
 			</classpath>
+			<disableWrap>com.exedio.cope.pattern.Media#getBody(com.exedio.cope.Item,java.nio.file.Path)</disableWrap>
 		</instrument>
 	</target>
 
@@ -81,6 +85,8 @@
 				<pathelement location="lib/im4java.jar" />
 				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
+				<pathelement location="lib/micrometer-core.jar" />
+				<pathelement location="lib/LatencyUtils.jar" />
 				<pathelement location="lib/hsqldb.jar" />
 				<pathelement location="lib/junit.jar" />
 			</classpath>
