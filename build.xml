@@ -38,9 +38,6 @@
 			if you know, no instrumentation is needed
 		-->
 		<instrument
-				convertTT2Code="false"
-				genericConstructorOneline="false"
-				javaxAnnotationGenerated="true"
 				verify="${instrument.verify}"
 				dir="${basedir}/testsrc">
 			<classpath>
@@ -49,7 +46,6 @@
 				<pathelement location="lib/findbugs-annotations.jar" />
 				<pathelement location="lib/junit.jar" />
 			</classpath>
-			<disableWrap>com.exedio.cope.pattern.Media#getBody(com.exedio.cope.Item,java.nio.file.Path)</disableWrap>
 		</instrument>
 	</target>
 

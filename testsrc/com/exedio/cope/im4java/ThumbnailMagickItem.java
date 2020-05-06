@@ -78,7 +78,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Creates a new ThumbnailMagickItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	public ThumbnailMagickItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -88,16 +88,13 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Creates a new ThumbnailMagickItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private ThumbnailMagickItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
+	private ThumbnailMagickItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns a URL the content of {@link #file} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURL")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURL")
 	final java.lang.String getFileURL()
 	{
 		return ThumbnailMagickItem.file.getURL(this);
@@ -106,7 +103,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns a Locator the content of {@link #file} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
 	final com.exedio.cope.pattern.MediaPath.Locator getFileLocator()
 	{
 		return ThumbnailMagickItem.file.getLocator(this);
@@ -115,7 +112,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns the content type of the media {@link #file}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContentType")
 	final java.lang.String getFileContentType()
 	{
 		return ThumbnailMagickItem.file.getContentType(this);
@@ -124,7 +121,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns whether media {@link #file} is null.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="isNull")
 	final boolean isFileNull()
 	{
 		return ThumbnailMagickItem.file.isNull(this);
@@ -133,7 +130,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns the last modification date of media {@link #file}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLastModified")
 	final java.util.Date getFileLastModified()
 	{
 		return ThumbnailMagickItem.file.getLastModified(this);
@@ -142,7 +139,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns the body length of the media {@link #file}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLength")
 	final long getFileLength()
 	{
 		return ThumbnailMagickItem.file.getLength(this);
@@ -151,7 +148,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns the body of the media {@link #file}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
 	final byte[] getFileBody()
 	{
 		return ThumbnailMagickItem.file.getBody(this);
@@ -160,9 +157,9 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Writes the body of media {@link #file} into the given stream.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
 	final void getFileBody(final java.io.OutputStream body)
 			throws
 				java.io.IOException
@@ -173,9 +170,22 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Writes the body of media {@link #file} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	final void getFileBody(final java.nio.file.Path body)
+			throws
+				java.io.IOException
+	{
+		ThumbnailMagickItem.file.getBody(this,body);
+	}
+
+	/**
+	 * Writes the body of media {@link #file} into the given file.
+	 * Does nothing, if the media is null.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
 	final void getFileBody(final java.io.File body)
 			throws
 				java.io.IOException
@@ -185,9 +195,9 @@ public final class ThumbnailMagickItem extends Item
 
 	/**
 	 * Sets the content of media {@link #file}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	final void setFile(final com.exedio.cope.pattern.Media.Value file)
 			throws
 				java.io.IOException
@@ -198,7 +208,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Sets the content of media {@link #file}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	final void setFile(final byte[] body,final java.lang.String contentType)
 	{
 		ThumbnailMagickItem.file.set(this,body,contentType);
@@ -206,9 +216,9 @@ public final class ThumbnailMagickItem extends Item
 
 	/**
 	 * Sets the content of media {@link #file}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	final void setFile(final java.io.InputStream body,final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -218,9 +228,9 @@ public final class ThumbnailMagickItem extends Item
 
 	/**
 	 * Sets the content of media {@link #file}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	final void setFile(final java.nio.file.Path body,final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -230,9 +240,9 @@ public final class ThumbnailMagickItem extends Item
 
 	/**
 	 * Sets the content of media {@link #file}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	final void setFile(final java.io.File body,final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -243,7 +253,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns a URL the content of {@link #thumb} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURL")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURL")
 	final java.lang.String getThumbURL()
 	{
 		return ThumbnailMagickItem.thumb.getURL(this);
@@ -252,7 +262,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns a Locator the content of {@link #thumb} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
 	final com.exedio.cope.pattern.MediaPath.Locator getThumbLocator()
 	{
 		return ThumbnailMagickItem.thumb.getLocator(this);
@@ -261,7 +271,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns a URL the content of {@link #thumb} is available under, falling back to source if necessary.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURLWithFallbackToSource")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURLWithFallbackToSource")
 	final java.lang.String getThumbURLWithFallbackToSource()
 	{
 		return ThumbnailMagickItem.thumb.getURLWithFallbackToSource(this);
@@ -270,7 +280,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns a Locator the content of {@link #thumb} is available under, falling back to source if necessary.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
 	final com.exedio.cope.pattern.MediaPath.Locator getThumbLocatorWithFallbackToSource()
 	{
 		return ThumbnailMagickItem.thumb.getLocatorWithFallbackToSource(this);
@@ -279,7 +289,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns the body of {@link #thumb}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
 	final byte[] getThumb()
 			throws
 				java.io.IOException
@@ -290,7 +300,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns a URL the content of {@link #thumbFull} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURL")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURL")
 	final java.lang.String getThumbFullURL()
 	{
 		return ThumbnailMagickItem.thumbFull.getURL(this);
@@ -299,7 +309,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns a Locator the content of {@link #thumbFull} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
 	final com.exedio.cope.pattern.MediaPath.Locator getThumbFullLocator()
 	{
 		return ThumbnailMagickItem.thumbFull.getLocator(this);
@@ -308,7 +318,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns a URL the content of {@link #thumbFull} is available under, falling back to source if necessary.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURLWithFallbackToSource")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURLWithFallbackToSource")
 	final java.lang.String getThumbFullURLWithFallbackToSource()
 	{
 		return ThumbnailMagickItem.thumbFull.getURLWithFallbackToSource(this);
@@ -317,7 +327,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns a Locator the content of {@link #thumbFull} is available under, falling back to source if necessary.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
 	final com.exedio.cope.pattern.MediaPath.Locator getThumbFullLocatorWithFallbackToSource()
 	{
 		return ThumbnailMagickItem.thumbFull.getLocatorWithFallbackToSource(this);
@@ -326,7 +336,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns the body of {@link #thumbFull}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
 	final byte[] getThumbFull()
 			throws
 				java.io.IOException
@@ -337,7 +347,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns a URL the content of {@link #thumbSame} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURL")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURL")
 	final java.lang.String getThumbSameURL()
 	{
 		return ThumbnailMagickItem.thumbSame.getURL(this);
@@ -346,7 +356,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns a Locator the content of {@link #thumbSame} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
 	final com.exedio.cope.pattern.MediaPath.Locator getThumbSameLocator()
 	{
 		return ThumbnailMagickItem.thumbSame.getLocator(this);
@@ -355,7 +365,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns the content type of the media {@link #thumbSame}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContentType")
 	final java.lang.String getThumbSameContentType()
 	{
 		return ThumbnailMagickItem.thumbSame.getContentType(this);
@@ -364,7 +374,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns a URL the content of {@link #thumbSame} is available under, falling back to source if necessary.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURLWithFallbackToSource")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURLWithFallbackToSource")
 	final java.lang.String getThumbSameURLWithFallbackToSource()
 	{
 		return ThumbnailMagickItem.thumbSame.getURLWithFallbackToSource(this);
@@ -373,7 +383,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns a Locator the content of {@link #thumbSame} is available under, falling back to source if necessary.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
 	final com.exedio.cope.pattern.MediaPath.Locator getThumbSameLocatorWithFallbackToSource()
 	{
 		return ThumbnailMagickItem.thumbSame.getLocatorWithFallbackToSource(this);
@@ -382,7 +392,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns the body of {@link #thumbSame}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
 	final byte[] getThumbSame()
 			throws
 				java.io.IOException
@@ -393,7 +403,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns a URL the content of {@link #thumbRound} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURL")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURL")
 	final java.lang.String getThumbRoundURL()
 	{
 		return ThumbnailMagickItem.thumbRound.getURL(this);
@@ -402,7 +412,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns a Locator the content of {@link #thumbRound} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
 	final com.exedio.cope.pattern.MediaPath.Locator getThumbRoundLocator()
 	{
 		return ThumbnailMagickItem.thumbRound.getLocator(this);
@@ -411,7 +421,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns the content type of the media {@link #thumbRound}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContentType")
 	final java.lang.String getThumbRoundContentType()
 	{
 		return ThumbnailMagickItem.thumbRound.getContentType(this);
@@ -420,7 +430,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns a URL the content of {@link #thumbRound} is available under, falling back to source if necessary.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURLWithFallbackToSource")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURLWithFallbackToSource")
 	final java.lang.String getThumbRoundURLWithFallbackToSource()
 	{
 		return ThumbnailMagickItem.thumbRound.getURLWithFallbackToSource(this);
@@ -429,7 +439,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns a Locator the content of {@link #thumbRound} is available under, falling back to source if necessary.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
 	final com.exedio.cope.pattern.MediaPath.Locator getThumbRoundLocatorWithFallbackToSource()
 	{
 		return ThumbnailMagickItem.thumbRound.getLocatorWithFallbackToSource(this);
@@ -438,7 +448,7 @@ public final class ThumbnailMagickItem extends Item
 	/**
 	 * Returns the body of {@link #thumbRound}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
 	final byte[] getThumbRound()
 			throws
 				java.io.IOException
@@ -446,19 +456,19 @@ public final class ThumbnailMagickItem extends Item
 		return ThumbnailMagickItem.thumbRound.get(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for thumbnailMagickItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<ThumbnailMagickItem> TYPE = com.exedio.cope.TypesBound.newType(ThumbnailMagickItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private ThumbnailMagickItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
