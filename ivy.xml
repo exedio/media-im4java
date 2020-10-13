@@ -33,7 +33,7 @@
 			<conf name="build" mapped="changelog"/>
 		</dependency>
 		<dependency org="org.im4java" name="im4java" rev="1.4.0" conf="runtime->default; build->sources" />
-		<dependency org="junit" name="junit" rev="4.10" conf="build->default,sources">
+		<dependency org="junit" name="junit" rev="4.13.1" conf="build->default,sources">
 			<exclude org="org.hamcrest" />
 		</dependency>
 		<dependency org="findbugs-x" name="findbugs" rev="3.0.0" conf="build->default" />
