@@ -1,7 +1,7 @@
 
 timestamps
 {
-	def jdk = 'openjdk-8-deb9'
+	def jdk = 'openjdk-8'
 	def isRelease = env.BRANCH_NAME.toString().equals("master")
 
 	properties([
@@ -12,7 +12,7 @@ timestamps
 	])
 
 	//noinspection GroovyAssignabilityCheck
-	node(jdk)
+	node('docker')
 	{
 		try
 		{
@@ -23,19 +23,28 @@ timestamps
 
 				def buildTag = makeBuildTag(checkout(scm))
 
-				env.JAVA_HOME = tool type: 'jdk', name: jdk
-				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
-				def antHome = tool 'Ant version 1.9.3'
+				def dockerName = env.JOB_NAME.replace("/", "-") + "-" + env.BUILD_NUMBER
+				def dockerDate = new Date().format("yyyyMMdd")
+				def mainImage = docker.build(
+						'exedio-jenkins:' + dockerName + '-' + dockerDate,
+						'--build-arg JDK=' + jdk + ' ' +
+						'conf/main')
+				mainImage.inside(
+						"--name '" + dockerName + "' " +
+						"--cap-drop all " +
+						"--security-opt no-new-privileges " +
+						"--network none")
+				{
+					sh "java -version"
+					sh "ant -version"
 
-				sh "java -version"
-				sh "${antHome}/bin/ant -version"
-
-				sh "${antHome}/bin/ant -noinput clean jenkins" +
-						' "-Dbuild.revision=${BUILD_NUMBER}"' +
-						' "-Dbuild.tag=' + buildTag + '"' +
-						' -Dbuild.status=' + (isRelease?'release':'integration') +
-						' -Dinstrument.verify=true' +
-						' -Dfindbugs.output=xml'
+					sh "ant -noinput clean jenkins" +
+							' "-Dbuild.revision=${BUILD_NUMBER}"' +
+							' "-Dbuild.tag=' + buildTag + '"' +
+							' -Dbuild.status=' + (isRelease?'release':'integration') +
+							' -Dinstrument.verify=true' +
+							' -Dfindbugs.output=xml'
+				}
 
 				recordIssues(
 						failOnError: true,
