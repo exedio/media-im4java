@@ -48,6 +48,7 @@
 			</classpath>
 			<suppressWarnings>
 				<wrapper>FinalMethodInFinalClass</wrapper>
+				<wrapper>RedundantSuppression</wrapper>
 				<wrapper>UnnecessarilyQualifiedStaticUsage</wrapper>
 			</suppressWarnings>
 		</instrument>

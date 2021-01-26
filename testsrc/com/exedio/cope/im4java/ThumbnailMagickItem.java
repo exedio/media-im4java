@@ -95,7 +95,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns a URL the content of {@link #file} is available under.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURL")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final java.lang.String getFileURL()
 	{
 		return ThumbnailMagickItem.file.getURL(this);
@@ -105,7 +105,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns a Locator the content of {@link #file} is available under.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final com.exedio.cope.pattern.MediaPath.Locator getFileLocator()
 	{
 		return ThumbnailMagickItem.file.getLocator(this);
@@ -115,7 +115,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns the content type of the media {@link #file}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContentType")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final java.lang.String getFileContentType()
 	{
 		return ThumbnailMagickItem.file.getContentType(this);
@@ -125,7 +125,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns whether media {@link #file} is null.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="isNull")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final boolean isFileNull()
 	{
 		return ThumbnailMagickItem.file.isNull(this);
@@ -135,7 +135,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns the last modification date of media {@link #file}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLastModified")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final java.util.Date getFileLastModified()
 	{
 		return ThumbnailMagickItem.file.getLastModified(this);
@@ -145,7 +145,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns the body length of the media {@link #file}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLength")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final long getFileLength()
 	{
 		return ThumbnailMagickItem.file.getLength(this);
@@ -155,7 +155,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns the body of the media {@link #file}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final byte[] getFileBody()
 	{
 		return ThumbnailMagickItem.file.getBody(this);
@@ -167,7 +167,7 @@ public final class ThumbnailMagickItem extends Item
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final void getFileBody(final java.io.OutputStream body)
 			throws
 				java.io.IOException
@@ -181,7 +181,7 @@ public final class ThumbnailMagickItem extends Item
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final void getFileBody(final java.nio.file.Path body)
 			throws
 				java.io.IOException
@@ -195,7 +195,7 @@ public final class ThumbnailMagickItem extends Item
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final void getFileBody(final java.io.File body)
 			throws
 				java.io.IOException
@@ -208,7 +208,7 @@ public final class ThumbnailMagickItem extends Item
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final void setFile(final com.exedio.cope.pattern.Media.Value file)
 			throws
 				java.io.IOException
@@ -220,7 +220,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Sets the content of media {@link #file}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final void setFile(final byte[] body,final java.lang.String contentType)
 	{
 		ThumbnailMagickItem.file.set(this,body,contentType);
@@ -231,7 +231,7 @@ public final class ThumbnailMagickItem extends Item
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final void setFile(final java.io.InputStream body,final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -244,7 +244,7 @@ public final class ThumbnailMagickItem extends Item
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final void setFile(final java.nio.file.Path body,final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -257,7 +257,7 @@ public final class ThumbnailMagickItem extends Item
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final void setFile(final java.io.File body,final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -269,7 +269,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns a URL the content of {@link #thumb} is available under.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURL")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final java.lang.String getThumbURL()
 	{
 		return ThumbnailMagickItem.thumb.getURL(this);
@@ -279,7 +279,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns a Locator the content of {@link #thumb} is available under.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final com.exedio.cope.pattern.MediaPath.Locator getThumbLocator()
 	{
 		return ThumbnailMagickItem.thumb.getLocator(this);
@@ -289,7 +289,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns a URL the content of {@link #thumb} is available under, falling back to source if necessary.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURLWithFallbackToSource")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final java.lang.String getThumbURLWithFallbackToSource()
 	{
 		return ThumbnailMagickItem.thumb.getURLWithFallbackToSource(this);
@@ -299,7 +299,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns a Locator the content of {@link #thumb} is available under, falling back to source if necessary.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final com.exedio.cope.pattern.MediaPath.Locator getThumbLocatorWithFallbackToSource()
 	{
 		return ThumbnailMagickItem.thumb.getLocatorWithFallbackToSource(this);
@@ -309,7 +309,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns the body of {@link #thumb}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final byte[] getThumb()
 			throws
 				java.io.IOException
@@ -321,7 +321,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns a URL the content of {@link #thumbFull} is available under.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURL")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final java.lang.String getThumbFullURL()
 	{
 		return ThumbnailMagickItem.thumbFull.getURL(this);
@@ -331,7 +331,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns a Locator the content of {@link #thumbFull} is available under.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final com.exedio.cope.pattern.MediaPath.Locator getThumbFullLocator()
 	{
 		return ThumbnailMagickItem.thumbFull.getLocator(this);
@@ -341,7 +341,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns a URL the content of {@link #thumbFull} is available under, falling back to source if necessary.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURLWithFallbackToSource")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final java.lang.String getThumbFullURLWithFallbackToSource()
 	{
 		return ThumbnailMagickItem.thumbFull.getURLWithFallbackToSource(this);
@@ -351,7 +351,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns a Locator the content of {@link #thumbFull} is available under, falling back to source if necessary.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final com.exedio.cope.pattern.MediaPath.Locator getThumbFullLocatorWithFallbackToSource()
 	{
 		return ThumbnailMagickItem.thumbFull.getLocatorWithFallbackToSource(this);
@@ -361,7 +361,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns the body of {@link #thumbFull}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final byte[] getThumbFull()
 			throws
 				java.io.IOException
@@ -373,7 +373,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns a URL the content of {@link #thumbSame} is available under.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURL")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final java.lang.String getThumbSameURL()
 	{
 		return ThumbnailMagickItem.thumbSame.getURL(this);
@@ -383,7 +383,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns a Locator the content of {@link #thumbSame} is available under.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final com.exedio.cope.pattern.MediaPath.Locator getThumbSameLocator()
 	{
 		return ThumbnailMagickItem.thumbSame.getLocator(this);
@@ -393,7 +393,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns the content type of the media {@link #thumbSame}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContentType")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final java.lang.String getThumbSameContentType()
 	{
 		return ThumbnailMagickItem.thumbSame.getContentType(this);
@@ -403,7 +403,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns a URL the content of {@link #thumbSame} is available under, falling back to source if necessary.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURLWithFallbackToSource")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final java.lang.String getThumbSameURLWithFallbackToSource()
 	{
 		return ThumbnailMagickItem.thumbSame.getURLWithFallbackToSource(this);
@@ -413,7 +413,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns a Locator the content of {@link #thumbSame} is available under, falling back to source if necessary.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final com.exedio.cope.pattern.MediaPath.Locator getThumbSameLocatorWithFallbackToSource()
 	{
 		return ThumbnailMagickItem.thumbSame.getLocatorWithFallbackToSource(this);
@@ -423,7 +423,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns the body of {@link #thumbSame}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final byte[] getThumbSame()
 			throws
 				java.io.IOException
@@ -435,7 +435,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns a URL the content of {@link #thumbRound} is available under.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURL")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final java.lang.String getThumbRoundURL()
 	{
 		return ThumbnailMagickItem.thumbRound.getURL(this);
@@ -445,7 +445,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns a Locator the content of {@link #thumbRound} is available under.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final com.exedio.cope.pattern.MediaPath.Locator getThumbRoundLocator()
 	{
 		return ThumbnailMagickItem.thumbRound.getLocator(this);
@@ -455,7 +455,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns the content type of the media {@link #thumbRound}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContentType")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final java.lang.String getThumbRoundContentType()
 	{
 		return ThumbnailMagickItem.thumbRound.getContentType(this);
@@ -465,7 +465,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns a URL the content of {@link #thumbRound} is available under, falling back to source if necessary.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURLWithFallbackToSource")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final java.lang.String getThumbRoundURLWithFallbackToSource()
 	{
 		return ThumbnailMagickItem.thumbRound.getURLWithFallbackToSource(this);
@@ -475,7 +475,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns a Locator the content of {@link #thumbRound} is available under, falling back to source if necessary.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final com.exedio.cope.pattern.MediaPath.Locator getThumbRoundLocatorWithFallbackToSource()
 	{
 		return ThumbnailMagickItem.thumbRound.getLocatorWithFallbackToSource(this);
@@ -485,7 +485,7 @@ public final class ThumbnailMagickItem extends Item
 	 * Returns the body of {@link #thumbRound}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final byte[] getThumbRound()
 			throws
 				java.io.IOException
