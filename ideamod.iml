@@ -2,7 +2,6 @@
 <module type="JAVA_MODULE" version="4">
   <component name="EclipseModuleManager">
     <libelement value="jar://$MODULE_DIR$/lib/junit.jar!/" />
-    <libelement value="jar://$MODULE_DIR$/lib/findbugs-annotations.jar!/" />
     <libelement value="jar://$MODULE_DIR$/lib/exedio-cope.jar!/" />
     <libelement value="jar://$MODULE_DIR$/lib/exedio-cope-junit.jar!/" />
     <libelement value="jar://$MODULE_DIR$/lib/servlet-api.jar!/" />

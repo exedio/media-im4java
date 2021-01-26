@@ -30,7 +30,6 @@ import static com.exedio.cope.pattern.MediaType.WEBP;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.junit.CopeModelTest;
 import com.exedio.cope.util.Properties;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collection;
@@ -44,7 +43,6 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	}
 
 	@Override
-	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
 	public ConnectProperties getConnectProperties()
 	{
 		return ConnectProperties.create(new Properties.Source()
@@ -210,7 +208,6 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 		return ThumbnailMagickExplicitFormatTest.class.getResourceAsStream(name);
 	}
 
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	private static void assertFails(
 			final ThumbnailMagickItem item,
 			final String errorMessage)

@@ -27,7 +27,6 @@ import static com.exedio.cope.pattern.MediaType.WEBP;
 
 import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.Media;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.util.regex.Pattern;
 import org.im4java.core.CommandException;
@@ -65,7 +64,6 @@ public final class ThumbnailMagickTestTest extends CopeAssert
 		assertFails("-broken", f1.forType(PNG, newIMOperation("-broken"), TIFF));
 	}
 
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	private static IMOperation newIMOperation(final String arg)
 	{
 		return (IMOperation)new IMOperation().addRawArgs(arg);
@@ -81,7 +79,6 @@ public final class ThumbnailMagickTestTest extends CopeAssert
 		filter.test();
 	}
 
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	private static void assertFails(
 			final String errorMessage,
 			final MediaImageMagickFilter filter)

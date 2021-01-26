@@ -37,7 +37,6 @@ import static java.util.Arrays.asList;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeAssert;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -138,7 +137,6 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 	}
 
 	@SuppressWarnings({"static-method", "unused"})
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	public void testCreate()
 	{
 		try

@@ -36,7 +36,6 @@
 		<dependency org="junit" name="junit" rev="4.13.1" conf="build->default,sources">
 			<exclude org="org.hamcrest" />
 		</dependency>
-		<dependency org="findbugs-x" name="findbugs" rev="3.0.0" conf="build->default" />
 		<!-- we use servlet-api 3.0, which goes in a different 'module' (javax.servlet-api) -->
 		<exclude org="javax.servlet" module="servlet-api"/> <!-- for servlet API < 3.0 -->
 	</dependencies>

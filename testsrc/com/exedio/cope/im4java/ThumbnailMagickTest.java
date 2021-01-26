@@ -36,7 +36,6 @@ import com.exedio.cope.junit.CopeModelTest;
 import com.exedio.cope.pattern.MediaPath.NotFound;
 import com.exedio.cope.pattern.MediaType;
 import com.exedio.cope.util.Properties;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -58,7 +57,6 @@ public final class ThumbnailMagickTest extends CopeModelTest
 	private final byte[] data  = {-86,122,-8,23};
 
 	// Ok, because Media#set(Item,InputStream,String) closes the stream.
-	@SuppressFBWarnings("OBL_UNSATISFIED_OBLIGATION")
 
 	@Override
 	public void setUp() throws Exception
@@ -85,7 +83,6 @@ public final class ThumbnailMagickTest extends CopeModelTest
 	}
 
 	@Override
-	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
 	public ConnectProperties getConnectProperties()
 	{
 		return ConnectProperties.create(new Properties.Source()
@@ -353,7 +350,6 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		}
 
 		@Override
-		@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_ANON")
 		public ServletOutputStream getOutputStream()
 		{
 			assertNull(body);

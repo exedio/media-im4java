@@ -49,11 +49,5 @@
         </exclusion>
       </exclusions>
     </dependency>
-    <dependency>
-      <groupId>findbugs-x</groupId>
-      <artifactId>findbugs</artifactId>
-      <version>3.0.0</version>
-      <optional>true</optional>
-    </dependency>
   </dependencies>
 </project>

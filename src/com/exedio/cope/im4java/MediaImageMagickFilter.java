@@ -30,7 +30,6 @@ import com.exedio.cope.pattern.MediaFilter;
 import com.exedio.cope.pattern.MediaTestable;
 import com.exedio.cope.pattern.MediaType;
 import com.exedio.cope.pattern.MediaUtil;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -60,7 +59,6 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 
 	private final Media source;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Actions actions;
 
 	public MediaImageMagickFilter(final Media source, final IMOps operation)
@@ -195,7 +193,6 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 		}
 	}
 
-	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	@Wrap(order=10, doc="Returns the body of {0}.", thrown=@Wrap.Thrown(IOException.class))
 	public byte[] get(final Item item) throws IOException
 	{

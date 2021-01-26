@@ -23,7 +23,6 @@ import static java.io.File.createTempFile;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.pattern.MediaType;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -70,7 +69,6 @@ final class Action
 	 * Reduces time and CPU cycles needed by convert.
 	 * Replaces MAGICK_THREAD_LIMIT=1 in a more robust way.
 	 */
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	private static IMOperation limit(final IMOperation op)
 	{
 		return (IMOperation)op.limit("thread").addRawArgs("1");
