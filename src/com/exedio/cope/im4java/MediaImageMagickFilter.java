@@ -60,7 +60,6 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 
 	private final Media source;
 
-	@SuppressWarnings("NonSerializableFieldInSerializableClass") // OK: writeReplace
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Actions actions;
 
