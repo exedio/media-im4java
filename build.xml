@@ -46,6 +46,10 @@
 				<pathelement location="lib/findbugs-annotations.jar" />
 				<pathelement location="lib/junit.jar" />
 			</classpath>
+			<suppressWarnings>
+				<wrapper>FinalMethodInFinalClass</wrapper>
+				<wrapper>UnnecessarilyQualifiedStaticUsage</wrapper>
+			</suppressWarnings>
 		</instrument>
 	</target>
 

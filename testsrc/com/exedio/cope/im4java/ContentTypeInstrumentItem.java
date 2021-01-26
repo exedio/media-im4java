@@ -90,6 +90,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns a URL the content of {@link #all} is available under.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURL")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final java.lang.String getAllURL()
 	{
 		return ContentTypeInstrumentItem.all.getURL(this);
@@ -99,6 +100,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns a Locator the content of {@link #all} is available under.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final com.exedio.cope.pattern.MediaPath.Locator getAllLocator()
 	{
 		return ContentTypeInstrumentItem.all.getLocator(this);
@@ -108,6 +110,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns the content type of the media {@link #all}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContentType")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final java.lang.String getAllContentType()
 	{
 		return ContentTypeInstrumentItem.all.getContentType(this);
@@ -117,6 +120,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns whether media {@link #all} is null.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="isNull")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final boolean isAllNull()
 	{
 		return ContentTypeInstrumentItem.all.isNull(this);
@@ -126,6 +130,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns the last modification date of media {@link #all}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLastModified")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final java.util.Date getAllLastModified()
 	{
 		return ContentTypeInstrumentItem.all.getLastModified(this);
@@ -135,6 +140,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns the body length of the media {@link #all}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLength")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final long getAllLength()
 	{
 		return ContentTypeInstrumentItem.all.getLength(this);
@@ -144,6 +150,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns the body of the media {@link #all}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final byte[] getAllBody()
 	{
 		return ContentTypeInstrumentItem.all.getBody(this);
@@ -155,6 +162,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getAllBody(final java.io.OutputStream body)
 			throws
 				java.io.IOException
@@ -168,6 +176,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getAllBody(final java.nio.file.Path body)
 			throws
 				java.io.IOException
@@ -181,6 +190,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getAllBody(final java.io.File body)
 			throws
 				java.io.IOException
@@ -193,6 +203,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setAll(final com.exedio.cope.pattern.Media.Value all)
 			throws
 				java.io.IOException
@@ -204,6 +215,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Sets the content of media {@link #all}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setAll(final byte[] body,final java.lang.String contentType)
 	{
 		ContentTypeInstrumentItem.all.set(this,body,contentType);
@@ -214,6 +226,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setAll(final java.io.InputStream body,final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -226,6 +239,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setAll(final java.nio.file.Path body,final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -238,6 +252,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setAll(final java.io.File body,final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -249,6 +264,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns a URL the content of {@link #one} is available under.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURL")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final java.lang.String getOneURL()
 	{
 		return ContentTypeInstrumentItem.one.getURL(this);
@@ -258,6 +274,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns a Locator the content of {@link #one} is available under.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final com.exedio.cope.pattern.MediaPath.Locator getOneLocator()
 	{
 		return ContentTypeInstrumentItem.one.getLocator(this);
@@ -267,6 +284,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns whether media {@link #one} is null.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="isNull")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final boolean isOneNull()
 	{
 		return ContentTypeInstrumentItem.one.isNull(this);
@@ -276,6 +294,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns the last modification date of media {@link #one}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLastModified")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final java.util.Date getOneLastModified()
 	{
 		return ContentTypeInstrumentItem.one.getLastModified(this);
@@ -285,6 +304,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns the body length of the media {@link #one}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLength")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final long getOneLength()
 	{
 		return ContentTypeInstrumentItem.one.getLength(this);
@@ -294,6 +314,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns the body of the media {@link #one}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final byte[] getOneBody()
 	{
 		return ContentTypeInstrumentItem.one.getBody(this);
@@ -305,6 +326,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getOneBody(final java.io.OutputStream body)
 			throws
 				java.io.IOException
@@ -318,6 +340,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getOneBody(final java.nio.file.Path body)
 			throws
 				java.io.IOException
@@ -331,6 +354,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getOneBody(final java.io.File body)
 			throws
 				java.io.IOException
@@ -343,6 +367,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setOne(final com.exedio.cope.pattern.Media.Value one)
 			throws
 				java.io.IOException
@@ -354,6 +379,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Sets the content of media {@link #one}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setOne(final byte[] body,final java.lang.String contentType)
 	{
 		ContentTypeInstrumentItem.one.set(this,body,contentType);
@@ -364,6 +390,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setOne(final java.io.InputStream body,final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -376,6 +403,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setOne(final java.nio.file.Path body,final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -388,6 +416,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setOne(final java.io.File body,final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -399,6 +428,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns a URL the content of {@link #allToAll} is available under.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURL")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final java.lang.String getAllToAllURL()
 	{
 		return ContentTypeInstrumentItem.allToAll.getURL(this);
@@ -408,6 +438,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns a Locator the content of {@link #allToAll} is available under.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final com.exedio.cope.pattern.MediaPath.Locator getAllToAllLocator()
 	{
 		return ContentTypeInstrumentItem.allToAll.getLocator(this);
@@ -417,6 +448,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns the content type of the media {@link #allToAll}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContentType")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final java.lang.String getAllToAllContentType()
 	{
 		return ContentTypeInstrumentItem.allToAll.getContentType(this);
@@ -426,6 +458,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns a URL the content of {@link #allToAll} is available under, falling back to source if necessary.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURLWithFallbackToSource")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final java.lang.String getAllToAllURLWithFallbackToSource()
 	{
 		return ContentTypeInstrumentItem.allToAll.getURLWithFallbackToSource(this);
@@ -435,6 +468,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns a Locator the content of {@link #allToAll} is available under, falling back to source if necessary.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final com.exedio.cope.pattern.MediaPath.Locator getAllToAllLocatorWithFallbackToSource()
 	{
 		return ContentTypeInstrumentItem.allToAll.getLocatorWithFallbackToSource(this);
@@ -444,6 +478,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns the body of {@link #allToAll}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final byte[] getAllToAll()
 			throws
 				java.io.IOException
@@ -455,6 +490,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns a URL the content of {@link #allToOne} is available under.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURL")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final java.lang.String getAllToOneURL()
 	{
 		return ContentTypeInstrumentItem.allToOne.getURL(this);
@@ -464,6 +500,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns a Locator the content of {@link #allToOne} is available under.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final com.exedio.cope.pattern.MediaPath.Locator getAllToOneLocator()
 	{
 		return ContentTypeInstrumentItem.allToOne.getLocator(this);
@@ -473,6 +510,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns a URL the content of {@link #allToOne} is available under, falling back to source if necessary.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURLWithFallbackToSource")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final java.lang.String getAllToOneURLWithFallbackToSource()
 	{
 		return ContentTypeInstrumentItem.allToOne.getURLWithFallbackToSource(this);
@@ -482,6 +520,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns a Locator the content of {@link #allToOne} is available under, falling back to source if necessary.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final com.exedio.cope.pattern.MediaPath.Locator getAllToOneLocatorWithFallbackToSource()
 	{
 		return ContentTypeInstrumentItem.allToOne.getLocatorWithFallbackToSource(this);
@@ -491,6 +530,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns the body of {@link #allToOne}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final byte[] getAllToOne()
 			throws
 				java.io.IOException
@@ -502,6 +542,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns a URL the content of {@link #oneToAll} is available under.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURL")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final java.lang.String getOneToAllURL()
 	{
 		return ContentTypeInstrumentItem.oneToAll.getURL(this);
@@ -511,6 +552,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns a Locator the content of {@link #oneToAll} is available under.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final com.exedio.cope.pattern.MediaPath.Locator getOneToAllLocator()
 	{
 		return ContentTypeInstrumentItem.oneToAll.getLocator(this);
@@ -520,6 +562,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns the body of {@link #oneToAll}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final byte[] getOneToAll()
 			throws
 				java.io.IOException
@@ -531,6 +574,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns a URL the content of {@link #oneToOne} is available under.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURL")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final java.lang.String getOneToOneURL()
 	{
 		return ContentTypeInstrumentItem.oneToOne.getURL(this);
@@ -540,6 +584,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns a Locator the content of {@link #oneToOne} is available under.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final com.exedio.cope.pattern.MediaPath.Locator getOneToOneLocator()
 	{
 		return ContentTypeInstrumentItem.oneToOne.getLocator(this);
@@ -549,6 +594,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * Returns the body of {@link #oneToOne}.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final byte[] getOneToOne()
 			throws
 				java.io.IOException
