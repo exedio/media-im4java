@@ -33,6 +33,7 @@ import com.exedio.cope.pattern.MediaUtil;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
@@ -225,6 +226,24 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 			delete(outFile);
 		}
 		return result;
+	}
+
+	public String preview(
+			final Path sourceBody,
+			final String sourceContentType,
+			final Path target)
+			throws IOException
+	{
+		final MediaType type = supported(MediaType.forNameAndAliases(sourceContentType));
+		if(type==null)
+			throw new IllegalArgumentException("unsupported content type " + sourceContentType);
+
+		final Action action = actions.get(type);
+		final MediaType outputContentType = action.outputContentType(type);
+
+		action.execute(sourceBody.toFile(), type, target.toFile(), outputContentType);
+
+		return outputContentType.getName();
 	}
 
 	@Override

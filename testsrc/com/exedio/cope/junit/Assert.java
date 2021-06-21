@@ -16,23 +16,32 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.im4java;
+package com.exedio.cope.junit;
 
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+import static org.junit.Assert.assertThrows;
 
-public class PackageTest extends TestCase
+import org.junit.function.ThrowingRunnable;
+
+public final class Assert
 {
-	public static Test suite()
+	@SuppressWarnings("UnusedReturnValue") // OK: for later use
+	public static <T extends Throwable> T assertFails(
+			final ThrowingRunnable executable,
+			final Class<T> expectedType,
+			final String expectedMessage)
 	{
-		final TestSuite suite = new TestSuite();
-		suite.addTestSuite(ThumbnailMagickModelTest.class);
-		suite.addTestSuite(ThumbnailMagickTest.class);
-		suite.addTestSuite(ThumbnailMagickModifiableTest.class);
-		suite.addTestSuite(ThumbnailMagickOutputContentTypeTest.class);
-		suite.addTestSuite(ThumbnailMagickTestTest.class);
-		suite.addTestSuite(ThumbnailMagickPreviewTest.class);
-		return suite;
+		final T result = assertThrows(expectedType, executable);
+		assertSame(expectedType, result.getClass());
+		assertEquals(expectedMessage, result.getMessage());
+		assertSame(null, result.getCause());
+		return result;
+	}
+
+
+	private Assert()
+	{
+		// prevent instantiation
 	}
 }
