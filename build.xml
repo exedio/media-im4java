@@ -167,8 +167,6 @@
 			<fileset file="${basedir}/build/exedio-cope-im4java.jar" />
 			<fileset file="${basedir}/build/exedio-cope-im4java-src.zip" />
 			<fileset file="${basedir}/exedio-cope-im4java-log.txt" />
-			<fileset file="${basedir}/lib/im4java.jar" />
-			<fileset file="${basedir}/lib/im4java-src.zip" />
 		</copy>
 		<copy file="ivy.xml" tofile="build/success/ivy.xml" overwrite="true">
 			<filterset>
