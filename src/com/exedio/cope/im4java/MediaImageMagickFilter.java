@@ -27,6 +27,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.pattern.MediaFilter;
+import com.exedio.cope.pattern.MediaPreviewable;
 import com.exedio.cope.pattern.MediaTestable;
 import com.exedio.cope.pattern.MediaType;
 import com.exedio.cope.pattern.MediaUtil;
@@ -43,7 +44,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.im4java.core.IMOps;
 
-public final class MediaImageMagickFilter extends MediaFilter implements MediaTestable
+public final class MediaImageMagickFilter extends MediaFilter implements MediaPreviewable, MediaTestable
 {
 	private static final long serialVersionUID = 1l;
 
@@ -228,6 +229,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaTe
 		return result;
 	}
 
+	@Override
 	public String preview(
 			final Path sourceBody,
 			final String sourceContentType,
