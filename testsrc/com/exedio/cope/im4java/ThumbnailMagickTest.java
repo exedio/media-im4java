@@ -332,7 +332,14 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		}
 
 		@Override
-		public void setContentLength(final int len)
+		public void setHeader(final String name, final String value)
+		{
+			if("Content-Length".equals(name))
+				setContentLengthInternal(Integer.parseInt(value));
+			else
+				super.setHeader(name, value);
+		}
+		private void setContentLengthInternal(final int len)
 		{
 			assertTrue(len>0);
 			assertEquals(Integer.MIN_VALUE, contentLength);
