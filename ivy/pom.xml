@@ -28,7 +28,7 @@
     <dependency>
       <groupId>com.exedio</groupId>
       <artifactId>cope</artifactId>
-      <version>10337</version>
+      <version>10534</version>
       <scope>runtime</scope>
     </dependency>
     <dependency>
