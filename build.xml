@@ -91,6 +91,7 @@
 				<pathelement location="lib/junit.jar" />
 			</classpath>
 			<sysproperty key="java.io.tmpdir" value="${basedir}/build/testtmpdir" />
+			<sysproperty key="ThumbnailMagickPreviewTest.testTruncated" value="${ThumbnailMagickPreviewTest.testTruncated}" />
 			<test name="com.exedio.cope.im4java.PackageTest" todir="build/testresults" outfile="cope-im4java" />
 			<assertions><enable/></assertions>
 		</junit>
