@@ -1,0 +1,24 @@
+# This workflow will build a Java project with Ant
+# For more information see: https://help.github.com/actions/language-and-framework-guides/building-and-testing-java-with-ant
+
+name: ant jenkins
+
+on:
+  push:
+    branches: [ '*' ]
+
+jobs:
+  build:
+    runs-on: ubuntu-20.04
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-java@v2
+      with:
+        java-version: '8'
+        distribution: 'adopt'
+    - run: |
+        sudo apt-get update
+        sudo apt-get install ghostscript
+    - run: grep -v '^.*policy.*coder.*none.*PDF.*$' < /etc/ImageMagick-6/policy.xml > policy.xml-new
+    - run: sudo cp policy.xml-new /etc/ImageMagick-6/policy.xml
+    - run: ant -noinput -DThumbnailMagickPreviewTest.testTruncated=skip clean jenkins

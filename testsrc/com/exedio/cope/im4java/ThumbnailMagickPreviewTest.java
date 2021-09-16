@@ -74,6 +74,11 @@ public final class ThumbnailMagickPreviewTest extends TestCase
 				RuntimeException.class,
 				() -> AnItem.f.preview(sourceBody, "image/png", target));
 		final String message = e.getCause().getMessage();
+		if("skip".equals(System.getProperty("ThumbnailMagickPreviewTest.testTruncated")))
+		{
+			System.err.println("ThumbnailMagickPreviewTest#testTruncated skipped");
+			return;
+		}
 		assertTrue(message, message.startsWith(
 				"org.im4java.core.CommandException: convert-im6.q16: Expected 5166 bytes; found 2029 bytes " +
 				"`" + sourceBody + "' @ warning/png.c/MagickPNGWarningHandler/"));
