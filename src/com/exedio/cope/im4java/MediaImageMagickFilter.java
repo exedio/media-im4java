@@ -37,12 +37,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.attribute.FileAttribute;
-import java.nio.file.attribute.PosixFilePermission;
-import java.nio.file.attribute.PosixFilePermissions;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -284,8 +280,8 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaPr
 	{
 		final String name = "com.exedio.cope.im4java_" + getID() + '_' + getPrimaryKeyColumnValueL(item);
 		final MediaType outputContentType = action.outputContentType(contentType);
-		final Path  in = createTempFile(name + "_inp_", ".data", OWNER_READ_WRITE);
-		final Path out = createTempFile(name + "_out_", outputContentType.getDefaultExtension(), OWNER_READ_WRITE);
+		final Path  in = createTempFile(name + "_inp_", ".data");
+		final Path out = createTempFile(name + "_out_", outputContentType.getDefaultExtension());
 
 		source.getBody(item, in);
 
@@ -298,9 +294,6 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaPr
 
 		return out;
 	}
-
-	static final FileAttribute<Set<PosixFilePermission>> OWNER_READ_WRITE =
-			PosixFilePermissions.asFileAttribute(EnumSet.of(PosixFilePermission.OWNER_READ, PosixFilePermission.OWNER_WRITE));
 
 	List<String> getCmdArgs(final String contentType)
 	{

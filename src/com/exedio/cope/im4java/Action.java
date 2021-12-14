@@ -18,7 +18,6 @@
 
 package com.exedio.cope.im4java;
 
-import static com.exedio.cope.im4java.MediaImageMagickFilter.OWNER_READ_WRITE;
 import static java.nio.file.Files.createTempFile;
 import static java.nio.file.Files.delete;
 import static java.nio.file.Files.newOutputStream;
@@ -138,8 +137,8 @@ final class Action
 	{
 		final String name = MediaImageMagickFilter.class.getName() + '_' + id + "_test";
 		final MediaType outputContentType = outputContentType(inputContentType);
-		final Path  in = createTempFile(name + "_inp_", ".data", OWNER_READ_WRITE);
-		final Path out = createTempFile(name + "_out_", outputContentType.getDefaultExtension(), OWNER_READ_WRITE);
+		final Path  in = createTempFile(name + "_inp_", ".data");
+		final Path out = createTempFile(name + "_out_", outputContentType.getDefaultExtension());
 
 		final int size = sizeOfTestDummy(inputContentType);
 		final byte[] b = new byte[size+2];
