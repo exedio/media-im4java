@@ -30,6 +30,12 @@
       <artifactId>cope</artifactId>
       <version>10534</version>
       <scope>runtime</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>com.exedio</groupId>
+          <artifactId>copeservletutil</artifactId>
+        </exclusion>
+      </exclusions>
     </dependency>
     <dependency>
       <groupId>org.im4java</groupId>

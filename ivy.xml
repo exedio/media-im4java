@@ -31,6 +31,7 @@
 			<conf name="build" mapped="instrument" />
 			<conf name="build" mapped="sources" />
 			<conf name="build" mapped="changelog"/>
+			<exclude org="com.exedio" module="copeservletutil" /><!-- redundant dependency of cope since r10333 -->
 		</dependency>
 		<dependency org="org.im4java" name="im4java" rev="1.4.0" conf="runtime->default; build->sources" />
 		<dependency org="junit" name="junit" rev="4.13.1" conf="build->default,sources">
