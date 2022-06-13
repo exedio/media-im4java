@@ -169,7 +169,7 @@
 			<fileset file="${basedir}/build/exedio-cope-im4java-src.zip" />
 			<fileset file="${basedir}/exedio-cope-im4java-log.txt" />
 		</copy>
-		<copy file="ivy.xml" tofile="build/success/ivy.xml" overwrite="true">
+		<copy file="ivy/ivy.xml" tofile="build/success/ivy.xml" overwrite="true">
 			<filterset>
 				<filter token="BUILD_REVISION" value="${build.revision}" />
 				<filter token="BUILD_STATUS"   value="${build.status}" />
