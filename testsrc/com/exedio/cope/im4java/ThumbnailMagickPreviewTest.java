@@ -26,6 +26,7 @@ import static com.exedio.cope.pattern.MediaType.TIFF;
 import static com.exedio.cope.pattern.MediaType.forMagics;
 import static com.exedio.cope.pattern.MediaType.forName;
 import static java.util.Collections.singleton;
+import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.assertThrows;
 
 import com.exedio.cope.Item;
@@ -95,7 +96,7 @@ public final class ThumbnailMagickPreviewTest extends TestCase
 	}
 	public void testOverwriteTarget() throws IOException
 	{
-		Files.copy(ThumbnailMagickExplicitFormatTest.class.getResourceAsStream("thumbnail-test.tif"), target);
+		Files.copy(requireNonNull(ThumbnailMagickExplicitFormatTest.class.getResourceAsStream("thumbnail-test.tif")), target);
 		assertTrue(Files.exists(target));
 		assertEquals(singleton(forName(TIFF)), forMagics(target));
 
@@ -158,7 +159,7 @@ public final class ThumbnailMagickPreviewTest extends TestCase
 	}
 	private void load(final String name) throws IOException
 	{
-		Files.copy(ThumbnailMagickExplicitFormatTest.class.getResourceAsStream(name), sourceBody);
+		Files.copy(requireNonNull(ThumbnailMagickExplicitFormatTest.class.getResourceAsStream(name)), sourceBody);
 	}
 
 

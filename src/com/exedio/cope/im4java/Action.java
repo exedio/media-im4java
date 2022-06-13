@@ -144,7 +144,7 @@ final class Action
 		final byte[] b = new byte[size+2];
 		int transferredLength = 0;
 		try(
-			InputStream inStream = MediaImageMagickFilter.class.getResourceAsStream("MediaImageMagickFilter-test" + inputContentType.getDefaultExtension());
+			InputStream inStream = requireNonNull(MediaImageMagickFilter.class.getResourceAsStream("MediaImageMagickFilter-test" + inputContentType.getDefaultExtension()), inputContentType.toString());
 			OutputStream outStream = newOutputStream(in, WRITE, TRUNCATE_EXISTING))
 		{
 			for(int len = inStream.read(b); len>=0; len = inStream.read(b))
