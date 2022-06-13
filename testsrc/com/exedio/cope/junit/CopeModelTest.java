@@ -22,6 +22,8 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
+import com.exedio.cope.util.Properties;
+import java.util.Collection;
 
 /**
  * An abstract test case class for tests creating/using some persistent data.
@@ -41,13 +43,35 @@ public abstract class CopeModelTest extends CopeAssert
 		return model;
 	}
 
-	/**
-	 * Override this method to provide your own connect properties
-	 * to method {@link #setUp()} for connecting.
-	 */
-	public ConnectProperties getConnectProperties()
+	private static ConnectProperties getConnectProperties()
 	{
-		return new ConnectProperties(ConnectProperties.getDefaultPropertyFile());
+		return ConnectProperties.create(new Properties.Source()
+		{
+			@Override
+			public Collection<String> keySet()
+			{
+				return null;
+			}
+
+			@Override
+			public String getDescription()
+			{
+				return getClass().toString();
+			}
+
+			@Override
+			public String get(final String key)
+			{
+				if("connection.url".equals(key))
+					return "jdbc:hsqldb:mem:copeim4javatest";
+				else if("connection.username".equals(key))
+					return "sa";
+				else if("connection.password".equals(key))
+					return "";
+				else
+					return null;
+			}
+		});
 	}
 
 	/**
