@@ -27,12 +27,9 @@ import static com.exedio.cope.pattern.MediaType.SVG;
 import static com.exedio.cope.pattern.MediaType.TIFF;
 import static com.exedio.cope.pattern.MediaType.WEBP;
 
-import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.junit.CopeModelTest;
-import com.exedio.cope.util.Properties;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Collection;
 import org.im4java.core.CommandException;
 
 public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
@@ -41,39 +38,6 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		super(MODEL);
 	}
-
-	@Override
-	public ConnectProperties getConnectProperties()
-	{
-		return ConnectProperties.create(new Properties.Source()
-		{
-			@Override
-			public Collection<String> keySet()
-			{
-				return null;
-			}
-
-			@Override
-			public String getDescription()
-			{
-				return getClass().toString();
-			}
-
-			@Override
-			public String get(final String key)
-			{
-				if("connection.url".equals(key))
-					return "jdbc:hsqldb:mem:copeim4javatest";
-				else if("connection.username".equals(key))
-					return "sa";
-				else if("connection.password".equals(key))
-					return "";
-				else
-					return null;
-			}
-		});
-	}
-
 
 
 	public void testJpegPng() throws IOException

@@ -30,16 +30,13 @@ import static com.exedio.cope.pattern.MediaType.PNG;
 import static com.exedio.cope.pattern.MediaType.TIFF;
 import static com.exedio.cope.pattern.MediaType.WEBP;
 
-import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeModelTest;
 import com.exedio.cope.pattern.MediaPath.NotFound;
 import com.exedio.cope.pattern.MediaType;
-import com.exedio.cope.util.Properties;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Collection;
 import java.util.Collections;
 import javax.servlet.ServletOutputStream;
 
@@ -80,38 +77,6 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		jpgX.setFile(resource("thumbnail-test.jpg"), "image/pjpeg");
 		pngX.setFile(resource("thumbnail-test.png"), "image/x-png");
 		txt.setFile(data, "text/plain");
-	}
-
-	@Override
-	public ConnectProperties getConnectProperties()
-	{
-		return ConnectProperties.create(new Properties.Source()
-		{
-			@Override
-			public Collection<String> keySet()
-			{
-				return null;
-			}
-
-			@Override
-			public String getDescription()
-			{
-				return getClass().toString();
-			}
-
-			@Override
-			public String get(final String key)
-			{
-				if("connection.url".equals(key))
-					return "jdbc:hsqldb:mem:copetest";
-				else if("connection.username".equals(key))
-					return "sa";
-				else if("connection.password".equals(key))
-					return "";
-				else
-					return null;
-			}
-		});
 	}
 
 	private static InputStream resource(final String name)
