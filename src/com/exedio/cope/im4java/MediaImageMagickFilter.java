@@ -297,11 +297,16 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaPr
 
 	List<String> getCmdArgs(final String contentType)
 	{
-		return actions.get(MediaType.forName(contentType)).getCmdArgs();
+		return action(contentType).getCmdArgs();
 	}
 
 	public String getScript(final String contentType)
 	{
-		return actions.get(MediaType.forName(contentType)).getScript();
+		return action(contentType).getScript();
+	}
+
+	private Action action(final String contentType)
+	{
+		return actions.get(MediaType.forName(contentType));
 	}
 }
