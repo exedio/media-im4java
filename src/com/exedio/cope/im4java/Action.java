@@ -68,7 +68,7 @@ final class Action
 	}
 
 	/**
-	 * See https://imagemagick.org/script/command-line-options.php#limit
+	 * See <a href="https://imagemagick.org/script/command-line-options.php#limit">Command-line Options</a>
 	 * Reduces time and CPU cycles needed by convert.
 	 * Replaces MAGICK_THREAD_LIMIT=1 in a more robust way.
 	 */
@@ -119,11 +119,11 @@ final class Action
 
 	/**
 	 * See "Explicit Image Format" in
-	 * https://www.imagemagick.org/script/command-line-processing.php
+	 * <a href="https://www.imagemagick.org/script/command-line-processing.php">Anatomy of the Command-line</a>
 	 * Improves security:
-	 * https://lcamtuf.blogspot.com/2016/05/clearing-up-some-misconceptions-around.html
+	 * <a href="https://lcamtuf.blogspot.com/2016/05/clearing-up-some-misconceptions-around.html">Clearing up some misconceptions around the "ImageTragick" bug</a>
 	 * and "Other Security Considerations" in
-	 * https://www.imagemagick.org/script/security-policy.php
+	 * <a href="https://www.imagemagick.org/script/security-policy.php#other">Other Security Considerations</a>
 	 */
 	private static String explicitFormat(final Path file, final MediaType contentType)
 	{
