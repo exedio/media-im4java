@@ -22,6 +22,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
+import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.util.Properties;
 import java.util.Collection;
 import org.junit.jupiter.api.AfterEach;
@@ -32,6 +33,7 @@ import org.junit.jupiter.api.BeforeEach;
  * @author Ralf Wiebicke
  */
 @SuppressWarnings("AbstractClassWithoutAbstractMethods") // OK: has default implementations for all overridable methods
+@WrapInterim
 public abstract class CopeModelTest
 {
 	protected final Model model;
