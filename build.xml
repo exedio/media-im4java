@@ -1,6 +1,8 @@
 <?xml version="1.0"?>
 
-<project name="cope im4java" default="build" basedir=".">
+<project name="cope im4java" default="build" basedir="."
+			xmlns:if="ant:if"
+			xmlns:unless="ant:unless">
 
 	<echo taskname="which ant" message="${ant.version}" />
 	<echo taskname="which java" message="${java.vm.name} ${java.version}" />
@@ -44,7 +46,8 @@
 			<classpath>
 				<pathelement location="build/classes/src" />
 				<pathelement location="lib/im4java.jar" />
-				<pathelement location="lib/junit.jar" />
+				<pathelement location="lib/junit-jupiter-api.jar" />
+				<pathelement location="lib/apiguardian-api.jar" />
 			</classpath>
 			<suppressWarnings>
 				<wrapper>FinalMethodInFinalClass</wrapper>
@@ -64,7 +67,8 @@
 
 				<pathelement location="lib/exedio-cope-instrument-annotations.jar" />
 
-				<pathelement location="lib/junit.jar" />
+				<pathelement location="lib/junit-jupiter-api.jar" />
+				<pathelement location="lib/apiguardian-api.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -72,11 +76,11 @@
 	<target name="test.run" depends="test.compile">
 		<mkdir dir="build/testresults" />
 		<mkdir dir="build/testtmpdir" />
-		<junit fork="yes"
-				 haltonerror="true" haltonfailure="true"
-				 showoutput="true" printsummary="true">
-			<formatter type="brief" usefile="false" />
-			<formatter type="xml" />
+		<java taskname="junit" fork="yes" dir="${basedir}"
+				failonerror="true"
+				classname="org.junit.platform.console.ConsoleLauncher">
+			<arg line="--details ${test-details}" />
+			<arg line="--disable-ansi-colors" if:set="disable-ansi-colors" />
 			<classpath>
 				<pathelement location="build/classes/src" />
 				<pathelement location="build/classes/testsrc" />
@@ -88,13 +92,23 @@
 				<pathelement location="lib/micrometer-core.jar" />
 				<pathelement location="lib/LatencyUtils.jar" />
 				<pathelement location="lib/hsqldb.jar" />
-				<pathelement location="lib/junit.jar" />
+				<pathelement location="lib/junit-jupiter-api.jar" />
+				<pathelement location="lib/junit-jupiter-engine.jar" />
+				<pathelement location="lib/apiguardian-api.jar" />
+				<pathelement location="lib/opentest4j.jar" />
+				<pathelement location="lib/junit-platform-commons.jar" />
+				<pathelement location="lib/junit-platform-engine.jar" />
+				<pathelement location="lib/junit-platform-launcher.jar" />
+				<pathelement location="lib/junit-platform-console.jar" />
 			</classpath>
+			<arg line="--fail-if-no-tests" />
+			<arg line="--scan-class-path build/classes/testsrc" unless:set="test" />
+			<arg line="--select-class ${test}" if:set="test" />
+			<arg line="--reports-dir build/testresults" />
 			<sysproperty key="java.io.tmpdir" value="${basedir}/build/testtmpdir" />
 			<sysproperty key="ThumbnailMagickPreviewTest.testTruncated" value="${ThumbnailMagickPreviewTest.testTruncated}" />
-			<test name="com.exedio.cope.im4java.PackageTest" todir="build/testresults" outfile="cope-im4java" />
 			<assertions><enable/></assertions>
-		</junit>
+		</java>
 	</target>
 
 	<target name="test" depends="test.run" />

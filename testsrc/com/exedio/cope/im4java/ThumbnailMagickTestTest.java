@@ -18,29 +18,33 @@
 
 package com.exedio.cope.im4java;
 
+import static com.exedio.cope.junit.CopeAssert.list;
 import static com.exedio.cope.pattern.MediaType.GIF;
 import static com.exedio.cope.pattern.MediaType.JPEG;
 import static com.exedio.cope.pattern.MediaType.PNG;
 import static com.exedio.cope.pattern.MediaType.SVG;
 import static com.exedio.cope.pattern.MediaType.TIFF;
 import static com.exedio.cope.pattern.MediaType.WEBP;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.Media;
 import java.io.IOException;
 import java.util.regex.Pattern;
 import org.im4java.core.CommandException;
 import org.im4java.core.IMOperation;
 import org.im4java.core.IMOps;
+import org.junit.jupiter.api.Test;
 
-public final class ThumbnailMagickTestTest extends CopeAssert
+public final class ThumbnailMagickTestTest
 {
 	static final Media file = new Media().optional().lengthMax(10000);
 	@SuppressWarnings("boxing")
 	static final IMOps op = new IMOperation().resize(20, 30, '>');
 
-	@SuppressWarnings("static-method")
-	public void testTest() throws IOException
+	@Test
+	void testTest() throws IOException
 	{
 		new MediaImageMagickFilter(file, op).forType(SVG, op, PNG).test(); // do not create SVG as this is a svg-wrapped png anyway and makes trouble on Debian9
 		new MediaImageMagickFilter(file, op, JPEG).test();
@@ -69,8 +73,8 @@ public final class ThumbnailMagickTestTest extends CopeAssert
 		return (IMOperation)new IMOperation().addRawArgs(arg);
 	}
 
-	@SuppressWarnings({"static-method","boxing"})
-	public void testUnsupportedBySource() throws IOException
+	@Test
+	void testUnsupportedBySource() throws IOException
 	{
 		final Media source = new Media().optional().lengthMax(10000).contentType(JPEG);
 		final MediaImageMagickFilter filter =
@@ -92,9 +96,9 @@ public final class ThumbnailMagickTestTest extends CopeAssert
 		catch(final RuntimeException runtimeException)
 		{
 			assertTrue(
-					runtimeException.getMessage(),
 					runtimeException.getMessage().startsWith(
-							"-limit thread 1 " + errorMessage + " ?img? ?img? ==="));
+							"-limit thread 1 " + errorMessage + " ?img? ?img? ==="),
+					runtimeException.getMessage());
 
 			final String message = ": unrecognized option `" + errorMessage + "' @ ";
 			final CommandException commandException = (CommandException)runtimeException.getCause();
@@ -113,7 +117,9 @@ public final class ThumbnailMagickTestTest extends CopeAssert
 	private static void assertExceptionMessage( final CommandException exception, final String start, final String message)
 	{
 		final String pattern = Pattern.quote(start)+ ".*?"+Pattern.quote(message);
-		assertTrue("The exception message >"+exception.getMessage()+"< did not match the expected patterns >"+start+
-			"< >"+message+"<.", Pattern.compile(pattern).matcher(exception.getMessage()).find());
+		assertTrue(
+				Pattern.compile(pattern).matcher(exception.getMessage()).find(),
+				"The exception message >"+exception.getMessage()+"< did not match the expected patterns >"+start+
+				"< >"+message+"<.");
 	}
 }

@@ -21,16 +21,16 @@ package com.exedio.cope.im4java;
 import static com.exedio.cope.pattern.MediaType.PNG;
 import static com.exedio.cope.pattern.MediaType.SVG;
 
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.Media;
 import java.io.IOException;
 import org.im4java.core.IMOperation;
 import org.im4java.core.IMOps;
+import org.junit.jupiter.api.Test;
 
-public final class ThumbnailMagickModifiableTest extends CopeAssert
+public final class ThumbnailMagickModifiableTest
 {
-	@SuppressWarnings("static-method")
-	public void testThumbs() throws IOException
+	@Test
+	void testThumbs() throws IOException
 	{
 		final Media file = new Media().optional().lengthMax(10000);
 		@SuppressWarnings("boxing")

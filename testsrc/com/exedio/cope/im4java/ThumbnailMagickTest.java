@@ -24,11 +24,18 @@ import static com.exedio.cope.im4java.ThumbnailMagickItem.thumb;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbFull;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbRound;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbSame;
+import static com.exedio.cope.junit.CopeAssert.assertContains;
 import static com.exedio.cope.pattern.MediaType.GIF;
 import static com.exedio.cope.pattern.MediaType.JPEG;
 import static com.exedio.cope.pattern.MediaType.PNG;
 import static com.exedio.cope.pattern.MediaType.TIFF;
 import static com.exedio.cope.pattern.MediaType.WEBP;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeModelTest;
@@ -39,6 +46,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
 import javax.servlet.ServletOutputStream;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 public final class ThumbnailMagickTest extends CopeModelTest
 {
@@ -55,10 +64,9 @@ public final class ThumbnailMagickTest extends CopeModelTest
 
 	// Ok, because Media#set(Item,InputStream,String) closes the stream.
 
-	@Override
-	public void setUp() throws Exception
+	@BeforeEach
+	private void setUp() throws Exception
 	{
-		super.setUp();
 		mediaRootUrl = model.getConnectProperties().getMediaRootUrl();
 		jpg = new ThumbnailMagickItem();
 		jpgX= new ThumbnailMagickItem();
@@ -84,7 +92,7 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		return ThumbnailMagickTest.class.getResourceAsStream(name);
 	}
 
-	public void testThumbs() throws IOException, NotFound
+	@Test void testThumbs() throws IOException, NotFound
 	{
 		// content type
 		assertEquals(JPEG, jpg.getThumbContentType());

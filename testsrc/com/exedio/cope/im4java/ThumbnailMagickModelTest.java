@@ -24,6 +24,7 @@ import static com.exedio.cope.im4java.ThumbnailMagickItem.thumb;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbFull;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbRound;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbSame;
+import static com.exedio.cope.junit.CopeAssert.reserialize;
 import static com.exedio.cope.pattern.MediaType.GIF;
 import static com.exedio.cope.pattern.MediaType.JPEG;
 import static com.exedio.cope.pattern.MediaType.PDF;
@@ -33,16 +34,20 @@ import static com.exedio.cope.pattern.MediaType.TIFF;
 import static com.exedio.cope.pattern.MediaType.WEBP;
 import static com.exedio.cope.pattern.MediaType.ZIP;
 import static java.util.Arrays.asList;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
-import com.exedio.cope.junit.CopeAssert;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashSet;
 import org.im4java.core.IMOperation;
+import org.junit.jupiter.api.Test;
 
-public final class ThumbnailMagickModelTest extends CopeAssert
+public final class ThumbnailMagickModelTest
 {
 	static final Model MODEL = new Model(TYPE);
 
@@ -51,8 +56,8 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 		MODEL.enableSerialization(ThumbnailMagickModelTest.class, "MODEL");
 	}
 
-	@SuppressWarnings("static-method")
-	public void testThumbs() throws IOException
+	@Test
+	void testThumbs() throws IOException
 	{
 		assertEquals(asList(new Feature[]{
 				TYPE.getThis(),
@@ -136,8 +141,8 @@ public final class ThumbnailMagickModelTest extends CopeAssert
 		thumbRound.test();
 	}
 
-	@SuppressWarnings({"static-method", "unused"})
-	public void testCreate()
+	@Test
+	void testCreate()
 	{
 		try
 		{
