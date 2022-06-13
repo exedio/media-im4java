@@ -47,7 +47,8 @@ try
 						' "-Dbuild.revision=${BUILD_NUMBER}"' +
 						' "-Dbuild.tag=' + buildTag + '"' +
 						' -Dbuild.status=' + (isRelease?'release':'integration') +
-						' -Dinstrument.verify=true'
+						' -Dinstrument.verify=true' +
+						' -Ddisable-ansi-colors=true'
 			}
 
 			recordIssues(

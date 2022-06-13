@@ -19,6 +19,9 @@
 package com.exedio.cope.junit;
 
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -31,85 +34,83 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import junit.framework.TestCase;
-import org.junit.Assert;
 
-public abstract class CopeAssert extends TestCase
+public final class CopeAssert
 {
-	public static final <T> void assertContainsList(final List<T> expected, final Collection<T> actual)
+	public static <T> void assertContainsList(final List<T> expected, final Collection<T> actual)
 	{
 		if(expected==null && actual==null)
 			return;
 
-		Assert.assertNotNull("expected null, but was " + actual, expected);
-		Assert.assertNotNull("expected " + expected + ", but was null", actual);
+		assertNotNull(expected, "expected null, but was " + actual);
+		assertNotNull(actual, "expected " + expected + ", but was null");
 
 		if(expected.size()!=actual.size() ||
 				!expected.containsAll(actual) ||
 				!actual.containsAll(expected))
-			Assert.fail("expected "+expected+", but was "+actual);
+			fail("expected "+expected+", but was "+actual);
 	}
 
-	public static final void assertContains(final Collection<?> actual)
+	public static void assertContains(final Collection<?> actual)
 	{
 		assertContainsList(Collections.emptyList(), actual);
 	}
 
-	public static final <T> void assertContains(final T o, final Collection<T> actual)
+	public static <T> void assertContains(final T o, final Collection<T> actual)
 	{
 		assertContainsList(Collections.singletonList(o), actual);
 	}
 
-	public static final <T> void assertContains(final T o1, final T o2, final Collection<T> actual)
+	public static <T> void assertContains(final T o1, final T o2, final Collection<T> actual)
 	{
 		assertContainsList(Arrays.asList(o1, o2), actual);
 	}
 
-	public static final <T> void assertContains(final T o1, final T o2, final T o3, final Collection<T> actual)
+	public static <T> void assertContains(final T o1, final T o2, final T o3, final Collection<T> actual)
 	{
 		assertContainsList(Arrays.asList(o1, o2, o3), actual);
 	}
 
-	public static final <T> void assertContains(final T o1, final T o2, final T o3, final T o4, final Collection<T> actual)
+	public static <T> void assertContains(final T o1, final T o2, final T o3, final T o4, final Collection<T> actual)
 	{
 		assertContainsList(Arrays.asList(o1, o2, o3, o4), actual);
 	}
 
-	public static final <T> void assertContains(final T o1, final T o2, final T o3, final T o4, final T o5, final Collection<T> actual)
+	public static <T> void assertContains(final T o1, final T o2, final T o3, final T o4, final T o5, final Collection<T> actual)
 	{
 		assertContainsList(Arrays.asList(o1, o2, o3, o4, o5), actual);
 	}
 
-	public static final <T> void assertContains(final T o1, final T o2, final T o3, final T o4, final T o5, final T o6, final Collection<T> actual)
+	public static <T> void assertContains(final T o1, final T o2, final T o3, final T o4, final T o5, final T o6, final Collection<T> actual)
 	{
 		assertContainsList(Arrays.asList(o1, o2, o3, o4, o5, o6), actual);
 	}
 
-	public static final <T> void assertContains(final T o1, final T o2, final T o3, final T o4, final T o5, final T o6, final T o7, final Collection<T> actual)
+	public static <T> void assertContains(final T o1, final T o2, final T o3, final T o4, final T o5, final T o6, final T o7, final Collection<T> actual)
 	{
 		assertContainsList(Arrays.asList(o1, o2, o3, o4, o5, o6, o7), actual);
 	}
 
-	public static final <T> void assertContains(final T o1, final T o2, final T o3, final T o4, final T o5, final T o6, final T o7, final T o8, final Collection<T> actual)
+	public static <T> void assertContains(final T o1, final T o2, final T o3, final T o4, final T o5, final T o6, final T o7, final T o8, final Collection<T> actual)
 	{
 		assertContainsList(Arrays.asList(o1, o2, o3, o4, o5, o6, o7, o8), actual);
 	}
 
-	public static final List<Object> list(final Object... o)
+	public static List<Object> list(final Object... o)
 	{
 		return Collections.unmodifiableList(Arrays.asList(o));
 	}
 
-	public static final <S extends Serializable> S reserialize(final S value, final int expectedSize)
+	public static <S extends Serializable> S reserialize(final S value, final int expectedSize)
 	{
 		final byte[] bos = serialize(value);
-		Assert.assertEquals(expectedSize, bos.length);
+		assertEquals(expectedSize, bos.length);
 		@SuppressWarnings("unchecked")
 		final S result = (S)deserialize(bos);
 		return result;
 	}
 
-	public static final byte[] serialize(final Serializable value)
+	public static byte[] serialize(final Serializable value)
 	{
 		requireNonNull(value);
 
@@ -125,7 +126,7 @@ public abstract class CopeAssert extends TestCase
 		return bos.toByteArray();
 	}
 
-	public static final Object deserialize(final byte[] bytes)
+	public static Object deserialize(final byte[] bytes)
 	{
 		requireNonNull(bytes);
 
@@ -172,5 +173,10 @@ public abstract class CopeAssert extends TestCase
 			else
 				return obj;
 		}
+	}
+
+	private CopeAssert()
+	{
+		// prevent instantiation
 	}
 }

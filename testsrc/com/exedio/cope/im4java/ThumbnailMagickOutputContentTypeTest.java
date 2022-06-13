@@ -21,20 +21,21 @@ package com.exedio.cope.im4java;
 import static com.exedio.cope.pattern.MediaType.GIF;
 import static com.exedio.cope.pattern.MediaType.JPEG;
 import static com.exedio.cope.pattern.MediaType.PNG;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.exedio.cope.junit.CopeAssert;
 import com.exedio.cope.pattern.Media;
 import org.im4java.core.IMOperation;
 import org.im4java.core.IMOps;
+import org.junit.jupiter.api.Test;
 
-public final class ThumbnailMagickOutputContentTypeTest extends CopeAssert
+public final class ThumbnailMagickOutputContentTypeTest
 {
 	static final Media file = new Media().optional().lengthMax(10000);
 	@SuppressWarnings("boxing")
 	static final IMOps op = new IMOperation().resize(20, 30, '>');
 
-	@SuppressWarnings("static-method")
-	public void testThumbs()
+	@Test
+	void testThumbs()
 	{
 		assertEquals(null, new MediaImageMagickFilter(file, op).getOutputContentType());
 		assertEquals(JPEG, new MediaImageMagickFilter(file, op, JPEG).getOutputContentType());

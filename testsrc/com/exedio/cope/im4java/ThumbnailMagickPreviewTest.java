@@ -27,7 +27,10 @@ import static com.exedio.cope.pattern.MediaType.forMagics;
 import static com.exedio.cope.pattern.MediaType.forName;
 import static java.util.Collections.singleton;
 import static java.util.Objects.requireNonNull;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.WrapperIgnore;
@@ -36,42 +39,42 @@ import com.exedio.cope.pattern.Media;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import junit.framework.TestCase;
 import org.im4java.core.IMOperation;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
-public final class ThumbnailMagickPreviewTest extends TestCase
+public final class ThumbnailMagickPreviewTest
 {
-	public void testDefaultType() throws IOException
+	@Test void testDefaultType() throws IOException
 	{
 		load("thumbnail-test.png");
 		assertEquals(PNG, AnItem.f.preview(sourceBody, "image/png", target));
 		assertTrue(Files.exists(target));
 		assertEquals(singleton(forName(PNG)), forMagics(target));
 	}
-	public void testForType() throws IOException
+	@Test void testForType() throws IOException
 	{
 		load("thumbnail-test.gif");
 		assertEquals(JPEG, AnItem.f.preview(sourceBody, "image/gif", target));
 		assertTrue(Files.exists(target));
 		assertEquals(singleton(forName(JPEG)), forMagics(target));
 	}
-	public void testContentTypeMismatch() throws IOException
+	@Test void testContentTypeMismatch() throws IOException
 	{
 		load("thumbnail-test.png");
 		final RuntimeException e = assertThrows(
-				"filter",
 				RuntimeException.class,
 				() -> AnItem.f.preview(sourceBody, "image/gif", target));
 		final String message = e.getCause().getMessage();
-		assertTrue(message, message.startsWith(
-				"org.im4java.core.CommandException: convert-im6.q16: improper image header "));
+		assertTrue(message.startsWith(
+				"org.im4java.core.CommandException: convert-im6.q16: improper image header "), message);
 		assertFalse(Files.exists(target));
 	}
-	public void testTruncated() throws IOException
+	@Test void testTruncated() throws IOException
 	{
 		load("thumbnail-test-truncated.png");
 		final RuntimeException e = assertThrows(
-				"filter",
 				RuntimeException.class,
 				() -> AnItem.f.preview(sourceBody, "image/png", target));
 		final String message = e.getCause().getMessage();
@@ -80,12 +83,12 @@ public final class ThumbnailMagickPreviewTest extends TestCase
 			System.err.println("ThumbnailMagickPreviewTest#testTruncated skipped");
 			return;
 		}
-		assertTrue(message, message.startsWith(
+		assertTrue(message.startsWith(
 				"org.im4java.core.CommandException: convert-im6.q16: Expected 5166 bytes; found 2029 bytes " +
-				"`" + sourceBody + "' @ warning/png.c/MagickPNGWarningHandler/"));
+				"`" + sourceBody + "' @ warning/png.c/MagickPNGWarningHandler/"), message);
 		assertFalse(Files.exists(target));
 	}
-	public void testUnsupportedContentType() throws IOException
+	@Test void testUnsupportedContentType() throws IOException
 	{
 		load("thumbnail-test.png");
 		assertFails(
@@ -94,7 +97,7 @@ public final class ThumbnailMagickPreviewTest extends TestCase
 				"unsupported content type text/html");
 		assertFalse(Files.exists(target));
 	}
-	public void testOverwriteTarget() throws IOException
+	@Test void testOverwriteTarget() throws IOException
 	{
 		Files.copy(requireNonNull(ThumbnailMagickExplicitFormatTest.class.getResourceAsStream("thumbnail-test.tif")), target);
 		assertTrue(Files.exists(target));
@@ -105,32 +108,31 @@ public final class ThumbnailMagickPreviewTest extends TestCase
 		assertTrue(Files.exists(target));
 		assertEquals(singleton(forName(JPEG)), forMagics(target));
 	}
-	public void testSourceBodyNull()
+	@Test void testSourceBodyNull()
 	{
 		assertFails(
 				() -> AnItem.f.preview(null, "image/png", target),
 				NullPointerException.class, null);
 	}
-	public void testSourceBodyNotExists()
+	@Test void testSourceBodyNotExists()
 	{
 		assertFalse(Files.exists(sourceBody));
 		final RuntimeException e = assertThrows(
-				"filter",
 				RuntimeException.class,
 				() -> AnItem.f.preview(sourceBody, "image/png", target));
 		final String message = e.getCause().getMessage();
-		assertTrue(message, message.startsWith(
-				"org.im4java.core.CommandException: convert-im6.q16: unable to open image "));
+		assertTrue(message.startsWith(
+				"org.im4java.core.CommandException: convert-im6.q16: unable to open image "), message);
 		assertFalse(Files.exists(target));
 	}
-	public void testSourceContentTypeNull() throws IOException
+	@Test void testSourceContentTypeNull() throws IOException
 	{
 		load("thumbnail-test.png");
 		assertFails(
 				() -> AnItem.f.preview(sourceBody, null, target),
 				NullPointerException.class, "name");
 	}
-	public void testTargetNull() throws IOException
+	@Test void testTargetNull() throws IOException
 	{
 		load("thumbnail-test.png");
 		assertFails(
@@ -141,21 +143,19 @@ public final class ThumbnailMagickPreviewTest extends TestCase
 
 	private Path sourceBody;
 	private Path target;
-	@Override
-	protected void setUp() throws Exception
+	@BeforeEach
+	private void setUp() throws Exception
 	{
-		super.setUp();
 		sourceBody = Files.createTempFile("ThumbnailMagickFilterTest-sourceBody", ".dat");
 		target = Files.createTempFile("ThumbnailMagickFilterTest-target", ".dat");
 		Files.delete(sourceBody);
 		Files.delete(target);
 	}
-	@Override
-	protected void tearDown() throws Exception
+	@AfterEach
+	private void tearDown() throws Exception
 	{
 		Files.deleteIfExists(sourceBody);
 		Files.deleteIfExists(target);
-		super.tearDown();
 	}
 	private void load(final String name) throws IOException
 	{

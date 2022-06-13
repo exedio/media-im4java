@@ -18,17 +18,17 @@
 
 package com.exedio.cope.junit;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import org.junit.function.ThrowingRunnable;
+import org.junit.jupiter.api.function.Executable;
 
 public final class Assert
 {
 	@SuppressWarnings("UnusedReturnValue") // OK: for later use
 	public static <T extends Throwable> T assertFails(
-			final ThrowingRunnable executable,
+			final Executable executable,
 			final Class<T> expectedType,
 			final String expectedMessage)
 	{

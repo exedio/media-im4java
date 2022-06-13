@@ -24,12 +24,15 @@ import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 import com.exedio.cope.util.Properties;
 import java.util.Collection;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 
 /**
  * An abstract test case class for tests creating/using some persistent data.
  * @author Ralf Wiebicke
  */
-public abstract class CopeModelTest extends CopeAssert
+@SuppressWarnings("AbstractClassWithoutAbstractMethods") // OK: has default implementations for all overridable methods
+public abstract class CopeModelTest
 {
 	protected final Model model;
 
@@ -76,7 +79,7 @@ public abstract class CopeModelTest extends CopeAssert
 
 	/**
 	 * Override this method returning false if you do not want
-	 * method {@link #setUp()} to create a transaction for you.
+	 * method {@link #setUpCopeModelTest()} to create a transaction for you.
 	 * The default implementation returns true.
 	 */
 	protected boolean doesManageTransactions()
@@ -89,10 +92,9 @@ public abstract class CopeModelTest extends CopeAssert
 		return "tx:" + getClass().getName();
 	}
 
-	@Override
-	protected void setUp() throws Exception
+	@BeforeEach
+	private void setUpCopeModelTest()
 	{
-		super.setUp();
 		ModelConnector.connectAndCreate(model, getConnectProperties());
 		model.deleteSchemaForTest(); // typically faster than checkEmptySchema
 
@@ -100,8 +102,8 @@ public abstract class CopeModelTest extends CopeAssert
 			model.startTransaction(getTransactionName());
 	}
 
-	@Override
-	protected void tearDown() throws Exception
+	@AfterEach
+	private void tearDownCopeModelTest()
 	{
 		// NOTE:
 		// do rollback even if manageTransactions is false
@@ -115,6 +117,5 @@ public abstract class CopeModelTest extends CopeAssert
 		}
 		model.removeAllChangeListeners();
 		ModelConnector.dropAndDisconnect();
-		super.tearDown();
 	}
 }
