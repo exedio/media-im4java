@@ -7,6 +7,7 @@ def ideaSHA256 = '0400e6152fa0173e4e9a514c6398eef8f19150893298658c0b3eb1427e5bcb
 def isRelease = env.BRANCH_NAME=="master"
 def dockerNamePrefix = env.JOB_NAME.replace("/", "-").replace(" ", "_") + "-" + env.BUILD_NUMBER
 def dockerDate = new Date().format("yyyyMMdd")
+def ant = 'ant -noinput'
 
 properties([
 		gitLabConnection(env.GITLAB_CONNECTION),
@@ -19,8 +20,11 @@ properties([
 tryCompleted = false
 try
 {
-	parallel "Main": { // trailing brace suppresses Syntax error in idea
+	def parallelBranches = [:]
 
+	//noinspection GroovyAssignabilityCheck
+	parallelBranches["Main"] =
+	{
 		//noinspection GroovyAssignabilityCheck
 		nodeCheckoutAndDelete
 		{
@@ -39,7 +43,7 @@ try
 					"--security-opt no-new-privileges " +
 					"--network none")
 			{
-				shSilent "ant -noinput clean jenkins" +
+				shSilent ant + " clean jenkins" +
 						' "-Dbuild.revision=${BUILD_NUMBER}"' +
 						' "-Dbuild.tag=' + buildTag + '"' +
 						' -Dbuild.status=' + (isRelease?'release':'integration') +
@@ -61,7 +65,8 @@ try
 					testResults: 'build/testresults/*.xml',
 					skipPublishingChecks: true
 			)
-			archiveArtifacts fingerprint: true, artifacts: 'build/success/*'
+			if(isRelease || env.BRANCH_NAME.contains("archiveSuccessArtifacts"))
+				archiveArtifacts fingerprint: true, artifacts: 'build/success/*'
 			plot(
 					csvFileName: 'plots.csv',
 					exclZero: false,
@@ -77,9 +82,11 @@ try
 					],
 			)
 		}
-	},
-	"Idea": { // trailing brace suppresses Syntax error in idea
+	}
 
+	//noinspection GroovyAssignabilityCheck
+	parallelBranches["Idea"] =
+	{
 		//noinspection GroovyAssignabilityCheck
 		nodeCheckoutAndDelete
 		{
@@ -121,7 +128,6 @@ try
 					shSilent "/opt/idea/bin/inspect.sh " + env.WORKSPACE + " 'Project Default' idea-inspection-output"
 				}
 			archiveArtifacts 'idea-inspection-output/**'
-			shSilent "rm idea-inspection-output/SpellCheckingInspection.xml"
 			// replace project dir to prevent UnsupportedOperationException - will not be exposed in artifacts
 			shSilent "find idea-inspection-output -name '*.xml' | xargs --no-run-if-empty sed --in-place -- 's=\\\$PROJECT_DIR\\\$="+env.WORKSPACE+"=g'"
 			recordIssues(
@@ -134,9 +140,11 @@ try
 					],
 			)
 		}
-	},
-	"Ivy": { // trailing brace suppresses Syntax error in idea
+	}
 
+	//noinspection GroovyAssignabilityCheck
+	parallelBranches["Ivy"] =
+	{
 		def cache = 'jenkins-build-survivor-' + projectName + "-Ivy"
 		//noinspection GroovyAssignabilityCheck
 		lockNodeCheckoutAndDelete(cache)
@@ -153,7 +161,7 @@ try
 					"--security-opt no-new-privileges " +
 					"--mount type=volume,src=" + cache + ",target=/var/jenkins-build-survivor")
 			{
-				shSilent "ant -noinput" +
+				shSilent ant +
 					" -buildfile ivy" +
 					" -Divy.user.home=/var/jenkins-build-survivor"
 			}
@@ -162,12 +170,13 @@ try
 			def gitStatus = sh (script: "git status --porcelain --untracked-files=normal", returnStdout: true).trim()
 			if(gitStatus!='')
 			{
-				echo 'FAILURE because fetching dependencies produces git diff'
-				echo gitStatus
-				currentBuild.result = 'FAILURE'
+				error 'FAILURE because fetching dependencies produces git diff:\n' + gitStatus
 			}
 		}
 	}
+
+	parallel parallelBranches
+
 	tryCompleted = true
 }
 finally
