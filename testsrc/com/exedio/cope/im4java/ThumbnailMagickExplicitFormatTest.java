@@ -44,14 +44,14 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.png"), JPEG);
-		assertFails(item, "convert: Not a JPEG file: starts with 0x89 0x50 `");
+		assertFails(item, "convert-im6.q16: Not a JPEG file: starts with 0x89 0x50 `");
 	}
 
 	public void testJpegGif() throws IOException
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.gif"), JPEG);
-		assertFails(item, "convert: Not a JPEG file: starts with 0x47 0x49 `");
+		assertFails(item, "convert-im6.q16: Not a JPEG file: starts with 0x47 0x49 `");
 	}
 
 
@@ -59,14 +59,14 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.jpg"), PNG);
-		assertFails(item, "convert: improper image header `");
+		assertFails(item, "convert-im6.q16: improper image header `");
 	}
 
 	public void testPngGif() throws IOException
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.gif"), PNG);
-		assertFails(item, "convert: improper image header `");
+		assertFails(item, "convert-im6.q16: improper image header `");
 	}
 
 
@@ -74,14 +74,14 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.jpg"), GIF);
-		assertFails(item, "convert: improper image header `");
+		assertFails(item, "convert-im6.q16: improper image header `");
 	}
 
 	public void testGifPng() throws IOException
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.png"), GIF);
-		assertFails(item, "convert: improper image header `");
+		assertFails(item, "convert-im6.q16: improper image header `");
 	}
 
 
@@ -111,14 +111,14 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.jpg"), TIFF);
-		assertFails(item, "convert: Not a TIFF or MDI file, bad magic number 55551 (0xd8ff). `");
+		assertFails(item, "convert-im6.q16: Not a TIFF or MDI file, bad magic number 55551 (0xd8ff). `");
 	}
 
 	public void testTiffPng() throws IOException
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.png"), TIFF);
-		assertFails(item, "convert: Not a TIFF or MDI file, bad magic number 20617 (0x5089). `");
+		assertFails(item, "convert-im6.q16: Not a TIFF or MDI file, bad magic number 20617 (0x5089). `");
 	}
 
 
@@ -126,21 +126,21 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.jpg"), PDF);
-		assertFails(item, "GPL Ghostscript 9.25: Unrecoverable error, exit code 1");
+		assertFails(item, "Error: /undefined in ");
 	}
 
 	public void testPdfPng() throws IOException
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.png"), PDF);
-		assertFails(item, "GPL Ghostscript 9.25: Unrecoverable error, exit code 1");
+		assertFails(item, "Error: /syntaxerror in (binary token, type=137)");
 	}
 
 	public void testPdfSvg() throws IOException
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.svg"), PDF);
-		assertFails(item, "GPL Ghostscript 9.25: Unrecoverable error, exit code 1");
+		assertFails(item, "Error: /syntaxerror in /----nostringval----");
 	}
 
 
@@ -148,21 +148,21 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.jpg"), SVG);
-		assertFails(item, "Error reading SVG:Error domain 1 code 4 on line 1 column 1 of file:///");
+		assertFails(item, "Error reading SVG:Error domain 1 code 4 on line 1 column 1 of data: Start tag expected, '<' not found");
 	}
 
 	public void testSvgPng() throws IOException
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.png"), SVG);
-		assertFails(item, "Error reading SVG:Error domain 1 code 4 on line 1 column 1 of file:///");
+		assertFails(item, "Error reading SVG:Error domain 1 code 4 on line 1 column 1 of data: Start tag expected, '<' not found");
 	}
 
 	public void testSvgPdf() throws IOException
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.pdf"), SVG);
-		assertFails(item, "Error reading SVG:Error domain 1 code 4 on line 1 column 1 of file:///");
+		assertFails(item, "Error reading SVG:Error domain 1 code 4 on line 1 column 1 of data: Start tag expected, '<' not found");
 	}
 
 
