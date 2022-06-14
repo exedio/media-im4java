@@ -25,6 +25,8 @@ import static java.nio.file.Files.newInputStream;
 import static java.nio.file.StandardOpenOption.READ;
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.CopyMapper;
+import com.exedio.cope.Copyable;
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.pattern.Media;
@@ -46,7 +48,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.im4java.core.IMOps;
 
-public final class MediaImageMagickFilter extends MediaFilter implements MediaPreviewable, MediaTestable
+public final class MediaImageMagickFilter extends MediaFilter implements Copyable, MediaPreviewable, MediaTestable
 {
 	private static final long serialVersionUID = 1l;
 
@@ -109,6 +111,12 @@ public final class MediaImageMagickFilter extends MediaFilter implements MediaPr
 		super(source);
 		this.source = source;
 		this.actions = actions;
+	}
+
+	@Override
+	public MediaImageMagickFilter copy(final CopyMapper mapper)
+	{
+		return new MediaImageMagickFilter(mapper.get(source), actions);
 	}
 
 	@Override
