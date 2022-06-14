@@ -16,6 +16,14 @@
 		</fileset>
 	</import>
 
+	<taskdef resource="com/exedio/cope/instrument/ant.properties" onerror="failall">
+		<classpath>
+			<pathelement location="lib/slf4j-api.jar" />
+			<pathelement location="lib/javax.servlet-api.jar" />
+			<pathelement location="lib/exedio-cope-instrument.jar" />
+		</classpath>
+	</taskdef>
+
 	<target name="src.compile">
 		<compile srcdir="src">
 			<classpath>
@@ -28,13 +36,6 @@
 		</compile>
 	</target>
 
-	<taskdef resource="com/exedio/cope/instrument/ant.properties">
-		<classpath>
-			<pathelement location="lib/slf4j-api.jar" />
-			<pathelement location="lib/javax.servlet-api.jar" />
-			<pathelement location="lib/exedio-cope-instrument.jar" />
-		</classpath>
-	</taskdef>
 	<target name="testsrc.instrument" depends="src.compile" unless="skip.instrument">
 		<!--
 			build faster with "ant -Dskip.instrument=true",
