@@ -16,7 +16,7 @@
 		</fileset>
 	</import>
 
-	<target name="compile">
+	<target name="src.compile">
 		<compile srcdir="src">
 			<classpath>
 				<pathelement location="lib/exedio-cope.jar" />
@@ -35,14 +35,14 @@
 			<pathelement location="lib/exedio-cope-instrument.jar" />
 		</classpath>
 	</taskdef>
-	<target name="test.instrument" depends="compile" unless="skip.instrument">
+	<target name="testsrc.instrument" depends="src.compile" unless="skip.instrument">
 		<!--
 			build faster with "ant -Dskip.instrument=true",
 			if you know, no instrumentation is needed
 		-->
 		<instrument
-				verify="${instrument.verify}"
-				dir="${basedir}/testsrc">
+				dir="${basedir}/testsrc"
+				verify="${instrument.verify}">
 			<classpath>
 				<pathelement location="build/classes/src" />
 				<pathelement location="lib/im4java.jar" />
@@ -57,7 +57,7 @@
 		</instrument>
 	</target>
 
-	<target name="test.compile" depends="compile, test.instrument">
+	<target name="testsrc.compile" depends="src.compile, testsrc.instrument">
 		<compile srcdir="testsrc">
 			<classpath>
 				<pathelement location="build/classes/src" />
@@ -73,7 +73,7 @@
 		</compile>
 	</target>
 
-	<target name="test.run" depends="test.compile">
+	<target name="test.run" depends="testsrc.compile">
 		<mkdir dir="build/testresults" />
 		<mkdir dir="build/testtmpdir" />
 		<java taskname="junit" fork="yes" dir="${basedir}"
@@ -113,7 +113,7 @@
 
 	<target name="test" depends="test.run" />
 
-	<target name="jar" depends="compile">
+	<target name="jar" depends="src.compile">
 		<jar jarfile="build/exedio-cope-im4java.jar" basedir="build/classes/src" filesonly="true" duplicate="fail" strict="fail" level="9">
 			<manifest>
 				<attribute name="Specification-Title" value="exedio cope im4java"/>
@@ -174,7 +174,7 @@
 	</target>
 
 
-	<target name="build" depends="compile, test, jar, api" />
+	<target name="build" depends="src.compile, test, jar, api" />
 	<target name="all" depends="build, jar.src" />
 
 	<target name="jenkins" depends="all">
@@ -183,7 +183,7 @@
 			<fileset file="${basedir}/build/exedio-cope-im4java-src.zip" />
 			<fileset file="${basedir}/exedio-cope-im4java-log.txt" />
 		</copy>
-		<copy file="ivy/ivy.xml" tofile="build/success/ivy.xml" overwrite="true">
+		<copy file="ivy/ivy.xml" todir="build/success" overwrite="true">
 			<filterset>
 				<filter token="BUILD_REVISION" value="${build.revision}" />
 				<filter token="BUILD_STATUS"   value="${build.status}" />
