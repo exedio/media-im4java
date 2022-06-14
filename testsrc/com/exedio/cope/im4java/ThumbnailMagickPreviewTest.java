@@ -18,6 +18,7 @@
 
 package com.exedio.cope.im4java;
 
+import static com.exedio.cope.im4java.OSHelper.getProgramName;
 import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.pattern.MediaType.GIF;
 import static com.exedio.cope.pattern.MediaType.JPEG;
@@ -68,7 +69,7 @@ public final class ThumbnailMagickPreviewTest
 				() -> AnItem.f.preview(sourceBody, "image/gif", target));
 		final String message = e.getCause().getMessage();
 		assertTrue(message.startsWith(
-				"org.im4java.core.CommandException: convert-im6.q16: improper image header "), message);
+				"org.im4java.core.CommandException: " + getProgramName() + ": improper image header "), message);
 		assertFalse(Files.exists(target));
 	}
 	@Test void testTruncated() throws IOException
@@ -84,7 +85,7 @@ public final class ThumbnailMagickPreviewTest
 			return;
 		}
 		assertTrue(message.startsWith(
-				"org.im4java.core.CommandException: convert-im6.q16: Expected 5166 bytes; found 2029 bytes " +
+				"org.im4java.core.CommandException: " + getProgramName() + ": Expected 5166 bytes; found 2029 bytes " +
 				"`" + sourceBody + "' @ warning/png.c/MagickPNGWarningHandler/"), message);
 		assertFalse(Files.exists(target));
 	}
@@ -122,7 +123,7 @@ public final class ThumbnailMagickPreviewTest
 				() -> AnItem.f.preview(sourceBody, "image/png", target));
 		final String message = e.getCause().getMessage();
 		assertTrue(message.startsWith(
-				"org.im4java.core.CommandException: convert-im6.q16: unable to open image "), message);
+				"org.im4java.core.CommandException: " + getProgramName() + ": unable to open image "), message);
 		assertFalse(Files.exists(target));
 	}
 	@Test void testSourceContentTypeNull() throws IOException
