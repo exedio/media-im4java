@@ -25,8 +25,8 @@ final class OSHelper
 		}
 	}
 
-	static void assumeNotGitlab()
+	static void assumeNotGithub()
 	{
-		assumeFalse("true".equals(System.getProperty("gitlab")));
+		assumeFalse("true".equals(System.getProperty("github")));
 	}
 }
