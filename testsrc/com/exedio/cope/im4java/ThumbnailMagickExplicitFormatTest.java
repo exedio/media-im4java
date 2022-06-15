@@ -18,6 +18,8 @@
 
 package com.exedio.cope.im4java;
 
+import static com.exedio.cope.im4java.OSHelper.getProgramName;
+import static com.exedio.cope.im4java.OSHelper.isWindows;
 import static com.exedio.cope.im4java.ThumbnailMagickModelTest.MODEL;
 import static com.exedio.cope.junit.CopeAssert.list;
 import static com.exedio.cope.pattern.MediaType.GIF;
@@ -49,14 +51,14 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.png"), JPEG);
-		assertFails(item, "convert-im6.q16: Not a JPEG file: starts with 0x89 0x50 `");
+		assertFails(item, getProgramName() + ": Not a JPEG file: starts with 0x89 0x50 `");
 	}
 
 	@Test void testJpegGif() throws IOException
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.gif"), JPEG);
-		assertFails(item, "convert-im6.q16: Not a JPEG file: starts with 0x47 0x49 `");
+		assertFails(item, getProgramName() + ": Not a JPEG file: starts with 0x47 0x49 `");
 	}
 
 
@@ -64,14 +66,14 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.jpg"), PNG);
-		assertFails(item, "convert-im6.q16: improper image header `");
+		assertFails(item, getProgramName() + ": improper image header `");
 	}
 
 	@Test void testPngGif() throws IOException
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.gif"), PNG);
-		assertFails(item, "convert-im6.q16: improper image header `");
+		assertFails(item, getProgramName() + ": improper image header `");
 	}
 
 
@@ -79,14 +81,14 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.jpg"), GIF);
-		assertFails(item, "convert-im6.q16: improper image header `");
+		assertFails(item, getProgramName() + ": improper image header `");
 	}
 
 	@Test void testGifPng() throws IOException
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.png"), GIF);
-		assertFails(item, "convert-im6.q16: improper image header `");
+		assertFails(item, getProgramName() + ": improper image header `");
 	}
 
 
@@ -94,21 +96,21 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.jpg"), WEBP);
-		assertFails(item, "Decoding of ");
+		assertFails(item, getDecodingErrorMessageStart());
 	}
 
 	@Test void testWebpPng() throws IOException
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.png"), WEBP);
-		assertFails(item, "Decoding of ");
+		assertFails(item, getDecodingErrorMessageStart());
 	}
 
 	@Test void testWebpPdf() throws IOException
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.pdf"), WEBP);
-		assertFails(item, "Decoding of ");
+		assertFails(item, getDecodingErrorMessageStart());
 	}
 
 
@@ -116,14 +118,14 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.jpg"), TIFF);
-		assertFails(item, "convert-im6.q16: Not a TIFF or MDI file, bad magic number 55551 (0xd8ff). `");
+		assertFails(item, getTiffErrorMessageStart("55551 (0xd8ff)"));
 	}
 
 	@Test void testTiffPng() throws IOException
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.png"), TIFF);
-		assertFails(item, "convert-im6.q16: Not a TIFF or MDI file, bad magic number 20617 (0x5089). `");
+		assertFails(item, getTiffErrorMessageStart("20617 (0x5089)"));
 	}
 
 
@@ -131,21 +133,21 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.jpg"), PDF);
-		assertFails(item, "Error: /undefined in ");
+		assertFails(item, isWindows() ? "convert.exe: PDFDelegateFailed" : "Error: /undefined in ");
 	}
 
 	@Test void testPdfPng() throws IOException
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.png"), PDF);
-		assertFails(item, "Error: /syntaxerror in (binary token, type=137)");
+		assertFails(item, isWindows() ? "convert.exe: PDFDelegateFailed" : "Error: /syntaxerror in (binary token, type=137)");
 	}
 
 	@Test void testPdfSvg() throws IOException
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.svg"), PDF);
-		assertFails(item, "Error: /syntaxerror in /----nostringval----");
+		assertFails(item, isWindows() ? "convert.exe: PDFDelegateFailed" : "Error: /syntaxerror in /----nostringval----");
 	}
 
 
@@ -153,21 +155,21 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.jpg"), SVG);
-		assertFails(item, "Error reading SVG:Error domain 1 code 4 on line 1 column 1 of data: Start tag expected, '<' not found");
+		assertFails(item, getSvgErrorMessageStart());
 	}
 
 	@Test void testSvgPng() throws IOException
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.png"), SVG);
-		assertFails(item, "Error reading SVG:Error domain 1 code 4 on line 1 column 1 of data: Start tag expected, '<' not found");
+		assertFails(item, getSvgErrorMessageStart());
 	}
 
 	@Test void testSvgPdf() throws IOException
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.pdf"), SVG);
-		assertFails(item, "Error reading SVG:Error domain 1 code 4 on line 1 column 1 of data: Start tag expected, '<' not found");
+		assertFails(item, getSvgErrorMessageStart());
 	}
 
 
@@ -212,5 +214,34 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 		assertTrue(
 				exception.getMessage().startsWith(message),
 				"The exception message >"+exception.getMessage()+"< did not start with >"+message+"<.");
+	}
+
+	private static String getDecodingErrorMessageStart()
+	{
+		if (isWindows())
+		{
+			return "convert.exe: corrupt image ";
+		}
+		else
+		{
+			return "Decoding of ";
+		}
+	}
+
+	private static String getTiffErrorMessageStart(final String magic)
+	{
+		return getProgramName() + ": Not a TIFF " + (isWindows()?"":"or MDI ") + "file, bad magic number " + magic + ". `";
+	}
+
+	private static String getSvgErrorMessageStart()
+	{
+		if (isWindows())
+		{
+			return "convert.exe: negative or zero image size";
+		}
+		else
+		{
+			return "Error reading SVG:Error domain 1 code 4 on line 1 column 1 of data: Start tag expected, '<' not found";
+		}
 	}
 }
