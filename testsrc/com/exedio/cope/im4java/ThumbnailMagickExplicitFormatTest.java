@@ -18,7 +18,7 @@
 
 package com.exedio.cope.im4java;
 
-import static com.exedio.cope.im4java.OSHelper.assumeNotGitlab;
+import static com.exedio.cope.im4java.OSHelper.assumeNotGithub;
 import static com.exedio.cope.im4java.OSHelper.getProgramName;
 import static com.exedio.cope.im4java.OSHelper.isWindows;
 import static com.exedio.cope.im4java.ThumbnailMagickModelTest.MODEL;
@@ -97,7 +97,7 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.jpg"), WEBP);
-		assumeNotGitlab();
+		assumeNotGithub();
 		assertFails(item, getDecodingErrorMessageStart());
 	}
 
@@ -105,7 +105,7 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.png"), WEBP);
-		assumeNotGitlab();
+		assumeNotGithub();
 		assertFails(item, getDecodingErrorMessageStart());
 	}
 
@@ -113,7 +113,7 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.pdf"), WEBP);
-		assumeNotGitlab();
+		assumeNotGithub();
 		assertFails(item, getDecodingErrorMessageStart());
 	}
 
@@ -159,7 +159,7 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.jpg"), SVG);
-		assumeNotGitlab();
+		assumeNotGithub();
 		assertFails(item, getSvgErrorMessageStart());
 	}
 
@@ -167,7 +167,7 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.png"), SVG);
-		assumeNotGitlab();
+		assumeNotGithub();
 		assertFails(item, getSvgErrorMessageStart());
 	}
 
@@ -175,7 +175,7 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.pdf"), SVG);
-		assumeNotGitlab();
+		assumeNotGithub();
 		assertFails(item, getSvgErrorMessageStart());
 	}
 
