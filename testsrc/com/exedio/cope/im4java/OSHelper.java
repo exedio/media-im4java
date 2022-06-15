@@ -1,5 +1,7 @@
 package com.exedio.cope.im4java;
 
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
+
 final class OSHelper
 {
 	private OSHelper()
@@ -21,5 +23,10 @@ final class OSHelper
 		{
 			return "convert-im6.q16";
 		}
+	}
+
+	static void assumeNotGitlab()
+	{
+		assumeFalse("true".equals(System.getProperty("gitlab")));
 	}
 }

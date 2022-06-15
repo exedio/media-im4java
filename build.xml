@@ -70,6 +70,7 @@
 
 				<pathelement location="lib/junit-jupiter-api.jar" />
 				<pathelement location="lib/apiguardian-api.jar" />
+				<pathelement location="lib/opentest4j.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -107,7 +108,7 @@
 			<arg line="--select-class ${test}" if:set="test" />
 			<arg line="--reports-dir build/testresults" />
 			<sysproperty key="java.io.tmpdir" value="${basedir}/build/testtmpdir" />
-			<sysproperty key="ThumbnailMagickPreviewTest.testTruncated" value="${ThumbnailMagickPreviewTest.testTruncated}" />
+			<sysproperty key="gitlab" value="${gitlab}" />
 			<assertions><enable/></assertions>
 		</java>
 	</target>
