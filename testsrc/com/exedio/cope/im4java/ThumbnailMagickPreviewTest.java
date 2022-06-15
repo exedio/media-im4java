@@ -18,6 +18,7 @@
 
 package com.exedio.cope.im4java;
 
+import static com.exedio.cope.im4java.OSHelper.assumeNotGitlab;
 import static com.exedio.cope.im4java.OSHelper.getProgramName;
 import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.pattern.MediaType.GIF;
@@ -79,11 +80,7 @@ public final class ThumbnailMagickPreviewTest
 				RuntimeException.class,
 				() -> AnItem.f.preview(sourceBody, "image/png", target));
 		final String message = e.getCause().getMessage();
-		if("skip".equals(System.getProperty("ThumbnailMagickPreviewTest.testTruncated")))
-		{
-			System.err.println("ThumbnailMagickPreviewTest#testTruncated skipped");
-			return;
-		}
+		assumeNotGitlab();
 		assertTrue(message.startsWith(
 				"org.im4java.core.CommandException: " + getProgramName() + ": Expected 5166 bytes; found 2029 bytes " +
 				"`" + sourceBody + "' @ warning/png.c/MagickPNGWarningHandler/"), message);

@@ -18,6 +18,7 @@
 
 package com.exedio.cope.im4java;
 
+import static com.exedio.cope.im4java.OSHelper.assumeNotGitlab;
 import static com.exedio.cope.im4java.OSHelper.getProgramName;
 import static com.exedio.cope.im4java.OSHelper.isWindows;
 import static com.exedio.cope.im4java.ThumbnailMagickModelTest.MODEL;
@@ -96,6 +97,7 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.jpg"), WEBP);
+		assumeNotGitlab();
 		assertFails(item, getDecodingErrorMessageStart());
 	}
 
@@ -103,6 +105,7 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.png"), WEBP);
+		assumeNotGitlab();
 		assertFails(item, getDecodingErrorMessageStart());
 	}
 
@@ -110,6 +113,7 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.pdf"), WEBP);
+		assumeNotGitlab();
 		assertFails(item, getDecodingErrorMessageStart());
 	}
 
@@ -155,6 +159,7 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.jpg"), SVG);
+		assumeNotGitlab();
 		assertFails(item, getSvgErrorMessageStart());
 	}
 
@@ -162,6 +167,7 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.png"), SVG);
+		assumeNotGitlab();
 		assertFails(item, getSvgErrorMessageStart());
 	}
 
@@ -169,6 +175,7 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.pdf"), SVG);
+		assumeNotGitlab();
 		assertFails(item, getSvgErrorMessageStart());
 	}
 
