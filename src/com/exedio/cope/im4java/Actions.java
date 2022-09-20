@@ -42,12 +42,12 @@ final class Actions
 
 	String getOutputContentType()
 	{
-		final String defaultResult = default_.getOutputContentType();
+		final String defaultResult = default_.getConstantOutputContentType();
 		if(defaultResult==null)
 			return null;
 		for(final Action action : byInputContentType.values())
 		{
-			if(!defaultResult.equals(action.getOutputContentType()))
+			if(!defaultResult.equals(action.getConstantOutputContentType()))
 				return null;
 		}
 		return defaultResult;

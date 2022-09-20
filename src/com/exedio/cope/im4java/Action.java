@@ -77,14 +77,14 @@ final class Action
 		return (IMOperation)op.limit("thread").addRawArgs("1");
 	}
 
-	String getOutputContentType()
+	String getConstantOutputContentType()
 	{
 		return constantOutputContentType!=null ? constantOutputContentType.getName() : null;
 	}
 
-	String getContentType(final MediaType type)
+	String getOutputContentType(final MediaType inputContentType)
 	{
-		return (constantOutputContentType!=null?constantOutputContentType:type).getName();
+		return (constantOutputContentType!=null?constantOutputContentType:inputContentType).getName();
 	}
 
 	MediaType outputContentType(final MediaType inputContentType)
