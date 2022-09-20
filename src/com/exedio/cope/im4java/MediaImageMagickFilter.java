@@ -143,18 +143,18 @@ public final class MediaImageMagickFilter extends MediaFilter implements Copyabl
 	}
 
 	/**
-	 * @param contentType the {@link #getSource() source} content type
+	 * @param inputContentType the {@link #getSource() source} content type
 	 */
-	public String getOutputContentType(final String contentType)
+	public String getOutputContentType(final String inputContentType)
 	{
-		if(contentType==null)
+		if(inputContentType==null)
 			return null;
 
-		final MediaType type = supported(MediaType.forNameAndAliases(contentType));
+		final MediaType type = supported(MediaType.forNameAndAliases(inputContentType));
 		if(type==null)
 			return null;
 
-		return actions.get(type).getContentType(type);
+		return actions.get(type).getOutputContentType(type);
 	}
 
 	@Override
@@ -169,7 +169,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements Copyabl
 		if(type==null)
 			return null;
 
-		return actions.get(type).getContentType(type);
+		return actions.get(type).getOutputContentType(type);
 	}
 
 	@Override
