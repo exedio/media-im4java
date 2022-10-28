@@ -65,6 +65,11 @@ public final class ThumbnailMagickTestTest
 		assertFails("-broken", f1.forType(PNG, newIMOperation("-broken"), GIF ));
 		assertFails("-broken", f1.forType(PNG, newIMOperation("-broken"), WEBP));
 		assertFails("-broken", f1.forType(PNG, newIMOperation("-broken"), TIFF));
+
+		final Media pngSource = new Media().optional().lengthMax(10000).contentType(PNG);
+		final MediaImageMagickFilter png = new MediaImageMagickFilter(pngSource, newIMOperation("-kaputt"));
+		assertFails("-kaputt", png);
+		png.forTypeIdentity(PNG).test();
 	}
 
 	private static IMOperation newIMOperation(final String arg)

@@ -65,6 +65,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements Copyabl
 
 	private final Media source;
 
+	private final Set<String> identityContentTypes;
 	private final Actions actions;
 
 	public MediaImageMagickFilter(final Media source, final IMOps operation)
@@ -79,6 +80,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements Copyabl
 	{
 		super(source);
 		this.source = source;
+		this.identityContentTypes = Collections.emptySet();
 		this.actions = new Actions(new Action(operation, outputContentType));
 	}
 
@@ -97,32 +99,63 @@ public final class MediaImageMagickFilter extends MediaFilter implements Copyabl
 	{
 		requireNonNull(inputContentType, "inputContentType");
 
+		if(isIdentity(inputContentType))
+			throw new IllegalArgumentException("duplicate inputContentType " + inputContentType);
 		final MediaType type = supported(MediaType.forName(inputContentType));
 		if(type==null)
 			throw new IllegalArgumentException("unsupported inputContentType >" + inputContentType + '<');
 
-		return new MediaImageMagickFilter(source, actions.forType(type, operation, outputContentType));
+		return new MediaImageMagickFilter(source, identityContentTypes, actions.forType(type, operation, outputContentType));
+	}
+
+	public MediaImageMagickFilter forTypeIdentity(
+			final String inputContentType)
+	{
+		requireNonNull(inputContentType, "inputContentType");
+
+		if(actions.supportsNonDefault(MediaType.forNameAndAliases(inputContentType)))
+			throw new IllegalArgumentException("duplicate inputContentType " + inputContentType);
+		final HashSet<String> identityContentTypes = new HashSet<>(this.identityContentTypes);
+		final MediaType type = supported(MediaType.forName(inputContentType));
+		if(type==null)
+			add(identityContentTypes, inputContentType);
+		else
+		{
+			add(identityContentTypes, type.getName());
+			for(final String alias : type.getAliases())
+				add(identityContentTypes, alias);
+		}
+
+		return new MediaImageMagickFilter(source, identityContentTypes, actions);
+	}
+
+	private static void add(final HashSet<String> identityContentTypes, final String inputContentType)
+	{
+		if(!identityContentTypes.add(inputContentType))
+			throw new IllegalArgumentException("duplicate inputContentType " + inputContentType);
 	}
 
 	private MediaImageMagickFilter(
 			final Media source,
+			final Set<String> identityContentTypes,
 			final Actions actions)
 	{
 		super(source);
 		this.source = source;
+		this.identityContentTypes = identityContentTypes;
 		this.actions = actions;
 	}
 
 	@Override
 	public MediaImageMagickFilter copy(final CopyMapper mapper)
 	{
-		return new MediaImageMagickFilter(mapper.get(source), actions);
+		return new MediaImageMagickFilter(mapper.get(source), identityContentTypes, actions);
 	}
 
 	@Override
 	public Set<String> getSupportedSourceContentTypes()
 	{
-		final HashSet<String> result = new HashSet<>();
+		final HashSet<String> result = new HashSet<>(identityContentTypes);
 		for(final MediaType type : supportedContentTypes)
 		{
 			result.add(type.getName());
@@ -139,6 +172,9 @@ public final class MediaImageMagickFilter extends MediaFilter implements Copyabl
 	 */
 	public String getOutputContentType()
 	{
+		if(!identityContentTypes.isEmpty())
+			return null;
+
 		return actions.getOutputContentType();
 	}
 
@@ -149,6 +185,9 @@ public final class MediaImageMagickFilter extends MediaFilter implements Copyabl
 	{
 		if(inputContentType==null)
 			return null;
+
+		if(isIdentity(inputContentType))
+			return inputContentType;
 
 		final MediaType type = supported(MediaType.forNameAndAliases(inputContentType));
 		if(type==null)
@@ -164,6 +203,9 @@ public final class MediaImageMagickFilter extends MediaFilter implements Copyabl
 
 		if(contentType==null)
 			return null;
+
+		if(isIdentity(contentType))
+			return contentType;
 
 		final MediaType type = supported(MediaType.forNameAndAliases(contentType));
 		if(type==null)
@@ -189,6 +231,12 @@ public final class MediaImageMagickFilter extends MediaFilter implements Copyabl
 		if(contentType==null)
 			throw notFoundIsNull();
 
+		if(isIdentity(contentType))
+		{
+			source.doGetAndCommit(request, response, item);
+			return;
+		}
+
 		final MediaType type = supported(MediaType.forNameAndAliases(contentType));
 		if(type==null)
 			throw notFoundNotComputable();
@@ -211,6 +259,9 @@ public final class MediaImageMagickFilter extends MediaFilter implements Copyabl
 		final String contentType = source.getContentType(item);
 		if(contentType==null)
 			return null;
+
+		if(isIdentity(contentType))
+			return source.getBody(item);
 
 		final MediaType type = supported(MediaType.forNameAndAliases(contentType));
 		if(type==null)
@@ -246,6 +297,12 @@ public final class MediaImageMagickFilter extends MediaFilter implements Copyabl
 			final Path target)
 			throws IOException
 	{
+		if(isIdentity(sourceContentType))
+		{
+			Files.copy(sourceBody, target);
+			return sourceContentType;
+		}
+
 		final MediaType type = supported(MediaType.forNameAndAliases(sourceContentType));
 		if(type==null)
 			throw new IllegalArgumentException("unsupported content type " + sourceContentType);
@@ -270,10 +327,10 @@ public final class MediaImageMagickFilter extends MediaFilter implements Copyabl
 
 	private boolean checkSourceContentType(final MediaType type)
 	{
-		if(source.checkContentType(type.getName()))
+		if(!isIdentity(type.getName()) && source.checkContentType(type.getName()))
 			return true;
 		for(final String alias : type.getAliases())
-			if(source.checkContentType(alias))
+			if(!isIdentity(alias) && source.checkContentType(alias))
 				return true;
 
 		return false;
@@ -305,12 +362,23 @@ public final class MediaImageMagickFilter extends MediaFilter implements Copyabl
 
 	List<String> getCmdArgs(final String contentType)
 	{
+		if(isIdentity(contentType))
+			return null;
+
 		return action(contentType).getCmdArgs();
 	}
 
 	public String getScript(final String contentType)
 	{
+		if(isIdentity(contentType))
+			return null;
+
 		return action(contentType).getScript();
+	}
+
+	private boolean isIdentity(final String contentType)
+	{
+		return identityContentTypes.contains(contentType);
 	}
 
 	private Action action(final String contentType)

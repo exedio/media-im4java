@@ -20,6 +20,7 @@ package com.exedio.cope.im4java;
 
 import static com.exedio.cope.im4java.ThumbnailMagickItem.TYPE;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.file;
+import static com.exedio.cope.im4java.ThumbnailMagickItem.identity;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumb;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbFull;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbRound;
@@ -37,6 +38,7 @@ import static com.exedio.cope.pattern.MediaType.ZIP;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.Feature;
@@ -70,6 +72,7 @@ public final class ThumbnailMagickModelTest
 				thumbFull,
 				thumbSame,
 				thumbRound,
+				identity,
 			}), TYPE.getFeatures());
 		assertEquals(TYPE, thumb.getType());
 		assertEquals("thumb", thumb.getName());
@@ -77,6 +80,9 @@ public final class ThumbnailMagickModelTest
 		assertEquals(
 				new HashSet<>(asList(JPEG, "image/pjpeg", PNG, "image/x-png", GIF, WEBP, TIFF, PDF, "text/pdf", SVG)),
 				thumb.getSupportedSourceContentTypes());
+		assertEquals(
+				new HashSet<>(asList(JPEG, "image/pjpeg", PNG, "image/x-png", GIF, WEBP, TIFF, PDF, "text/pdf", SVG, "text/plain")),
+				identity.getSupportedSourceContentTypes());
 
 		assertEquals(JPEG, thumb.getOutputContentType());
 		assertEquals(PNG, thumbFull.getOutputContentType());
@@ -115,6 +121,14 @@ public final class ThumbnailMagickModelTest
 		assertEquals(null, thumbRound.getOutputContentType("text/plain"));
 		assertEquals(null, thumbRound.getOutputContentType(null));
 
+		assertEquals(JPEG, identity.getOutputContentType(JPEG));
+		assertEquals(PNG,  identity.getOutputContentType(PNG));
+		assertEquals(JPEG, identity.getOutputContentType(GIF));
+		assertEquals(JPEG, identity.getOutputContentType("image/pjpeg"));
+		assertEquals("image/x-png", identity.getOutputContentType("image/x-png"));
+		assertEquals("text/plain", identity.getOutputContentType("text/plain"));
+		assertEquals(null, identity.getOutputContentType(null));
+
 		assertEquals(file.isNull(), thumb.isNull());
 		assertEquals(file.isNotNull(), thumb.isNotNull());
 
@@ -129,16 +143,23 @@ public final class ThumbnailMagickModelTest
 				"-flatten", "-background", "white",
 				"?img?", "?img?"),
 				thumbFull.getCmdArgs(JPEG));
+		assertEquals(asList("-limit", "thread", "1", "-resize", "20x30>", "?img?", "?img?"), identity.getCmdArgs(JPEG));
+		assertEquals(null, identity.getCmdArgs(PNG));
+		assertEquals(null, identity.getCmdArgs("text/plain"));
 
 		assertNotNull(thumb.getScript(JPEG));
 		assertNotNull(thumbFull.getScript(JPEG));
 		assertNotNull(thumbSame.getScript(JPEG));
 		assertNotNull(thumbRound.getScript(JPEG));
+		assertNotNull(identity.getScript(JPEG));
+		assertNull(identity.getScript(PNG));
+		assertNull(identity.getScript("text/plain"));
 
 		thumb.test();
 		thumbFull.test();
 		thumbSame.test();
 		thumbRound.test();
+		identity.test();
 	}
 
 	@Test
@@ -191,6 +212,41 @@ public final class ThumbnailMagickModelTest
 				() -> template2.forType(JPEG, operation, JPEG),
 				IllegalArgumentException.class,
 				"duplicate inputContentType image/jpeg");
+		assertFails(
+				() -> template2.forTypeIdentity(JPEG),
+				IllegalArgumentException.class,
+				"duplicate inputContentType image/jpeg");
+		assertFails(
+				() -> template2.forTypeIdentity("image/pjpeg"),
+				IllegalArgumentException.class,
+				"duplicate inputContentType image/pjpeg");
+		final MediaImageMagickFilter identityPng = template.forTypeIdentity(PNG);
+		assertFails(
+				() -> identityPng.forTypeIdentity(PNG),
+				IllegalArgumentException.class,
+				"duplicate inputContentType image/png");
+		assertFails(
+				() -> identityPng.forTypeIdentity("image/x-png"),
+				IllegalArgumentException.class,
+				"duplicate inputContentType image/x-png");
+		assertFails(
+				() -> identityPng.forType(PNG, operation, PNG),
+				IllegalArgumentException.class,
+				"duplicate inputContentType image/png");
+		final MediaImageMagickFilter identityPngX = template.forTypeIdentity("image/x-png");
+		assertFails(
+				() -> identityPngX.forTypeIdentity(PNG),
+				IllegalArgumentException.class,
+				"duplicate inputContentType image/x-png");
+		assertFails(
+				() -> identityPngX.forTypeIdentity("image/x-png"),
+				IllegalArgumentException.class,
+				"duplicate inputContentType image/x-png");
+		final MediaImageMagickFilter identityTxt = template.forTypeIdentity("text/plain");
+		assertFails(
+				() -> identityTxt.forTypeIdentity("text/plain"),
+				IllegalArgumentException.class,
+				"duplicate inputContentType text/plain");
 	}
 
 	private static void assertSerializedSame(final Serializable value, final int expectedSize)

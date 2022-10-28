@@ -48,6 +48,7 @@ public class BlockFieldMediaFilterTest extends CopeModelTest
 		super(MODEL);
 	}
 
+	@SuppressWarnings("ConstantConditions")
 	@Test void testIt()
 	{
 		final MediaImageMagickFilter blocFilter = ABlock.filter;

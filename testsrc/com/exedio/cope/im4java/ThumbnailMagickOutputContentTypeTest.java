@@ -43,6 +43,7 @@ public final class ThumbnailMagickOutputContentTypeTest
 
 		final MediaImageMagickFilter f1 = new MediaImageMagickFilter(file, op, JPEG);
 		assertEquals(null, f1.forType(PNG, op, PNG).getOutputContentType());
+		assertEquals(null, f1.forTypeIdentity(PNG) .getOutputContentType());
 
 		final MediaImageMagickFilter f2 = f1.forType(PNG, op, JPEG);
 		assertEquals(JPEG, f2.getOutputContentType());
