@@ -40,7 +40,6 @@ import org.junit.jupiter.api.Test;
 public final class ThumbnailMagickTestTest
 {
 	static final Media file = new Media().optional().lengthMax(10000);
-	@SuppressWarnings("boxing")
 	static final IMOps op = new IMOperation().resize(20, 30, '>');
 
 	@Test

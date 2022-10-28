@@ -27,14 +27,12 @@ public final class ThumbnailMagickItem extends Item
 {
 	static final Media file = new Media().optional().lengthMax(15000);
 
-	@SuppressWarnings("boxing")
 	static final MediaImageMagickFilter thumb =
 			new MediaImageMagickFilter(
 				file,
 				new IMOperation().resize(20, 30, '>'),
 				MediaType.JPEG);
 
-	@SuppressWarnings("boxing")
 	static final MediaImageMagickFilter thumbFull =
 			new MediaImageMagickFilter(
 				file,
@@ -44,14 +42,12 @@ public final class ThumbnailMagickItem extends Item
 					flatten().background("white"),
 				MediaType.PNG);
 
-	@SuppressWarnings("boxing")
 	static final MediaImageMagickFilter thumbSame =
 			new MediaImageMagickFilter(
 				file,
 				new IMOperation().resize(20, 30, '>')).
 				forType(MediaType.SVG, new IMOperation().resize(20, 30, '>'), MediaType.PNG); // do not create SVG as this is a svg-wrapped png anyway and makes trouble on Debian9
 
-	@SuppressWarnings("boxing")
 	static final MediaImageMagickFilter thumbRound =
 			new MediaImageMagickFilter(
 				file,
