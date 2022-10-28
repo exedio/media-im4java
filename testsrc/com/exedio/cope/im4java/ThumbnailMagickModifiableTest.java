@@ -33,7 +33,6 @@ public final class ThumbnailMagickModifiableTest
 	void testThumbs() throws IOException
 	{
 		final Media file = new Media().optional().lengthMax(10000);
-		@SuppressWarnings("boxing")
 		final IMOps operation = new IMOperation().resize(20, 30, '>');
 		final MediaImageMagickFilter thumb = new MediaImageMagickFilter(file, operation).
 				forType(SVG, operation, PNG); // do not create SVG as this is a svg-wrapped png anyway and makes trouble on Debian9
