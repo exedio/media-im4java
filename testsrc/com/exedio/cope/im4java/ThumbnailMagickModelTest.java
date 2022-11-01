@@ -144,8 +144,9 @@ public final class ThumbnailMagickModelTest
 	@Test
 	void testCreate()
 	{
+		final IMOperation operation = new IMOperation();
 		assertFails(
-				() -> new MediaImageMagickFilter(null, new IMOperation()),
+				() -> new MediaImageMagickFilter(null, operation),
 				NullPointerException.class,
 				"source");
 		assertFails(
@@ -153,14 +154,14 @@ public final class ThumbnailMagickModelTest
 				NullPointerException.class,
 				"operation");
 		assertFails(
-				() -> new MediaImageMagickFilter(file, new IMOperation(), ZIP),
+				() -> new MediaImageMagickFilter(file, operation, ZIP),
 				IllegalArgumentException.class,
 				"unsupported outputContentType >application/zip<");
 		assertFails(
-				() -> new MediaImageMagickFilter(file, new IMOperation(), "non/sense"),
+				() -> new MediaImageMagickFilter(file, operation, "non/sense"),
 				IllegalArgumentException.class,
 				"unsupported outputContentType >non/sense<");
-		final MediaImageMagickFilter template = new MediaImageMagickFilter(file, new IMOperation(), JPEG);
+		final MediaImageMagickFilter template = new MediaImageMagickFilter(file, operation, JPEG);
 		assertFails(
 				() -> template.forType(null, null, ZIP),
 				NullPointerException.class,
@@ -170,24 +171,24 @@ public final class ThumbnailMagickModelTest
 				NullPointerException.class,
 				"operation");
 		assertFails(
-				() -> template.forType(ZIP, new IMOperation(), JPEG),
+				() -> template.forType(ZIP, operation, JPEG),
 				IllegalArgumentException.class,
 				"unsupported inputContentType >application/zip<");
 		assertFails(
-				() -> template.forType("non/sense", new IMOperation(), JPEG),
+				() -> template.forType("non/sense", operation, JPEG),
 				IllegalArgumentException.class,
 				"unsupported inputContentType >non/sense<");
 		assertFails(
-				() -> template.forType(JPEG, new IMOperation(), ZIP),
+				() -> template.forType(JPEG, operation, ZIP),
 				IllegalArgumentException.class,
 				"unsupported outputContentType >application/zip<");
 		assertFails(
-				() -> template.forType(JPEG, new IMOperation(), "non/sense"),
+				() -> template.forType(JPEG, operation, "non/sense"),
 				IllegalArgumentException.class,
 				"unsupported outputContentType >non/sense<");
-		final MediaImageMagickFilter template2 = template.forType(JPEG, new IMOperation(), JPEG);
+		final MediaImageMagickFilter template2 = template.forType(JPEG, operation, JPEG);
 		assertFails(
-				() -> template2.forType(JPEG, new IMOperation(), JPEG),
+				() -> template2.forType(JPEG, operation, JPEG),
 				IllegalArgumentException.class,
 				"duplicate inputContentType image/jpeg");
 	}
