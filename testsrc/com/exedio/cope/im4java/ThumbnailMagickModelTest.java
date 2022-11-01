@@ -24,6 +24,7 @@ import static com.exedio.cope.im4java.ThumbnailMagickItem.thumb;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbFull;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbRound;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbSame;
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.reserialize;
 import static com.exedio.cope.pattern.MediaType.GIF;
 import static com.exedio.cope.pattern.MediaType.JPEG;
@@ -37,7 +38,6 @@ import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
@@ -144,109 +144,52 @@ public final class ThumbnailMagickModelTest
 	@Test
 	void testCreate()
 	{
-		try
-		{
-			new MediaImageMagickFilter(null, new IMOperation());
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("source", e.getMessage());
-		}
-		try
-		{
-			new MediaImageMagickFilter(file, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("operation", e.getMessage());
-		}
-		try
-		{
-			new MediaImageMagickFilter(file, new IMOperation(), ZIP);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("unsupported outputContentType >application/zip<", e.getMessage());
-		}
-		try
-		{
-			new MediaImageMagickFilter(file, new IMOperation(), "non/sense");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("unsupported outputContentType >non/sense<", e.getMessage());
-		}
+		assertFails(
+				() -> new MediaImageMagickFilter(null, new IMOperation()),
+				NullPointerException.class,
+				"source");
+		assertFails(
+				() -> new MediaImageMagickFilter(file, null),
+				NullPointerException.class,
+				"operation");
+		assertFails(
+				() -> new MediaImageMagickFilter(file, new IMOperation(), ZIP),
+				IllegalArgumentException.class,
+				"unsupported outputContentType >application/zip<");
+		assertFails(
+				() -> new MediaImageMagickFilter(file, new IMOperation(), "non/sense"),
+				IllegalArgumentException.class,
+				"unsupported outputContentType >non/sense<");
 		final MediaImageMagickFilter template = new MediaImageMagickFilter(file, new IMOperation(), JPEG);
-		try
-		{
-			template.forType(null, null, ZIP);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("inputContentType", e.getMessage());
-		}
-		try
-		{
-			template.forType(JPEG, null, ZIP);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("operation", e.getMessage());
-		}
-		try
-		{
-			template.forType(ZIP, new IMOperation(), JPEG);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("unsupported inputContentType >application/zip<", e.getMessage());
-		}
-		try
-		{
-			template.forType("non/sense", new IMOperation(), JPEG);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("unsupported inputContentType >non/sense<", e.getMessage());
-		}
-		try
-		{
-			template.forType(JPEG, new IMOperation(), ZIP);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("unsupported outputContentType >application/zip<", e.getMessage());
-		}
-		try
-		{
-			template.forType(JPEG, new IMOperation(), "non/sense");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("unsupported outputContentType >non/sense<", e.getMessage());
-		}
-		{
-			final MediaImageMagickFilter template2 = template.forType(JPEG, new IMOperation(), JPEG);
-			try
-			{
-				template2.forType(JPEG, new IMOperation(), JPEG);
-				fail();
-			}
-			catch(final IllegalArgumentException e)
-			{
-				assertEquals("duplicate inputContentType image/jpeg", e.getMessage());
-			}
-		}
+		assertFails(
+				() -> template.forType(null, null, ZIP),
+				NullPointerException.class,
+				"inputContentType");
+		assertFails(
+				() -> template.forType(JPEG, null, ZIP),
+				NullPointerException.class,
+				"operation");
+		assertFails(
+				() -> template.forType(ZIP, new IMOperation(), JPEG),
+				IllegalArgumentException.class,
+				"unsupported inputContentType >application/zip<");
+		assertFails(
+				() -> template.forType("non/sense", new IMOperation(), JPEG),
+				IllegalArgumentException.class,
+				"unsupported inputContentType >non/sense<");
+		assertFails(
+				() -> template.forType(JPEG, new IMOperation(), ZIP),
+				IllegalArgumentException.class,
+				"unsupported outputContentType >application/zip<");
+		assertFails(
+				() -> template.forType(JPEG, new IMOperation(), "non/sense"),
+				IllegalArgumentException.class,
+				"unsupported outputContentType >non/sense<");
+		final MediaImageMagickFilter template2 = template.forType(JPEG, new IMOperation(), JPEG);
+		assertFails(
+				() -> template2.forType(JPEG, new IMOperation(), JPEG),
+				IllegalArgumentException.class,
+				"duplicate inputContentType image/jpeg");
 	}
 
 	private static void assertSerializedSame(final Serializable value, final int expectedSize)

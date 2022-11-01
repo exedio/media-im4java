@@ -24,6 +24,7 @@ import static com.exedio.cope.im4java.ThumbnailMagickItem.thumb;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbFull;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbRound;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbSame;
+import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.assertContains;
 import static com.exedio.cope.pattern.MediaType.GIF;
 import static com.exedio.cope.pattern.MediaType.JPEG;
@@ -35,7 +36,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeModelTest;
@@ -351,22 +351,15 @@ public final class ThumbnailMagickTest extends CopeModelTest
 			final String expectedResult,
 			final MediaImageMagickFilter feature,
 			final ThumbnailMagickItem item)
-		throws IOException
 	{
 		assertNotNull(feature);
 		assertNotNull(item);
 
 		final DummyResponse response = new DummyResponse();
-
-		try
-		{
-			feature.doGetAndCommit(null, response, item);
-			fail();
-		}
-		catch(final NotFound notFound)
-		{
-			assertEquals(expectedResult, notFound.getMessage());
-		}
+		assertFails(
+				() -> feature.doGetAndCommit(null, response, item),
+				NotFound.class,
+				expectedResult);
 		assertTrue(model.hasCurrentTransaction());
 	}
 }
