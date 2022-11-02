@@ -20,6 +20,7 @@ package com.exedio.cope.im4java;
 
 import static com.exedio.cope.im4java.ThumbnailMagickItem.TYPE;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.file;
+import static com.exedio.cope.im4java.ThumbnailMagickItem.identity;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumb;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbFull;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbRound;
@@ -31,6 +32,7 @@ import static com.exedio.cope.pattern.MediaType.JPEG;
 import static com.exedio.cope.pattern.MediaType.PNG;
 import static com.exedio.cope.pattern.MediaType.TIFF;
 import static com.exedio.cope.pattern.MediaType.WEBP;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -92,6 +94,24 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		return ThumbnailMagickTest.class.getResourceAsStream(name);
 	}
 
+	private static byte[] resourceBytes(final String name) throws IOException
+	{
+		try(InputStream source = resource(name))
+		{
+			final ByteArrayOutputStream sink = new ByteArrayOutputStream();
+			long nread = 0L;
+			final byte[] buf = new byte[1024];
+			int n;
+			//noinspection NestedAssignment
+			while((n = source.read(buf)) > 0)
+			{
+				sink.write(buf, 0, n);
+				nread += n;
+			}
+			return sink.toByteArray();
+		}
+	}
+
 	@Test void testThumbs() throws IOException, NotFound
 	{
 		// content type
@@ -135,6 +155,16 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertEquals(null, txt.getThumbRoundContentType());
 		assertEquals(null, emp.getThumbRoundContentType());
 
+		assertEquals(JPEG, jpg.getIdentityContentType());
+		assertEquals(PNG,  png.getIdentityContentType());
+		assertEquals(JPEG, gif.getIdentityContentType());
+		assertEquals(JPEG, wep.getIdentityContentType());
+		assertEquals(JPEG, tif.getIdentityContentType());
+		assertEquals(JPEG, jpgX.getIdentityContentType());
+		assertEquals("image/x-png", pngX.getIdentityContentType());
+		assertEquals("text/plain", txt.getIdentityContentType());
+		assertEquals(null, emp.getIdentityContentType());
+
 		// get
 		assertType(JPEG, jpg.getThumb());
 		assertType(JPEG, png.getThumb());
@@ -175,6 +205,16 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertType(GIF,  pngX.getThumbRound());
 		assertNull(txt.getThumbRound());
 		assertNull(emp.getThumbRound());
+
+		assertType(JPEG, jpg.getIdentity());
+		assertArrayEquals(resourceBytes("thumbnail-test.png"), png.getIdentity());
+		assertType(JPEG, gif.getIdentity());
+		assertType(JPEG, wep.getIdentity());
+		assertType(JPEG, tif.getIdentity());
+		assertType(JPEG, jpgX.getIdentity());
+		assertArrayEquals(resourceBytes("thumbnail-test.png"), pngX.getIdentity());
+		assertArrayEquals(data, txt.getIdentity());
+		assertNull(emp.getIdentity());
 
 		// doGet
 		assertDoGet(JPEG, thumb, jpg);
@@ -217,6 +257,16 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertDoGet404("not computable", thumbRound, txt);
 		assertDoGet404("is null",        thumbRound, emp);
 
+		assertDoGet(JPEG, identity, jpg);
+		assertDoGet(PNG,  resourceBytes("thumbnail-test.png"), identity, png);
+		assertDoGet(JPEG, identity, gif);
+		assertDoGet(JPEG, identity, wep);
+		assertDoGet(JPEG, identity, tif);
+		assertDoGet(JPEG, identity, jpgX);
+		assertDoGet("image/x-png", resourceBytes("thumbnail-test.png"), identity, pngX);
+		assertDoGet("text/plain", data, identity, txt);
+		assertDoGet404("is null",       identity, emp);
+
 		// url
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbURL());
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbURL());
@@ -256,6 +306,8 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertContains(jpg, jpgX, png, pngX, gif, wep, tif, txt, TYPE.search(file.isNotNull()));
 		assertContains(emp , TYPE.search(thumb.isNull())); // TODO check for getSupportedSourceContentTypes, add text
 		assertContains(jpg, jpgX, png, pngX, gif, wep, tif, txt, TYPE.search(thumb.isNotNull())); // TODO check for getSupportedSourceContentTypes, remove text
+		assertContains(emp , TYPE.search(identity.isNull())); // TODO check for getSupportedSourceContentTypes, add text
+		assertContains(jpg, jpgX, png, pngX, gif, wep, tif, txt, TYPE.search(identity.isNotNull())); // TODO check for getSupportedSourceContentTypes, remove text
 	}
 
 	private static void assertType(final String expectedContentType, final byte[] actualBody)
@@ -283,6 +335,23 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		model.startTransaction(ThumbnailMagickTest.class.getName());
 	}
 
+	private void assertDoGet(
+			final String expectedContentType,
+			final byte[] expectedBody,
+			final MediaImageMagickFilter feature,
+			final ThumbnailMagickItem item) throws IOException, NotFound
+	{
+		assertNotNull(expectedContentType);
+		assertNotNull(feature);
+		assertNotNull(item);
+
+		final Response response = new Response();
+		feature.doGetAndCommit(null, response, item);
+		assertFalse(model.hasCurrentTransaction());
+		response.assertIt(expectedContentType, expectedBody);
+		model.startTransaction(ThumbnailMagickTest.class.getName());
+	}
+
 	private static final class Response extends DummyResponse
 	{
 		Response()
@@ -304,6 +373,15 @@ public final class ThumbnailMagickTest extends CopeModelTest
 			assertEquals(contentLength, body.size());
 		}
 
+		void assertIt(final String expectedContentType, final byte[] expectedBody)
+		{
+			assertTrue(contentLength>0);
+			assertEquals(expectedContentType, contentType);
+			assertNotNull(body);
+			assertArrayEquals(expectedBody, body.toByteArray());
+			assertEquals(contentLength, expectedBody.length);
+		}
+
 		@Override
 		public void setHeader(final String name, final String value)
 		{
@@ -311,6 +389,11 @@ public final class ThumbnailMagickTest extends CopeModelTest
 				setContentLengthInternal(Integer.parseInt(value));
 			else
 				super.setHeader(name, value);
+		}
+		@Override
+		public void setContentLength(final int len)
+		{
+			setContentLengthInternal(len);
 		}
 		private void setContentLengthInternal(final int len)
 		{

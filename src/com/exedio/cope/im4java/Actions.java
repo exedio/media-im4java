@@ -40,6 +40,11 @@ final class Actions
 		return byInputContentType!=null ? byInputContentType : default_;
 	}
 
+	boolean supportsNonDefault(final MediaType type)
+	{
+		return byInputContentType.containsKey(type);
+	}
+
 	String getOutputContentType()
 	{
 		final String defaultResult = default_.getConstantOutputContentType();

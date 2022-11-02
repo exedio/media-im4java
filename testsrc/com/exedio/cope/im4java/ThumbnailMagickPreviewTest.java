@@ -27,8 +27,10 @@ import static com.exedio.cope.pattern.MediaType.PNG;
 import static com.exedio.cope.pattern.MediaType.TIFF;
 import static com.exedio.cope.pattern.MediaType.forMagics;
 import static com.exedio.cope.pattern.MediaType.forName;
+import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Collections.singleton;
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -61,6 +63,14 @@ public final class ThumbnailMagickPreviewTest
 		assertEquals(JPEG, AnItem.f.preview(sourceBody, "image/gif", target));
 		assertTrue(Files.exists(target));
 		assertEquals(singleton(forName(JPEG)), forMagics(target));
+	}
+	@Test void testForTypeIdentity() throws IOException
+	{
+		final byte[] bytes = "some text".getBytes(UTF_8);
+		Files.write(sourceBody, bytes);
+		assertEquals("text/plain", AnItem.f.preview(sourceBody, "text/plain", target));
+		assertTrue(Files.exists(target));
+		assertArrayEquals(bytes, Files.readAllBytes(target));
 	}
 	@Test void testContentTypeMismatch() throws IOException
 	{
@@ -168,6 +178,7 @@ public final class ThumbnailMagickPreviewTest
 		@WrapperIgnore static final MediaImageMagickFilter f =
 				new MediaImageMagickFilter(file,
 						new IMOperation().resize(20, 30, '>')).
+				forTypeIdentity("text/plain").
 				forType(GIF, new IMOperation().resize(20, 30, '>'), JPEG);
 
 
