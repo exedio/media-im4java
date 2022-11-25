@@ -98,7 +98,7 @@ public final class CopeAssert
 
 	public static List<Object> list(final Object... o)
 	{
-		return Collections.unmodifiableList(Arrays.asList(o));
+		return List.of(o);
 	}
 
 	public static <S extends Serializable> S reserialize(final S value, final int expectedSize)
