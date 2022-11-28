@@ -231,7 +231,7 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 		}
 		else
 		{
-			return "Decoding of ";
+			return "convert-im6.q16: corrupt image `";
 		}
 	}
 
