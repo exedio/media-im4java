@@ -16,9 +16,11 @@ jobs:
       with:
         java-version: '11'
         distribution: 'adopt'
+    # corresponds to conf/github/Dockerfile
     - run: |
         sudo apt-get update
         sudo apt-get install ghostscript
     - run: grep -v '^.*policy.*coder.*none.*PDF.*$' < /etc/ImageMagick-6/policy.xml > policy.xml-new
     - run: sudo cp policy.xml-new /etc/ImageMagick-6/policy.xml
+    # corresponds to Jenkinsfile parallelBranches["Github"]
     - run: ant -noinput -Dgithub=true clean jenkins

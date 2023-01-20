@@ -86,6 +86,35 @@ try
 	}
 
 	//noinspection GroovyAssignabilityCheck
+	parallelBranches["Github"] =
+	{
+		//noinspection GroovyAssignabilityCheck
+		nodeCheckoutAndDelete
+		{
+			def dockerName = dockerNamePrefix + "-Github"
+			def mainImage = docker.build(
+					'exedio-jenkins:' + dockerName + '-' + dockerDate,
+					'--build-arg JDK=' + jdk + ' ' +
+					'conf/github')
+			mainImage.inside(
+					"--name '" + dockerName + "' " +
+					"--cap-drop all " +
+					"--security-opt no-new-privileges " +
+					"--network none")
+			{
+				// corresponds to .github/workflows/ant.yml
+				shSilent ant + " -Dgithub=true clean jenkins"
+			}
+
+			junit(
+					allowEmptyResults: false,
+					testResults: 'build/testresults/*.xml',
+					skipPublishingChecks: true
+			)
+		}
+	}
+
+	//noinspection GroovyAssignabilityCheck
 	parallelBranches["Idea"] =
 	{
 		//noinspection GroovyAssignabilityCheck
