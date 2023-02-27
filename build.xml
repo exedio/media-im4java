@@ -43,6 +43,7 @@
 		-->
 		<instrument
 				dir="${basedir}/testsrc"
+				directSetValueMap="true"
 				verify="${instrument.verify}">
 			<classpath>
 				<pathelement location="build/classes/src" />
