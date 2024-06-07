@@ -48,6 +48,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.WriteListener;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -425,6 +426,18 @@ public final class ThumbnailMagickTest extends CopeModelTest
 				public void write(final int b)
 				{
 					body.write(b);
+				}
+
+				@Override
+				public boolean isReady()
+				{
+					throw new RuntimeException();
+				}
+
+				@Override
+				public void setWriteListener(final WriteListener writeListener)
+				{
+					throw new RuntimeException();
 				}
 			};
 		}
