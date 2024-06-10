@@ -23,7 +23,7 @@
 		<artifact name="exedio-cope-im4java" conf="changelog" type="log" ext="txt" />
 	</publications>
 	<dependencies>
-		<dependency org="javax.servlet" name="javax.servlet-api" rev="3.0.1" conf="runtime->default; build->sources" />
+		<dependency org="javax.servlet" name="javax.servlet-api" rev="4.0.1" conf="runtime->default; build->sources" />
 		<dependency org="com.exedio" name="copeutil" rev="823" conf="runtime->runtime; build->runtime,sources,changelog" />
 		<dependency org="com.exedio" name="cope" rev="10534">
 			<conf name="runtime" mapped="runtime" />
