@@ -36,6 +36,7 @@
 				<pathelement location="lib/javax.servlet-api.jar" />
 
 				<pathelement location="lib/exedio-cope-instrument-annotations.jar" />
+				<pathelement location="lib/annotations.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -73,6 +74,7 @@
 				<pathelement location="lib/javax.servlet-api.jar" />
 
 				<pathelement location="lib/exedio-cope-instrument-annotations.jar" />
+				<pathelement location="lib/annotations.jar" />
 
 				<pathelement location="lib/junit-jupiter-api.jar" />
 				<pathelement location="lib/apiguardian-api.jar" />
