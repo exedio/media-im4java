@@ -20,6 +20,7 @@ package com.exedio.cope.im4java;
 
 import static com.exedio.cope.im4java.OSHelper.assumeNotGithub;
 import static com.exedio.cope.im4java.OSHelper.getProgramName;
+import static com.exedio.cope.im4java.OSHelper.isWindows;
 import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.pattern.MediaType.GIF;
 import static com.exedio.cope.pattern.MediaType.JPEG;
@@ -91,9 +92,13 @@ public final class ThumbnailMagickPreviewTest
 				() -> AnItem.f.preview(sourceBody, "image/png", target));
 		final String message = e.getCause().getMessage();
 		assumeNotGithub();
-		assertTrue(message.startsWith(
-				"org.im4java.core.CommandException: " + getProgramName() + ": no images defined " +
-				"`png:" + target + "' @ error/convert.c/ConvertImageCommand/"), message);
+		final String expectedMessageDetails = isWindows() ?
+				("Expected 5166 bytes; found 2029 bytes `" + sourceBody + "' ") :
+				("no images defined `png:" + target + "' @ error/convert.c/ConvertImageCommand/");
+		assertTrue(
+				message.startsWith("org.im4java.core.CommandException: " + getProgramName() + ": " + expectedMessageDetails),
+				message
+		);
 		assertFalse(Files.exists(target));
 	}
 	@Test void testUnsupportedContentType() throws IOException
