@@ -236,7 +236,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements Copyabl
 
 		final MediaType type = supported(MediaType.forNameAndAliases(contentType));
 		if(type==null)
-			throw notFoundNotComputable();
+			throw notFoundIsNull();
 
 		final Action action = actions.get(type);
 		final Path outFile = execute(item, type, action, true);
