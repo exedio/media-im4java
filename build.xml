@@ -20,7 +20,11 @@
 		<classpath>
 			<pathelement location="lib/slf4j-api.jar" />
 			<pathelement location="lib/javax.servlet-api.jar" />
+			<pathelement location="lib/exedio-cope.jar" />
 			<pathelement location="lib/exedio-cope-instrument.jar" />
+			<pathelement location="lib/exedio-cope-instrument-annotations.jar" />
+			<pathelement location="lib/exedio-cope-util.jar" />
+			<pathelement location="lib/micrometer-core.jar" />
 		</classpath>
 	</taskdef>
 
@@ -43,7 +47,6 @@
 		-->
 		<instrument
 				dir="${basedir}/testsrc"
-				directSetValueMap="true"
 				verify="${instrument.verify}">
 			<classpath>
 				<pathelement location="build/classes/src" />
@@ -64,6 +67,7 @@
 			<classpath>
 				<pathelement location="build/classes/src" />
 				<pathelement location="lib/exedio-cope.jar" />
+				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/im4java.jar" />
 				<pathelement location="lib/javax.servlet-api.jar" />
 
@@ -88,12 +92,14 @@
 			<classpath>
 				<pathelement location="build/classes/src" />
 				<pathelement location="build/classes/testsrc" />
+				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/exedio-cope.jar" />
 				<pathelement location="lib/exedio-cope-hsqldb.jar" />
 				<pathelement location="lib/im4java.jar" />
 				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/micrometer-core.jar" />
+				<pathelement location="lib/trove4j.jar" />
 				<pathelement location="lib/LatencyUtils.jar" />
 				<pathelement location="lib/hsqldb.jar" />
 				<pathelement location="lib/junit-jupiter-api.jar" />

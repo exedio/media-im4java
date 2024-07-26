@@ -76,8 +76,7 @@ public final class ContentTypeInstrumentItem extends Item
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	public ContentTypeInstrumentItem()
 	{
-		this(new com.exedio.cope.SetValue<?>[]{
-		});
+		this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 	}
 
 	/**
@@ -609,7 +608,7 @@ public final class ContentTypeInstrumentItem extends Item
 	 * The persistent type information for contentTypeInstrumentItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<ContentTypeInstrumentItem> TYPE = com.exedio.cope.TypesBound.newType(ContentTypeInstrumentItem.class);
+	public static final com.exedio.cope.Type<ContentTypeInstrumentItem> TYPE = com.exedio.cope.TypesBound.newType(ContentTypeInstrumentItem.class,ContentTypeInstrumentItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
