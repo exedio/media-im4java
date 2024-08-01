@@ -21,6 +21,7 @@ package com.exedio.cope.im4java;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.TYPE;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.file;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.identity;
+import static com.exedio.cope.im4java.ThumbnailMagickItem.noLocator;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumb;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbFull;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbRound;
@@ -73,6 +74,7 @@ public final class ThumbnailMagickModelTest
 				thumbSame,
 				thumbRound,
 				identity,
+				noLocator
 			}), TYPE.getFeatures());
 		assertEquals(TYPE, thumb.getType());
 		assertEquals("thumb", thumb.getName());
@@ -160,6 +162,7 @@ public final class ThumbnailMagickModelTest
 		thumbSame.test();
 		thumbRound.test();
 		identity.test();
+		noLocator.test();
 	}
 
 	@Test
