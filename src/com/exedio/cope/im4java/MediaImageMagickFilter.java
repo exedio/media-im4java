@@ -84,6 +84,17 @@ public final class MediaImageMagickFilter extends MediaFilter implements Copyabl
 		this.actions = new Actions(new Action(operation, outputContentType));
 	}
 
+	private MediaImageMagickFilter(
+			final Media source,
+			final Set<String> identityContentTypes,
+			final Actions actions)
+	{
+		super(source);
+		this.source = source;
+		this.identityContentTypes = identityContentTypes;
+		this.actions = actions;
+	}
+
 	static MediaType supported(final MediaType type)
 	{
 		if(type==null)
@@ -133,17 +144,6 @@ public final class MediaImageMagickFilter extends MediaFilter implements Copyabl
 	{
 		if(!identityContentTypes.add(inputContentType))
 			throw new IllegalArgumentException("duplicate inputContentType " + inputContentType);
-	}
-
-	private MediaImageMagickFilter(
-			final Media source,
-			final Set<String> identityContentTypes,
-			final Actions actions)
-	{
-		super(source);
-		this.source = source;
-		this.identityContentTypes = identityContentTypes;
-		this.actions = actions;
 	}
 
 	@Override
