@@ -78,10 +78,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements Copyabl
 			final IMOps operation,
 			final String outputContentType)
 	{
-		super(source);
-		this.source = source;
-		this.identityContentTypes = Collections.emptySet();
-		this.actions = new Actions(new Action(operation, outputContentType));
+		this(source, Collections.emptySet(), new Actions(new Action(operation, outputContentType)));
 	}
 
 	private MediaImageMagickFilter(
