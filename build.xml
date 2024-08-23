@@ -19,7 +19,7 @@
 	<taskdef resource="com/exedio/cope/instrument/ant.properties" onerror="failall">
 		<classpath>
 			<pathelement location="lib/slf4j-api.jar" />
-			<pathelement location="lib/javax.servlet-api.jar" />
+			<pathelement location="lib/jakarta.servlet-api.jar" />
 			<pathelement location="lib/exedio-cope.jar" />
 			<pathelement location="lib/exedio-cope-instrument.jar" />
 			<pathelement location="lib/exedio-cope-instrument-annotations.jar" />
@@ -33,7 +33,7 @@
 			<classpath>
 				<pathelement location="lib/exedio-cope.jar" />
 				<pathelement location="lib/im4java.jar" />
-				<pathelement location="lib/javax.servlet-api.jar" />
+				<pathelement location="lib/jakarta.servlet-api.jar" />
 
 				<pathelement location="lib/exedio-cope-instrument-annotations.jar" />
 				<pathelement location="lib/annotations.jar" />
@@ -70,7 +70,7 @@
 				<pathelement location="lib/exedio-cope.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/im4java.jar" />
-				<pathelement location="lib/javax.servlet-api.jar" />
+				<pathelement location="lib/jakarta.servlet-api.jar" />
 
 				<pathelement location="lib/exedio-cope-instrument-annotations.jar" />
 				<pathelement location="lib/annotations.jar" />
@@ -98,7 +98,7 @@
 				<pathelement location="lib/exedio-cope.jar" />
 				<pathelement location="lib/exedio-cope-hsqldb.jar" />
 				<pathelement location="lib/im4java.jar" />
-				<pathelement location="lib/javax.servlet-api.jar" />
+				<pathelement location="lib/jakarta.servlet-api.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/micrometer-core.jar" />
 				<pathelement location="lib/trove4j.jar" />
@@ -180,7 +180,7 @@
 			<classpath>
 				<pathelement location="lib/exedio-cope.jar" />
 				<pathelement location="lib/im4java.jar" />
-				<pathelement location="lib/javax.servlet-api.jar" />
+				<pathelement location="lib/jakarta.servlet-api.jar" />
 				<pathelement location="lib/exedio-cope-instrument-annotations.jar" />
 			</classpath>
 		</javadoc>
