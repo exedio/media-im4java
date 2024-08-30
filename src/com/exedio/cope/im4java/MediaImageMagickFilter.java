@@ -78,15 +78,16 @@ public final class MediaImageMagickFilter extends MediaFilter implements Copyabl
 			final IMOps operation,
 			final String outputContentType)
 	{
-		this(source, Collections.emptySet(), new Actions(new Action(operation, outputContentType)));
+		this(source, Collections.emptySet(), new Actions(new Action(operation, outputContentType)), true);
 	}
 
 	private MediaImageMagickFilter(
 			final Media source,
 			final Set<String> identityContentTypes,
-			final Actions actions)
+			final Actions actions,
+			final boolean withLocator)
 	{
-		super(source);
+		super(source, withLocator);
 		this.source = source;
 		this.identityContentTypes = identityContentTypes;
 		this.actions = actions;
@@ -98,6 +99,14 @@ public final class MediaImageMagickFilter extends MediaFilter implements Copyabl
 			return null;
 		return
 			supportedContentTypes.contains(type) ? type : null;
+	}
+
+	/**
+	 * @param withLocator should this filter be accessible via MediaServlet
+	 */
+	public MediaImageMagickFilter withLocator(final boolean withLocator)
+	{
+		return new MediaImageMagickFilter(source, identityContentTypes, actions, withLocator);
 	}
 
 	public MediaImageMagickFilter forType(
@@ -113,7 +122,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements Copyabl
 		if(type==null)
 			throw new IllegalArgumentException("unsupported inputContentType >" + inputContentType + '<');
 
-		return new MediaImageMagickFilter(source, identityContentTypes, actions.forType(type, operation, outputContentType));
+		return new MediaImageMagickFilter(source, identityContentTypes, actions.forType(type, operation, outputContentType), isWithLocator());
 	}
 
 	public MediaImageMagickFilter forTypeIdentity(
@@ -134,7 +143,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements Copyabl
 				add(identityContentTypes, alias);
 		}
 
-		return new MediaImageMagickFilter(source, identityContentTypes, actions);
+		return new MediaImageMagickFilter(source, identityContentTypes, actions, isWithLocator());
 	}
 
 	private static void add(final HashSet<String> identityContentTypes, final String inputContentType)
@@ -146,7 +155,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements Copyabl
 	@Override
 	public MediaImageMagickFilter copy(final CopyMapper mapper)
 	{
-		return new MediaImageMagickFilter(mapper.get(source), identityContentTypes, actions);
+		return new MediaImageMagickFilter(mapper.get(source), identityContentTypes, actions, isWithLocator());
 	}
 
 	@Override
@@ -224,6 +233,8 @@ public final class MediaImageMagickFilter extends MediaFilter implements Copyabl
 			final Item item)
 	throws IOException, NotFound
 	{
+		if (!isWithLocator())
+			throw new RuntimeException("not isWithLocator() - unexpected call: " + this + ' ' + item.getCopeID());
 		final String contentType = source.getContentType(item);
 		if(contentType==null)
 			throw notFoundIsNull();

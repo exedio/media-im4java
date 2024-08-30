@@ -21,6 +21,7 @@ package com.exedio.cope.im4java;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.TYPE;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.file;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.identity;
+import static com.exedio.cope.im4java.ThumbnailMagickItem.noLocator;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumb;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbFull;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbRound;
@@ -217,6 +218,16 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertArrayEquals(data, txt.getIdentity());
 		assertNull(emp.getIdentity());
 
+		assertType(JPEG, jpg.getNoLocator());
+		assertType(JPEG, png.getNoLocator());
+		assertType(JPEG, gif.getNoLocator());
+		assertType(JPEG, wep.getNoLocator());
+		assertType(JPEG, tif.getNoLocator());
+		assertType(JPEG, jpgX.getNoLocator());
+		assertType(JPEG, pngX.getNoLocator());
+		assertNull(txt.getNoLocator());
+		assertNull(emp.getNoLocator());
+
 		// doGet
 		assertDoGet(JPEG, thumb, jpg);
 		assertDoGet(JPEG, thumb, png);
@@ -268,6 +279,12 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertDoGet("text/plain", data, identity, txt);
 		assertDoGet404("is null late", identity, emp);
 
+		assertFails(
+				()-> noLocator.doGetAndCommit(null, null, jpg),
+				RuntimeException.class,
+				"not isWithLocator() - unexpected call: " + noLocator + " " + jpg
+		);
+
 		// url
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbURL());
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbURL());
@@ -284,6 +301,12 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumbFull/" + tif.getCopeID() + ".png", tif.getThumbFullURL());
 		assertEquals(null, txt.getThumbFullURL());
 		assertEquals(null, emp.getThumbFullURL());
+
+		assertFails(
+				() -> noLocator.getURL(jpg),
+				UnsupportedOperationException.class,
+				"not supported for " + noLocator + " because isWithLocator()==false"
+		);
 
 		// url fallback
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbURLWithFallbackToSource());
@@ -302,6 +325,12 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/file/"  + txt.getCopeID() + ".txt", txt.getThumbFullURLWithFallbackToSource());
 		assertEquals(null, emp.getThumbFullURLWithFallbackToSource());
 
+		assertFails(
+				() -> noLocator.getURLWithFallbackToSource(jpg),
+				UnsupportedOperationException.class,
+				"not supported for " + noLocator + " because isWithLocator()==false"
+		);
+
 		// isNull
 		assertContains(emp, TYPE.search(file.isNull()));
 		assertContains(jpg, jpgX, png, pngX, gif, wep, tif, txt, TYPE.search(file.isNotNull()));
@@ -309,6 +338,7 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertContains(jpg, jpgX, png, pngX, gif, wep, tif, txt, TYPE.search(thumb.isNotNull())); // TODO check for getSupportedSourceContentTypes, remove text
 		assertContains(emp , TYPE.search(identity.isNull())); // TODO check for getSupportedSourceContentTypes, add text
 		assertContains(jpg, jpgX, png, pngX, gif, wep, tif, txt, TYPE.search(identity.isNotNull())); // TODO check for getSupportedSourceContentTypes, remove text
+		assertContains(jpg, jpgX, png, pngX, gif, wep, tif, txt, TYPE.search(noLocator.isNotNull())); // TODO check for getSupportedSourceContentTypes, remove text
 	}
 
 	private static void assertType(final String expectedContentType, final byte[] actualBody)
