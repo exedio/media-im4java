@@ -79,6 +79,7 @@
 	<target name="test.run" depends="testsrc.compile">
 		<mkdir dir="build/testresults" />
 		<mkdir dir="build/testtmpdir" />
+		<fail if:set="method" unless:set="test">'method' requires 'test'</fail>
 		<java taskname="junit" fork="yes" dir="${basedir}"
 				failonerror="true"
 				classname="org.junit.platform.console.ConsoleLauncher">
@@ -106,7 +107,8 @@
 			</classpath>
 			<arg line="--fail-if-no-tests" />
 			<arg line="--scan-class-path build/classes/testsrc" unless:set="test" />
-			<arg line="--select-class ${test}" if:set="test" />
+			<arg line="--select-class ${test}" if:set="test" unless:set="method"/>
+			<arg line="--select-method ${test}#${method}" if:set="method" />
 			<arg line="--reports-dir build/testresults" />
 			<sysproperty key="java.io.tmpdir" value="${basedir}/build/testtmpdir" />
 			<sysproperty key="github" value="${github}" />
