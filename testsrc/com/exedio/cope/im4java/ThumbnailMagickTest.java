@@ -225,8 +225,8 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertDoGet(JPEG, thumb, tif);
 		assertDoGet(JPEG, thumb, jpgX);
 		assertDoGet(JPEG, thumb, pngX);
-		assertDoGet404("not computable", thumb, txt);
-		assertDoGet404("is null",        thumb, emp);
+		assertDoGet404("is null late", thumb, txt);
+		assertDoGet404("is null late", thumb, emp);
 
 		assertDoGet(PNG, thumbFull, jpg);
 		assertDoGet(PNG, thumbFull, png);
@@ -235,8 +235,8 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertDoGet(PNG, thumbFull, tif);
 		assertDoGet(PNG, thumbFull, jpgX);
 		assertDoGet(PNG, thumbFull, pngX);
-		assertDoGet404("not computable", thumbFull, txt);
-		assertDoGet404("is null",        thumbFull, emp);
+		assertDoGet404("is null late", thumbFull, txt);
+		assertDoGet404("is null late", thumbFull, emp);
 
 		assertDoGet(JPEG, thumbSame, jpg);
 		assertDoGet(PNG,  thumbSame, png);
@@ -245,8 +245,8 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertDoGet(TIFF, thumbSame, tif);
 		assertDoGet(JPEG, thumbSame, jpgX);
 		assertDoGet(PNG,  thumbSame, pngX);
-		assertDoGet404("not computable", thumbSame, txt);
-		assertDoGet404("is null",        thumbSame, emp);
+		assertDoGet404("is null late", thumbSame, txt);
+		assertDoGet404("is null late", thumbSame, emp);
 
 		assertDoGet(PNG,  thumbRound, jpg);
 		assertDoGet(GIF,  thumbRound, png);
@@ -255,8 +255,8 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertDoGet(TIFF, thumbRound, tif);
 		assertDoGet(PNG,  thumbRound, jpgX);
 		assertDoGet(GIF,  thumbRound, pngX);
-		assertDoGet404("not computable", thumbRound, txt);
-		assertDoGet404("is null",        thumbRound, emp);
+		assertDoGet404("is null late", thumbRound, txt);
+		assertDoGet404("is null late", thumbRound, emp);
 
 		assertDoGet(JPEG, identity, jpg);
 		assertDoGet(PNG,  resourceBytes("thumbnail-test.png"), identity, png);
@@ -266,7 +266,7 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		assertDoGet(JPEG, identity, jpgX);
 		assertDoGet("image/x-png", resourceBytes("thumbnail-test.png"), identity, pngX);
 		assertDoGet("text/plain", data, identity, txt);
-		assertDoGet404("is null",       identity, emp);
+		assertDoGet404("is null late", identity, emp);
 
 		// url
 		assertEquals(mediaRootUrl + "ThumbnailMagickItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbURL());
@@ -359,7 +359,7 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		{
 		}
 
-		private int contentLength = Integer.MIN_VALUE;
+		private long contentLength = Long.MIN_VALUE;
 		private String contentType = null;
 		private ByteArrayOutputStream body = null;
 
@@ -396,10 +396,16 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		{
 			setContentLengthInternal(len);
 		}
-		private void setContentLengthInternal(final int len)
+		@Override
+		public void setContentLengthLong(final long len)
+		{
+			setContentLengthInternal(len);
+		}
+
+		private void setContentLengthInternal(final long len)
 		{
 			assertTrue(len>0);
-			assertEquals(Integer.MIN_VALUE, contentLength);
+			assertEquals(Long.MIN_VALUE, contentLength);
 			assertNull(body);
 			contentLength = len;
 		}

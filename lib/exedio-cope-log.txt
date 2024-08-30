@@ -4,9 +4,355 @@ CHANGELOG for cope
 This file lists all changes relevant for the user - especially all
 API changes and new features recommended for most users. The log may
 omit bug fixes.
-The items are sorted inversely, i.e. latest items are on top
+The items are sorted inversely, i.e. the latest items are on top.
 
 --------------------------------------------------------------------------
+* access to MediaPaths via MediaServlet can be forbidden; see Media#withLocator and MediaThumbnail#withLocator
+	copeconsole should be updated to version 7173 or newer - otherwise the media.html screen for MediaPaths using
+	this feature will fail.
+* ConnectProperties#getVaultAlgorithm() dropped.
+	You may use BucketProperties#getAlgorithm() instead.
+	This breaks backwards API compatibility, may cause compiler errors.
+* VaultServiceParameters#getVaultProperties() dropped.
+	You may use #getBucketProperties() instead.
+	This breaks backwards API compatibility, may cause compiler errors.
+* ConnectProperties: keys for Vault Trails can be set for each bucket individually as well.
+	This affects vault.trail.[startLimit|fieldLimit|originLimit].
+	Methods VaultProperties#getTrail[Start|Field|Origin]Limit() where dropped,
+	may cause compiler errors.
+* VaultFileService adds new properties probes:
+	- AtomicMove
+	- directory.AtomicMove
+	- directory.AtomicMoveEmpty
+	You MUST run these probes on all your deployed systems!
+	That includes ALL nodes of any cluster.
+* exedio-cope-instrument-annotations.jar is now available via a new Ivy configuration
+  "instrument-annotations".
+  You can now do the following:
+  - add "instrument-annotations" to "compile-annotations" ivy configuration
+  - remove any hard reference to
+    "lib/instrument/exedio-cope-instrument-annotations.jar" from your build process
+* VaultService interface modified.
+	- getLength(String hash) dropped
+	- put methods drop 3rd parameter VaultPutInfo info
+	- probeGenuineServiceKey renamed to probeBucketTag
+	This breaks backwards API compatibility, may cause compiler errors.
+	You MUST update (if present in your project) copevault to rev>=143
+	and servletvault to rev>=74.
+* Vault Trails MUST be complete.
+	From now on, DataField#getLength relies on the corresponding Vault Trail.
+	Check in COPE Console tab "Data Vault Trail".
+* Trailing spaces become significant on MySQL and hsqldb.
+	Before, searching for field.equal("x ") did find "x ", but also "x  " and "x".
+	The same when searching for field.equal("x   ") or field.equal("x").
+	Now, field.equal("x ") finds just "x " and nothing else.
+* Instrumentor enables serialAnnotation by default. Affects instrumented code.
+	Use this parameter:
+		<instrument serialAnnotation="false" ...
+	to revert to previous default behaviour.
+* servlet-api 4.0.1 required.
+* Media#contentTypeSub (rarely used) stores contentType of total length 61
+	by default.
+	This breaks backwards API compatibility, changes semantics of this method.
+	Affects database schema.
+* DataField#startsWithIfSupported supports vault.
+	Allows COPE Console tab "Media Types" to check medias in vault.
+	Requires copeconsole rev>=7146 (recommended).
+* Enum[Map|Set]Field do accept generic [Map|Set]:
+	- EnumMapField implements Settable<Map> instead of Settable<EnumMap>
+	- EnumSetField implements Settable<Set> instead of Settable<EnumSet>
+	- EnumSetField#set accepts Set<? extends E> instead of EnumSet<E>
+	This breaks backwards API compatibility, may cause compiler errors.
+	Affects instrumented code.
+* CompositeCondition constructors do forbid just one nested condition and
+	nested CompositeConditions of the same Operator.
+	This breaks backwards API compatibility, causes IllegalArgumentException.
+	Constructors are deprecated since March 2015.
+* Model#getTypeByItemID(String id) added.
+* RangeField supports optionalFrom() and optionalTo().
+* RangeField#isMandatory fixed - always returns true.
+	RangeField#getInitialExceptions fixed - always contains MandatoryViolationException.
+	A RangeField may store Range.valueOf(null, null), but never null.
+	Affects instrumented code - constructor parameters for RangeFields with
+	an optional borderTemplate change from @Nullable to @Nonnull and throw a
+	MandatoryViolationException.
+* Delete#delete supports paging set at parameter query (by calling Query#setPage[Unlimited]).
+	This breaks backwards API compatibility, subtly changes semantics!
+	So far, paging was ignored silently.
+* Instrumentor uses possessive determiner "its" instead of contracted "it's" for finder javadoc.
+	Affects instrumented code.
+* VaultTransientService added in package com.exedio.cope.transientvault.
+	Use it to replace a class VaultTestService in your project.
+* StringFunction#equalIgnoreCase(StringFunction) added.
+* MySQL 5.6 support dropped, new minimum requirement for MySQL is version 5.7.
+	ConnectProperties keys
+		- dialect.utf8mb4
+		- dialect.smallIntegerTypes
+		- dialect.longConstraintNames
+	are no longer supported, but were forbidden to be used on MySQL 5.7
+	and later anyway.
+
+* MySQL Connector 8.2.0 required.
+	- Fixes CVE-2023-22102.
+	- Renames jar file from mysql-connector-java.jar to mysql-connector-j.jar.
+* bugfix: CopyConstraint#check() did not report mismatches where one of the
+	fields was null. Affects COPE Console tab "Copy Constraints".
+* ConnectProperties: keys for a single vault bucket are dropped.
+	Check your deployed systems!
+	You must convert to the keys for multiple buckets. That means,
+	keys "vault.service" (and their sub-keys) get a "default" between
+	"vault" and "service".
+	Thus:
+		vault.service=com.exedio.cope.vault.VaultFileService
+		vault.service.root=/var/lib/cope-vault
+	becomes:
+		vault.default.service=com.exedio.cope.vault.VaultFileService
+		vault.default.service.root=/var/lib/cope-vault
+
+* ConnectProperties: keys for multiple vault buckets are renamed.
+	Check your deployed systems!
+	* Key "vault.services" is renamed to "vault.buckets".
+	* Keys "vault.service.my-bucket" (and their sub-keys) are renamed to
+		"vault.my-bucket.service".
+	Thus:
+		vault.services=default other
+		vault.service.default=com.exedio.cope.vault.VaultFileService
+		vault.service.default.root=/var/lib/cope-vault
+		vault.service.other=com.exedio.cope.vault.VaultFileService
+		vault.service.other.root=/var/lib/other-cope-vault
+	becomes:
+		vault.buckets=default other
+		vault.default.service=com.exedio.cope.vault.VaultFileService
+		vault.default.service.root=/var/lib/cope-vault
+		vault.other.service=com.exedio.cope.vault.VaultFileService
+		vault.other.service.root=/var/lib/other-cope-vault
+
+* VaultProperties#newService[s] return types narrowed from VaultService to
+	VaultResilientService.
+	This breaks backwards API compatibility. Causes compiler errors, if
+	servletvault is used within your project. Then update servletvault to
+	rev>=61.
+* Ivy: dependency of servlet-api is not included in configuration 'runtime' anymore.
+	To revert to previous behaviour, depend on new configuration 'servlet' instead.
+* MoneyField#isCurrency[Fixed|Shared|Exclusive}() added.
+* MoneyField#getAmountInt() added to replace moneyField.getAmount.getInt().
+* Return type widened from LikeCondition to Condition at
+	* CaseView#[startsWith|endsWith|contains]IgnoreCase
+	* LikeCondition#[startsWith|endsWith|contains]
+	* StringFunction#[startsWith|endsWith|contains][IgnoreCase]
+
+	This breaks backwards API compatibility, causes compiler errors.
+	You MUST update insightcope (if present in your project) to
+	rev>=738 (wicket8) and rev>=1022 (wicket9).
+	You MUST update copeview (if present in your project) to rev>=3086.
+
+* class BindFunction and subclasses BindItemFunction, BindNumberFunction and
+	BindStringFunction are no longer public. Therefore return type of
+	Function#bind changes to super type.
+
+	This breaks backwards API compatibility, causes compiler errors.
+	You MUST update insightcope (if present in your project) to
+	rev>=738 (wicket8) and rev>=1022 (wicket9).
+	You MUST update copeview (if present in your project) to rev>=3086.
+
+* @CopeCacheWeight dropped.
+	Due to changes of the cache implementation, cache weighting is not required any more
+	since Dec 2016. Use @CopeExternal (instead of @CopeCacheWeight(0)) to disable caching.
+	This breaks backwards API compatibility, causes compiler errors.
+* ConnectProperties: key "cache.item.globalLimit" no longer supported.
+	Use "cache.item.limit" instead, which is supported all the while.
+* bugfix: StringFunction#startsWith, #endsWith, and #contains do not
+	consider special characters (percent and underscore) anymore.
+	Fixes COPE-242.
+	This breaks backwards API compatibility, subtly changes semantics!
+* bugfix on hsqldb and MySQL 8:
+	StringFunction#like (and therefore #startsWith, #endsWith, and #contains as well)
+	supports escaping special characters (percent and underscore).
+* StringFunction#startsWith, #endsWith, and #contains will fail for null parameter.
+	Same for LikeCondition#startsWith, #endsWith, and #contains.
+	This breaks backwards API compatibility, causes NullPointerException.
+* Query#join[OuterLeft|OuterRight](Type,Function<Join,Condition>) added
+	Code that calls Query#join[OuterLeft|OuterRight] and passes null as condition won't compile any more.
+		Join j = query.joinOuterLeft(TYPE, null);
+		j.setCondition(field.bind(j));
+	Easiest fix is to just add a cast to Condition:
+		Join j = query.joinOuterLeft(TYPE, (Condition)null);
+		j.setCondition(field.bind(j));
+	But in many cases you can make your code more readable by making use of the new methods:
+		query.joinOuterLeft(TYPE, j -> field.bind(j));
+* bugfix: Feature#getLocalizationKeys() fixes order of pattern source features.
+	So far, the order of localization keys was:
+		com.exedio.SomeComposite.someField
+		SomeComposite.someField
+		com.exedio.SomeItem.someCompositeField.someField
+		SomeItem.someCompositeField.someField
+		someField
+
+	This fix moves the pattern instance before the abstract pattern:
+		com.exedio.SomeItem.someCompositeField.someField
+		SomeItem.someCompositeField.someField
+		com.exedio.SomeComposite.someField
+		SomeComposite.someField
+		someField
+
+* Instrumentor enables directSetValueMap by default. Affects instrumented code.
+	Use this parameter:
+		<instrument directSetValueMap="false" ...
+	to enable previous behaviour.
+* VaultHttpService properties: key "followRedirects" changes type from boolean
+	to enum.
+	Check your deployed systems! Probably this key is at its default (false),
+	then you don't have to do anything. Otherwise replace:
+		false -> NEVER
+		true  -> ALWAYS
+	Note, that ALWAYS may redirect from https to http. Consider using NORMAL
+	instead.
+
+* VaultHttpService properties: key "readTimeout" renamed to "requestTimeout".
+	Check your deployed systems! Probably this key is at its default,
+	then you don't have to do anything.
+* VaultHttpService properties: key "useCaches" no longer supported.
+	Check your deployed systems! Probably this key is at its default (false),
+	then you don't have to do anything.
+* VaultFileService properties: default of key "directory.posixPermissions"
+	depends on the value of key "posixPermissions".
+
+	This breaks backwards API compatibility, check your deployed systems!
+	If "posixPermissions" is at its default or directory.posixPermissions
+	is set explicitly you don't have to do anything.
+
+* VaultFileService properties: key "directory.posixGroup" defaults to the value
+	of key "posixGroup". Before, it defaulted to the empty string.
+
+	This breaks backwards API compatibility, check your deployed systems!
+	If both keys "posixGroup" and "directory.posixGroup" are at its default
+	(probably they are) you don't have to do anything.
+
+* ConnectProperties: key "vault.trail" no longer supported.
+	Check your deployed systems! Probably this key is at its default (true),
+	then you don't have to do anything.
+* hsqldb 2.7.1 required.
+	Fixes CVE-2022-41853, you may want to remove your dependency check suppression.
+* JDK 11 required.
+* Class-Path removed from jar manifest:
+	- exedio-cope.jar drops "Class-Path: trove4j.jar exedio-cope-util.jar"
+	- exedio-cope-instrument.jar drops "Class-Path: exedio-cope-instrument-annotations.jar exedio-cope.jar"
+* ConnectProperties: key "schema.mysql.lower_case_table_names" no longer supported.
+	Check your deployed systems! Probably this key is at its default,
+	then you don't have to do anything.
+* ConnectProperties: key cluster.listenDisableLoopback is renamed and negated.
+
+	This breaks backwards API compatibility, check your deployed systems!
+	If this property is at its default (probably it is) you don't have to do anything.
+
+	Otherwise:
+		cluster.listenDisableLoopback=true
+	becomes:
+		cluster.listenLoopback=false
+
+* Info api requires micrometer registry.
+	You must call io.micrometer.core.instrument.Metrics.globalRegistry.add(MeterRegistry)
+	in your project (probably you do already). If you don't, counters exposed by info api
+	will just stay at zero. This includes for example:
+	- TransactionCounters#get*()
+	- DataFieldVaultInfo#get*Count()
+	- ChangeListenerInfo#getCleared(), #getRemoved(), #getFailed()
+	- ChangeListenerDispatcherInfo#getOverflow(), #getException()
+	- ItemCacheInfo#getHits(), #getMisses(), #getConcurrentLoads(), #getReplacementsL(),
+		#getInvalidationsOrdered(), #getInvalidationsDone(), #getStampsHits(), #getStampsPurged()
+	- QueryCacheInfo#getHits(), #getMisses(), #getReplacements(), #getInvalidations(),
+		#getConcurrentLoads(), #getStampsHits(), #getStampsPurged()
+	- ClusterSenderInfo#getInvalidationSplit()
+	- ClusterListenerInfo#getException(), #getMissingMagic(), #getWrongSecret(), #getFromMyself()
+	- MediaInfo#get*() except #getPath()
+	- MediaPath#getNoSuchPath()
+* DispatcherProperties#sessionLimit defaults to 15 instead of 100.
+* Instrumentor uses activator. Affects instrumented code.
+	Use this parameter:
+		<instrument activator="false" ...
+	to enable previous behaviour.
+* bugfix: Vault Trails did not work with disableSupport.nativeDate=true.
+* Schedule does not support Locale anymore.
+	Constructor Schedule(TimeZone, Locale) and methods getLocale() and
+	newGregorianCalendar() were dropped. Were deprecated since Jan 2017.
+* ChangeEvent#getTransactionDuration() added.
+* Aggregate becomes Function, Function#get becomes optional operation.
+	This breaks backwards API compatibility, causes compiler errors.
+* Vault Trails introduced.
+	Does not affect you, if vaults are not enabled in your project.
+	Otherwise, affects database schema, adds a new table for each vault service.
+	To disable vault trails set ConnectProperties key:
+		vault.trail=false
+* Primary key columns are declared 'not null'.
+	Does *not* affect database schema. Primary key columns are 'not null' regardless
+	whether declared explicitly or not. You will get a huge diff in MainSchemaTestSchema.txt,
+	but you don't have to patch the database schema.
+* Instrumentor uses possessive determiner "its" instead of contracted "it's" for finder javadoc.
+	Affects instrumented code.
+* ConnectProperties: key "vault-short-key" no longer supported.
+	Check your deployed systems! Probably this key is at its default,
+	then you don't have to do anything.
+* FeatureField#forbid(Class) added.
+* [Type|Feature]Field#idLengthMax added.
+* copeservletutil dependency dropped.
+	Was redundant since r10333 (Mar 3 2020). You may want to drop
+		<exclude org="com.exedio" module="copeservletutil" />
+	from your cope dependency, if present.
+* EnumMapField obeys defaults of value.
+	This breaks backwards API compatibility:
+	EnumMapField#create no longer drops default (defaultTo, defaultToNow,
+	defaultToNext etc.) of parameter value.
+* Money#compute[Double|Big] added.
+	Allows arbitrary computations on amount written more concisely:
+		radicand.computeDouble(Math::sqrt)
+	instead of:
+		Money.valueOf(Math.sqrt(radicand.doubleAmount(currency)), currency)
+* EnumMapField#setMap supports maps created by Map.of available in JDK 11.
+* Instrumentor supports wrapping nullable results into java.util.Optional (see Wrapper#nullableAsOptional)
+* VaultFileService sets posix permissions for vault directories to rwx------.
+	Check your deployed systems, whether this is what you want!
+	If not, adjust the new property directory.posixPermissions. Up to now VaultFileService
+	did not specify permissions, typically with laxer results.
+* Use SetValue.EMPTY_ARRAY when generating code.
+	Consider removing "<suppressWarnings><constructor>ZeroLengthArrayAllocation</constructor></<suppressWarnings>"
+	from your build.xml.
+	Affects instrumented code.
+	Use this parameter:
+		<instrument useConstantForEmptySetValuesArray="false" ...
+	to enable previous behaviour.
+* @DispatcherImmediateFinalFailure added.
+	Dispatcher.Result enum gets new facet immediateFinalFailure with schema value -5.
+	This affects database schema in check constraints of Dispatcher.Run.
+* Choice Constraints do change their names: Customer.defaultAddressChoicecustomer
+	becomes Customer.defaultAddressChoice.
+* Added Contract annotations
+	To get rid of compiler warnings for missing annotation classes, add dependency on cope configuration "idea" to your
+	compile classpath (not runtime classpath).
+* LimitedListField#create(FunctionField template, int maximumSize) makes
+	list source fields optional. This allows LimitedListField to store lists
+	shorter than maximumSize if template is mandatory.
+	Affects database schema if and only if template is mandatory.
+	If your template is currently optional, you probably want to change it to mandatory.
+	Otherwise, you continue to allow the list to contain null as an element.
+* Add nullability annotations to EnumSingleton.
+	Affects instrumented code.
+* UniqueHashedMedia promotes @Vault to Media.
+	May affect database schema.
+* Transaction#[is|set]QueryCacheDisabled added.
+* @CopeSchemaName("") fixed for sourceTypes of Patterns.
+	Affects database schema.
+* MediaServlet customization methods do take Locator parameter instead of MediaPath and Item.
+	This breaks backwards API compatibility. It causes compiler errors,
+	if you have your @Override annotations in place.
+* MediaServlet#doFlushBufferOnNotModified changes its default implementation
+	from "true" to "false". This will break conditional requests on Tomcat earlier
+	than version 8.5.14. In this case, override this method to return "true" again.
+* MySQL 5.5 support dropped, new minimum requirement for MySQL is version 5.6.
+* servlet-api 3.1.0 required (provided by Apache Tomcat 8.0.x).
+* ConnectProperties: key dialect.fullSequenceColumnName no longer supported.
+	This breaks backwards API compatibility on MySQL, check your deployed systems!
+	Probably this key is at its default, then you don't have to do anything.
+* MultiItemField#nullify() added.
 * VaultFileService properties: key directory.createAsNeeded changed to
 	directory.premised and *inverted its meaning*.
 

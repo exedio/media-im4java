@@ -85,8 +85,7 @@ public final class ThumbnailMagickItem extends Item
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	public ThumbnailMagickItem()
 	{
-		this(new com.exedio.cope.SetValue<?>[]{
-		});
+		this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 	}
 
 	/**
@@ -566,7 +565,7 @@ public final class ThumbnailMagickItem extends Item
 	 * The persistent type information for thumbnailMagickItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<ThumbnailMagickItem> TYPE = com.exedio.cope.TypesBound.newType(ThumbnailMagickItem.class);
+	public static final com.exedio.cope.Type<ThumbnailMagickItem> TYPE = com.exedio.cope.TypesBound.newType(ThumbnailMagickItem.class,ThumbnailMagickItem::new);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
