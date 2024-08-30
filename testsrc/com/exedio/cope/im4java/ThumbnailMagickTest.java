@@ -384,14 +384,6 @@ public final class ThumbnailMagickTest extends CopeModelTest
 		}
 
 		@Override
-		public void setHeader(final String name, final String value)
-		{
-			if("Content-Length".equals(name))
-				setContentLengthInternal(Integer.parseInt(value));
-			else
-				super.setHeader(name, value);
-		}
-		@Override
 		public void setContentLength(final int len)
 		{
 			setContentLengthInternal(len);
