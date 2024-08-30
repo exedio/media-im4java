@@ -125,7 +125,9 @@ public final class ThumbnailMagickPreviewTest
 	{
 		assertFails(
 				() -> AnItem.f.preview(null, "image/png", target),
-				NullPointerException.class, null);
+				NullPointerException.class,
+				"Cannot invoke \"java.nio.file.Path.toAbsolutePath()\" " +
+				"because \"file\" is null");
 	}
 	@Test void testSourceBodyNotExists()
 	{
@@ -150,7 +152,9 @@ public final class ThumbnailMagickPreviewTest
 		load("thumbnail-test.png");
 		assertFails(
 				() -> AnItem.f.preview(sourceBody, "image/png", null),
-				NullPointerException.class, null);
+				NullPointerException.class,
+				"Cannot invoke \"java.nio.file.Path.toAbsolutePath()\" " +
+				"because \"file\" is null");
 	}
 
 
