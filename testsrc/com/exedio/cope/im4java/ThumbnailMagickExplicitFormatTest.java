@@ -52,14 +52,14 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.png"), JPEG);
-		assertFails(item, getProgramName() + ": Not a JPEG file: starts with 0x89 0x50 `");
+		assertFails(item, getProgramName() + ": negative or zero image size `");
 	}
 
 	@Test void testJpegGif() throws IOException
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.gif"), JPEG);
-		assertFails(item, getProgramName() + ": Not a JPEG file: starts with 0x47 0x49 `");
+		assertFails(item, getProgramName() + ": negative or zero image size `");
 	}
 
 
@@ -248,7 +248,7 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 		}
 		else
 		{
-			return "Error reading SVG:Error domain 1 code 4 on line 1 column 1 of data: Start tag expected, '<' not found";
+			return "Error reading SVG:XML parse error: Error domain 1 code 4 on line 1 column 1 of data: Start tag expected, '<' not found";
 		}
 	}
 }
