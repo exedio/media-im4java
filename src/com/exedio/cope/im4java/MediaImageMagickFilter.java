@@ -37,6 +37,7 @@ import com.exedio.cope.pattern.MediaType;
 import com.exedio.cope.pattern.MediaUtil;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serial;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -50,6 +51,7 @@ import org.im4java.core.IMOps;
 
 public final class MediaImageMagickFilter extends MediaFilter implements Copyable, MediaPreviewable, MediaTestable
 {
+	@Serial
 	private static final long serialVersionUID = 1l;
 
 	private static final HashSet<MediaType> supportedContentTypes =
