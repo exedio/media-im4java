@@ -48,7 +48,6 @@
 		-->
 		<instrument
 				dir="${basedir}/testsrc"
-				serialAnnotation="false"
 				verify="${instrument.verify}">
 			<classpath>
 				<pathelement location="build/classes/src" />
