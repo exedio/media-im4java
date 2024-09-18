@@ -52,6 +52,7 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.png"), JPEG);
+		assumeNotGithub();
 		assertFails(item, getProgramName() + ": negative or zero image size `");
 	}
 
@@ -59,6 +60,7 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 	{
 		final ThumbnailMagickItem item = new ThumbnailMagickItem();
 		item.setFile(resource("thumbnail-test.gif"), JPEG);
+		assumeNotGithub();
 		assertFails(item, getProgramName() + ": negative or zero image size `");
 	}
 
