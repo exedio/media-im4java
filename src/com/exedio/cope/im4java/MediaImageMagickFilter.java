@@ -45,8 +45,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import org.im4java.core.IMOps;
 
 public final class MediaImageMagickFilter extends MediaFilter implements Copyable, MediaPreviewable, MediaTestable
