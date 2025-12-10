@@ -44,12 +44,12 @@ import com.exedio.cope.Model;
 import com.exedio.cope.junit.CopeModelTest;
 import com.exedio.cope.pattern.MediaPath.NotFound;
 import com.exedio.cope.pattern.MediaType;
+import jakarta.servlet.ServletOutputStream;
+import jakarta.servlet.WriteListener;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
-import jakarta.servlet.ServletOutputStream;
-import jakarta.servlet.WriteListener;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
