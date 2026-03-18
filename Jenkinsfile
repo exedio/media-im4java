@@ -8,7 +8,7 @@ String projectNamePattern = "^exedio/([0-9a-z]*)/.*" // depends on location of m
 @Field
 String debianRelease = 'bullseye'
 @Field
-String debianSnapshot = '20220418'
+String debianSnapshot = '20240904'
 @Field
 String jdk = 'openjdk-17'
 @Field
