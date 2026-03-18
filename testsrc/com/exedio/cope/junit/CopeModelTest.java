@@ -95,7 +95,7 @@ public abstract class CopeModelTest
 	}
 
 	@BeforeEach
-	private void setUpCopeModelTest()
+	final void setUpCopeModelTest()
 	{
 		ModelConnector.connectAndCreate(model, getConnectProperties());
 		model.deleteSchemaForTest(); // typically faster than checkEmptySchema
@@ -105,7 +105,7 @@ public abstract class CopeModelTest
 	}
 
 	@AfterEach
-	private void tearDownCopeModelTest()
+	final void tearDownCopeModelTest()
 	{
 		// NOTE:
 		// do rollback even if manageTransactions is false
