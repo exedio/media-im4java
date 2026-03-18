@@ -152,11 +152,6 @@ try
 					"--security-opt no-new-privileges " +
 					"--network none")
 				{
-					// SVGs do cause Redundant default attribute value assignment
-					shSilent "rm " +
-							"src/com/exedio/cope/im4java/MediaImageMagickFilter-test.svg " +
-							"testsrc/com/exedio/cope/im4java/thumbnail-test.svg"
-
 					shSilent "/opt/idea/bin/inspect.sh " + env.WORKSPACE + " 'Project Default' idea-inspection-output"
 				}
 			archiveArtifacts 'idea-inspection-output/**'
