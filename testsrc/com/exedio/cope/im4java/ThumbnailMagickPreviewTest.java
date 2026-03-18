@@ -161,7 +161,7 @@ public final class ThumbnailMagickPreviewTest
 	private Path sourceBody;
 	private Path target;
 	@BeforeEach
-	private void setUp() throws Exception
+	void setUp() throws Exception
 	{
 		sourceBody = Files.createTempFile("ThumbnailMagickFilterTest-sourceBody", ".dat");
 		target = Files.createTempFile("ThumbnailMagickFilterTest-target", ".dat");
@@ -169,7 +169,7 @@ public final class ThumbnailMagickPreviewTest
 		Files.delete(target);
 	}
 	@AfterEach
-	private void tearDown() throws Exception
+	void tearDown() throws Exception
 	{
 		Files.deleteIfExists(sourceBody);
 		Files.deleteIfExists(target);

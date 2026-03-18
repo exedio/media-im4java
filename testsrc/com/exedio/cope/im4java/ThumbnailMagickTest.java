@@ -69,7 +69,7 @@ public final class ThumbnailMagickTest extends CopeModelTest
 	// Ok, because Media#set(Item,InputStream,String) closes the stream.
 
 	@BeforeEach
-	private void setUp() throws Exception
+	void setUp() throws Exception
 	{
 		mediaRootUrl = model.getConnectProperties().getMediaRootUrl();
 		jpg = new ThumbnailMagickItem();
