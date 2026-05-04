@@ -42,11 +42,14 @@ import java.io.InputStream;
 import java.io.Serial;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.Callable;
 import org.im4java.core.IMOps;
 
 public final class MediaImageMagickFilter extends MediaFilter implements Copyable, MediaPreviewable, MediaTestable
@@ -54,8 +57,8 @@ public final class MediaImageMagickFilter extends MediaFilter implements Copyabl
 	@Serial
 	private static final long serialVersionUID = 1l;
 
-	private static final HashSet<MediaType> supportedContentTypes =
-			new HashSet<>(Arrays.asList(
+	private static final LinkedHashSet<MediaType> supportedContentTypes =
+			new LinkedHashSet<>(Arrays.asList(
 					MediaType.forName(MediaType.JPEG),
 					MediaType.forName(MediaType.PNG),
 					MediaType.forName(MediaType.GIF),
@@ -334,6 +337,36 @@ public final class MediaImageMagickFilter extends MediaFilter implements Copyabl
 			if(checkSourceContentType(type))
 				actions.get(type).test(type, toString());
 		}
+	}
+
+	@Override
+	public List<Callable<?>> getTests()
+	{
+		final ArrayList<Callable<?>> result = new ArrayList<>(supportedContentTypes.size());
+		for(final MediaType type : supportedContentTypes)
+		{
+			if(!checkSourceContentType(type))
+				continue;
+
+			final Action action = actions.get(type);
+			final String id = toString();
+			//noinspection AnonymousInnerClassMayBeStatic
+			result.add(new Callable<Void>()
+			{
+				@Override
+				public Void call() throws Exception
+				{
+					action.test(type, id);
+					return null;
+				}
+				@Override
+				public String toString()
+				{
+					return type.getName();
+				}
+			});
+		}
+		return List.copyOf(result);
 	}
 
 	private boolean checkSourceContentType(final MediaType type)
