@@ -184,20 +184,6 @@ public final class ContentTypeInstrumentItem extends Item
 	}
 
 	/**
-	 * Writes the body of media {@link #all} into the given file.
-	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
-	final void getAllBody(final java.io.File body)
-			throws
-				java.io.IOException
-	{
-		ContentTypeInstrumentItem.all.getBody(this,body);
-	}
-
-	/**
 	 * Sets the content of media {@link #all}.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
@@ -240,19 +226,6 @@ public final class ContentTypeInstrumentItem extends Item
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final void setAll(final java.nio.file.Path body,final java.lang.String contentType)
-			throws
-				java.io.IOException
-	{
-		ContentTypeInstrumentItem.all.set(this,body,contentType);
-	}
-
-	/**
-	 * Sets the content of media {@link #all}.
-	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
-	final void setAll(final java.io.File body,final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -348,20 +321,6 @@ public final class ContentTypeInstrumentItem extends Item
 	}
 
 	/**
-	 * Writes the body of media {@link #one} into the given file.
-	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
-	final void getOneBody(final java.io.File body)
-			throws
-				java.io.IOException
-	{
-		ContentTypeInstrumentItem.one.getBody(this,body);
-	}
-
-	/**
 	 * Sets the content of media {@link #one}.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
@@ -404,19 +363,6 @@ public final class ContentTypeInstrumentItem extends Item
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final void setOne(final java.nio.file.Path body,final java.lang.String contentType)
-			throws
-				java.io.IOException
-	{
-		ContentTypeInstrumentItem.one.set(this,body,contentType);
-	}
-
-	/**
-	 * Sets the content of media {@link #one}.
-	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
-	final void setOne(final java.io.File body,final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
