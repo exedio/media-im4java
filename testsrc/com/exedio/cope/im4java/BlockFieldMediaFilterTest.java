@@ -221,7 +221,7 @@ public class BlockFieldMediaFilterTest extends CopeModelTest
 
 		@com.exedio.cope.instrument.Generated
 		@java.io.Serial
-		private static final long serialVersionUID = 1l;
+		private static final long serialVersionUID = 1L;
 
 		@com.exedio.cope.instrument.Generated
 		private static final com.exedio.cope.pattern.BlockType<ABlock> TYPE = com.exedio.cope.pattern.BlockType.newType(ABlock.class,ABlock::new);
@@ -262,7 +262,7 @@ public class BlockFieldMediaFilterTest extends CopeModelTest
 
 		@com.exedio.cope.instrument.Generated
 		@java.io.Serial
-		private static final long serialVersionUID = 1l;
+		private static final long serialVersionUID = 1L;
 
 		@com.exedio.cope.instrument.Generated
 		private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class,AnItem::new);

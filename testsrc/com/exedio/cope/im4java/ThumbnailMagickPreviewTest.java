@@ -202,7 +202,7 @@ public final class ThumbnailMagickPreviewTest
 
 		@com.exedio.cope.instrument.Generated
 		@java.io.Serial
-		private static final long serialVersionUID = 1l;
+		private static final long serialVersionUID = 1L;
 
 		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class,AnItem::new);
