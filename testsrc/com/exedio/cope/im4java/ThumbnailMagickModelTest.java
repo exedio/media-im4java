@@ -135,7 +135,7 @@ public final class ThumbnailMagickModelTest
 		assertEquals(file.isNull(), thumb.isNull());
 		assertEquals(file.isNotNull(), thumb.isNotNull());
 
-		assertSerializedSame(thumb, 398);
+		assertSerializedSame(thumb, 406);
 
 		assertEquals(asList("-limit", "thread", "1", "-resize", "20x30>", "?img?", "?img?"), thumb     .getCmdArgs(JPEG));
 		assertEquals(asList("-limit", "thread", "1", "-resize", "20x30>", "?img?", "?img?"), thumbSame .getCmdArgs(JPEG));

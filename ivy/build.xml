@@ -3,9 +3,6 @@
 	<import file="common.xml" />
 	<target name="copy" depends="resolve, taskdef.jakartaee-migrate">
 
-		<jakartaee-migrate file="exedio-cope-jar.jar" />
-		<jakartaee-migrate file="exedio-cope-src.zip" />
-
 		<delete dir="../lib">
 			<include name="*" />
 		</delete>

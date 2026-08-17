@@ -164,15 +164,6 @@ public class BlockFieldMediaFilterTest extends CopeModelTest
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
-		final void getSourceBody(final java.io.File body)
-				throws
-					java.io.IOException
-		{
-			field().of(ABlock.source).getBody(item(),body);
-		}
-
-		@com.exedio.cope.instrument.Generated
-		@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 		final void setSource(final com.exedio.cope.pattern.Media.Value source)
 				throws
 					java.io.IOException
@@ -199,15 +190,6 @@ public class BlockFieldMediaFilterTest extends CopeModelTest
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 		final void setSource(final java.nio.file.Path body,final java.lang.String contentType)
-				throws
-					java.io.IOException
-		{
-			field().of(ABlock.source).set(item(),body,contentType);
-		}
-
-		@com.exedio.cope.instrument.Generated
-		@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
-		final void setSource(final java.io.File body,final java.lang.String contentType)
 				throws
 					java.io.IOException
 		{

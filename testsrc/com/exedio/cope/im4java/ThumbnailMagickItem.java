@@ -200,20 +200,6 @@ public final class ThumbnailMagickItem extends Item
 	}
 
 	/**
-	 * Writes the body of media {@link #file} into the given file.
-	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
-	final void getFileBody(final java.io.File body)
-			throws
-				java.io.IOException
-	{
-		ThumbnailMagickItem.file.getBody(this,body);
-	}
-
-	/**
 	 * Sets the content of media {@link #file}.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
@@ -256,19 +242,6 @@ public final class ThumbnailMagickItem extends Item
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
 	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
 	final void setFile(final java.nio.file.Path body,final java.lang.String contentType)
-			throws
-				java.io.IOException
-	{
-		ThumbnailMagickItem.file.set(this,body,contentType);
-	}
-
-	/**
-	 * Sets the content of media {@link #file}.
-	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"FinalMethodInFinalClass","RedundantSuppression","UnnecessarilyQualifiedStaticUsage"})
-	final void setFile(final java.io.File body,final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
