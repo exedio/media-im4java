@@ -26,6 +26,7 @@ import static com.exedio.cope.im4java.ThumbnailMagickItem.thumb;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbFull;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbRound;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbSame;
+import static com.exedio.cope.im4java.ThumbnailMagickTestTest.test;
 import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.reserialize;
 import static com.exedio.cope.pattern.MediaType.GIF;
@@ -157,12 +158,12 @@ public final class ThumbnailMagickModelTest
 		assertNull(identity.getScript(PNG));
 		assertNull(identity.getScript("text/plain"));
 
-		thumb.test();
-		thumbFull.test();
-		thumbSame.test();
-		thumbRound.test();
-		identity.test();
-		noLocator.test();
+		test(thumb);
+		test(thumbFull);
+		test(thumbSame);
+		test(thumbRound);
+		test(identity);
+		test(noLocator);
 	}
 
 	@Test

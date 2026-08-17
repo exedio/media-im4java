@@ -45,12 +45,12 @@ public final class ThumbnailMagickTestTest
 	@Test
 	void testTest() throws IOException
 	{
-		new MediaImageMagickFilter(file, op).forType(SVG, op, PNG).test(); // do not create SVG as this is a svg-wrapped png anyway and makes trouble on Debian9
-		new MediaImageMagickFilter(file, op, JPEG).test();
-		new MediaImageMagickFilter(file, op, PNG).test();
-		new MediaImageMagickFilter(file, op, GIF).test();
-		new MediaImageMagickFilter(file, op, WEBP).test();
-		new MediaImageMagickFilter(file, op, TIFF).test();
+		test(new MediaImageMagickFilter(file, op).forType(SVG, op, PNG)); // do not create SVG as this is a svg-wrapped png anyway and makes trouble on Debian9
+		test(new MediaImageMagickFilter(file, op, JPEG));
+		test(new MediaImageMagickFilter(file, op, PNG));
+		test(new MediaImageMagickFilter(file, op, GIF));
+		test(new MediaImageMagickFilter(file, op, WEBP));
+		test(new MediaImageMagickFilter(file, op, TIFF));
 
 		assertFails("-kaputt", new MediaImageMagickFilter(file, newIMOperation("-kaputt")));
 		assertFails("-kaputt", new MediaImageMagickFilter(file, newIMOperation("-kaputt"), JPEG));
@@ -69,7 +69,7 @@ public final class ThumbnailMagickTestTest
 		final Media pngSource = new Media().optional().lengthMax(10000).contentType(PNG);
 		final MediaImageMagickFilter png = new MediaImageMagickFilter(pngSource, newIMOperation("-kaputt"));
 		assertFails("-kaputt", png);
-		png.forTypeIdentity(PNG).test();
+		test(png.forTypeIdentity(PNG));
 	}
 
 	private static IMOperation newIMOperation(final String arg)
@@ -84,7 +84,7 @@ public final class ThumbnailMagickTestTest
 		final MediaImageMagickFilter filter =
 				new MediaImageMagickFilter(source, op).
 				forType(PNG, new IMOperation().resize(30, 20, '#'), PNG);
-		filter.test();
+		test(filter);
 	}
 
 	private static void assertFails(
@@ -94,7 +94,7 @@ public final class ThumbnailMagickTestTest
 	{
 		try
 		{
-			filter.test();
+			test(filter);
 			fail();
 		}
 		catch(final RuntimeException runtimeException)
@@ -125,5 +125,10 @@ public final class ThumbnailMagickTestTest
 				Pattern.compile(pattern).matcher(exception.getMessage()).find(),
 				"The exception message >"+exception.getMessage()+"< did not match the expected patterns >"+start+
 				"< >"+message+"<.");
+	}
+
+	static void test(final MediaImageMagickFilter filter) throws IOException
+	{
+		filter.test();
 	}
 }
