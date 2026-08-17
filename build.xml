@@ -48,7 +48,6 @@
 		-->
 		<instrument
 				dir="${basedir}/testsrc"
-				serialVersionUIDSuffix="small"
 				verify="${instrument.verify}">
 			<classpath>
 				<pathelement location="build/classes/src" />
