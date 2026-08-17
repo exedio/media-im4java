@@ -326,6 +326,7 @@ public final class MediaImageMagickFilter extends MediaFilter implements Copyabl
 	}
 
 	@Override
+	@Deprecated
 	public void test() throws IOException
 	{
 		for(final MediaType type : supportedContentTypes)

@@ -25,7 +25,7 @@
 	<dependencies>
 		<dependency org="jakarta.servlet" name="jakarta.servlet-api" rev="6.0.0" conf="runtime->default; build->sources" />
 		<dependency org="com.exedio" name="copeutil" rev="1118" conf="runtime->runtime; build->runtime,sources,changelog" />
-		<dependency org="com.exedio" name="cope" rev="11675">
+		<dependency org="com.exedio" name="cope" rev="12345">
 			<conf name="runtime" mapped="runtime" />
 			<conf name="runtime" mapped="servlet" />
 			<conf name="build" mapped="idea" />

@@ -127,6 +127,7 @@ public final class ThumbnailMagickTestTest
 				"< >"+message+"<.");
 	}
 
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	static void test(final MediaImageMagickFilter filter) throws IOException
 	{
 		filter.test();
