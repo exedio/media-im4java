@@ -26,6 +26,7 @@ import static com.exedio.cope.im4java.ThumbnailMagickItem.thumb;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbFull;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbRound;
 import static com.exedio.cope.im4java.ThumbnailMagickItem.thumbSame;
+import static com.exedio.cope.im4java.ThumbnailMagickTestTest.ALL_CT;
 import static com.exedio.cope.im4java.ThumbnailMagickTestTest.test;
 import static com.exedio.cope.junit.Assert.assertFails;
 import static com.exedio.cope.junit.CopeAssert.reserialize;
@@ -45,8 +46,8 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
-import java.io.IOException;
 import java.io.Serializable;
+import java.util.Arrays;
 import java.util.HashSet;
 import org.im4java.core.IMOperation;
 import org.junit.jupiter.api.Test;
@@ -61,7 +62,7 @@ public final class ThumbnailMagickModelTest
 	}
 
 	@Test
-	void testThumbs() throws IOException
+	void testThumbs() throws Exception
 	{
 		assertEquals(asList(new Feature[]{
 				TYPE.getThis(),
@@ -158,12 +159,12 @@ public final class ThumbnailMagickModelTest
 		assertNull(identity.getScript(PNG));
 		assertNull(identity.getScript("text/plain"));
 
-		test(thumb);
-		test(thumbFull);
-		test(thumbSame);
-		test(thumbRound);
-		test(identity);
-		test(noLocator);
+		test(thumb, ALL_CT);
+		test(thumbFull, ALL_CT);
+		test(thumbSame, ALL_CT);
+		test(thumbRound, ALL_CT);
+		test(identity, Arrays.stream(ALL_CT).filter(x -> !"image/png".equals(x)).toArray(String[]::new));
+		test(noLocator, ALL_CT);
 	}
 
 	@Test

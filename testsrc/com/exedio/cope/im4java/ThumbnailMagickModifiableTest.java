@@ -18,12 +18,12 @@
 
 package com.exedio.cope.im4java;
 
+import static com.exedio.cope.im4java.ThumbnailMagickTestTest.ALL_CT;
 import static com.exedio.cope.im4java.ThumbnailMagickTestTest.test;
 import static com.exedio.cope.pattern.MediaType.PNG;
 import static com.exedio.cope.pattern.MediaType.SVG;
 
 import com.exedio.cope.pattern.Media;
-import java.io.IOException;
 import org.im4java.core.IMOperation;
 import org.im4java.core.IMOps;
 import org.junit.jupiter.api.Test;
@@ -31,17 +31,17 @@ import org.junit.jupiter.api.Test;
 public final class ThumbnailMagickModifiableTest
 {
 	@Test
-	void testThumbs() throws IOException
+	void testThumbs() throws Exception
 	{
 		final Media file = new Media().optional().lengthMax(10000);
 		final IMOps operation = new IMOperation().resize(20, 30, '>');
 		final MediaImageMagickFilter thumb = new MediaImageMagickFilter(file, operation).
 				forType(SVG, operation, PNG); // do not create SVG as this is a svg-wrapped png anyway and makes trouble on Debian9
 
-		test(thumb);
+		test(thumb, ALL_CT);
 		// deliverately break operation
 		operation.addRawArgs("-kaputt");
 		// check, whether operation is still unmodified
-		test(thumb);
+		test(thumb, ALL_CT);
 	}
 }
