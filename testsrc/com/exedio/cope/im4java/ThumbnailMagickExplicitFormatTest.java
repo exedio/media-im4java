@@ -250,7 +250,7 @@ public final class ThumbnailMagickExplicitFormatTest extends CopeModelTest
 		}
 		else
 		{
-			return "Error reading SVG:XML parse error: Error domain 1 code 4 on line 1 column 1 of data: Start tag expected, '<' not found";
+			return "Error reading SVG /tmp/magick-";
 		}
 	}
 }
